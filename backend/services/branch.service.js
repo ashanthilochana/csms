@@ -62,7 +62,7 @@ BranchService.getAllBranches = async () => {
 
 
 // Delete a branch
-ClientService.deleteBranch = async (district) => {
+BranchService.deleteBranch = async (district) => {
     let query = `
     DELETE * FROM customer
     WHERE district = ?
@@ -77,5 +77,19 @@ ClientService.deleteBranch = async (district) => {
     }
 }
 
+
+BranchService.getBranchIdByBranchManagerNIC = async (nic) =>{
+    let query = `
+    SELECT branchID FROM branchmanager
+    WHERE nic = ?`;
+    try{
+        let [rows] = await pool.query(query, [nic]);
+        return rows;
+    }
+    catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
 
 export default BranchService;
