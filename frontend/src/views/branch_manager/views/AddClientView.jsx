@@ -12,24 +12,21 @@ import {
   FormText,
 } from "reactstrap";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { adddata } from "../context/ContextProvider";
 
 // Import controller
-import AdminController from "./controllers/admin.controller";
+import AdminController from "../controllers/branch_manager.controller";
 
 
 const AddNewClient = () => {
 
-  // Create add data contex variable
-  // const { udata, setUdata } = useContext(adddata);
-
+  
   // Create object for use navigator
   const navigate = useNavigate();
 
   // Map variable
-  const [inpval, setINP] = useState({
+  const [inputData, setInputData] = useState({
     nic: "",
     email: "",
     name: "",
@@ -38,11 +35,11 @@ const AddNewClient = () => {
     branchId: ""
   })
 
-  // Set data to inpval map from form
-  const setdata = (e) => {
+  // Set data to inputData map from form
+  const onInputChanged = (e) => {
     console.log(e.target.value);
     const { name, value } = e.target;
-    setINP((preval) => {
+    setInputData((preval) => {
       return {
         ...preval,
         [name]: value
@@ -51,10 +48,10 @@ const AddNewClient = () => {
   }
 
   // Call controller addClient method
-  const addinpdata = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    const { nic, email, name, address, contactNumber, branchId } = inpval;
+    const { nic, email, name, address, contactNumber, branchId } = inputData;
 
     try {
       const res = await AdminController.addClient(nic, email, name, address, contactNumber, branchId);
@@ -64,10 +61,8 @@ const AddNewClient = () => {
         alert(res.error);
       }
       else {
-        //show success message in a suitable way
         navigate('/');
-        // setUdata(data);
-        console.log("data added");
+        console.log("Customer Added");
       }
     }
     catch (e) {
@@ -95,8 +90,8 @@ const AddNewClient = () => {
                   name="nic"
                   placeholder="Enter customer nic"
                   type="text"
-                  value={inpval.nic}
-                  onChange={setdata}
+                  value={inputData.nic}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -106,8 +101,8 @@ const AddNewClient = () => {
                   name="email"
                   placeholder="Enter customer email"
                   type="email"
-                  value={inpval.email}
-                  onChange={setdata}
+                  value={inputData.email}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -117,8 +112,8 @@ const AddNewClient = () => {
                   name="name"
                   placeholder="Enter full name"
                   type="text"
-                  value={inpval.name}
-                  onChange={setdata}
+                  value={inputData.name}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -128,8 +123,8 @@ const AddNewClient = () => {
                   name="address"
                   placeholder="Enter Address"
                   type="textarea"
-                  value={inpval.address}
-                  onChange={setdata}
+                  value={inputData.address}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
 
@@ -140,8 +135,8 @@ const AddNewClient = () => {
                   name="contactNumber"
                   placeholder="Enter contact number"
                   type="number"
-                  value={inpval.contactNumber}
-                  onChange={setdata}
+                  value={inputData.contactNumber}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
 
@@ -151,8 +146,8 @@ const AddNewClient = () => {
                   id="branch"
                   name="branchId"
                   type="select"
-                  value={inpval.branchId}
-                  onChange={setdata}
+                  value={inputData.branchId}
+                  onChange={onInputChanged}
                   placeholder="Select"
                 >
                   <option>Colombo</option>
@@ -162,7 +157,7 @@ const AddNewClient = () => {
                 </Input>
               </FormGroup>
 
-              <Button type="submit" onClick={addinpdata} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Order</Button>
+              <Button type="submit" onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Order</Button>
               <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
 
             </CardBody>

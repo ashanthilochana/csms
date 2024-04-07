@@ -1,27 +1,27 @@
 import React, { Suspense } from "react";
 // import ReactDOM from "react-dom";
-import {createRoot} from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 import "./assets/scss/style.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import Loader from "./layouts/loader/Loader";
-import ContextProvider from "./views/context/ContextProvider";
+import { UserProvider } from "./context/UserContext";
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
-  <Suspense fallback={<Loader/>}>
-    <ContextProvider>
+  <Suspense fallback={<Loader />}>
+    <UserProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </ContextProvider>
-  </Suspense>,
+    </UserProvider>
+  </Suspense>
 
-  // document.getElementById("root") 
+  // document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
