@@ -10,7 +10,7 @@ import SidebarRoutes from "./sidebar.routes.js";
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
-// Pages
+// Import Views
 const BranchManagerDashboard = lazy(() =>
   import("../views/branch_manager/views/Dashboard.js")
 );

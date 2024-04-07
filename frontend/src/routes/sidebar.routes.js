@@ -2,6 +2,7 @@ import { BranchManagerRoutes } from "./all_user.routes.js";
 
 let SidebarRoutes = {};
 
+// Branch Manager sideBar navigation menu
 SidebarRoutes.branchManagerRoutes = [
     {
       title: "Dashboard",
