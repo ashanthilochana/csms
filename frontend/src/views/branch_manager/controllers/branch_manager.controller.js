@@ -136,7 +136,8 @@ BranchManagerController.getBranchIdByBranchManagerNIC = async (nic) => {
     if (data.error) {
       return { error: data.error };
     } else {
-      return { branchId: data.branchId };
+      console.log(data);
+      return { branchId: data.branchID };
     }
   } catch (e) {
     return { error: e };
