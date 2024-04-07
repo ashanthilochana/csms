@@ -1,10 +1,11 @@
 // Protected Route to denied router access to unauthorized parties
 
 import { Outlet, Navigate } from "react-router-dom";
-import AxiosController from "../../../controllers/axios.controller";
+import AxiosController from "../../../controllers/axios.controller.js";
 import { useEffect, useState } from "react";
-import LoadingIndicator from "../../../components/common/LoadingIndicator";
-import useCookie from "../../../hooks/useCookies";
+// import LoadingIndicator from "../../../components/common/LoadingIndicator";
+import Loader from "../../../layouts/loader/Loader.js"
+import useCookie from "../../../hooks/useCookies.js";
 
 
 const ProtectedRoute = ({ allowedUsers }) => {
@@ -44,7 +45,8 @@ const ProtectedRoute = ({ allowedUsers }) => {
   if (loading) {
     return (
       <div className="screen-overlay">
-        <LoadingIndicator />
+        {/* <LoadingIndicator /> */}
+        <Loader/>
       </div>
     );
   } else if (isAuthenticated) {
