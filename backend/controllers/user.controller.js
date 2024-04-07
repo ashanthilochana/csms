@@ -48,7 +48,7 @@ UserController.verifyCredentials = async (req, res) => {
         //Now sending user details as well as role id for conditional rendering
         res
           .status(200)
-          .send({ status: true, nic_no: nicNo, role_id: user.role_id });
+          .send({ status: true, nic_no: nicNo, role_id: user.roleId });
       } else {
         res.status(401).send({ message: "Password mismatch" });
       }
