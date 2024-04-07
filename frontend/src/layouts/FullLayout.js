@@ -3,13 +3,13 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { Container } from "reactstrap";
 
-const FullLayout = () => {
+const FullLayout = ({sidebarNavigation}) => {
   return (
     <main>
       <div className="pageWrapper d-lg-flex">
         {/********Sidebar**********/}
         <aside className="sidebarArea shadow" id="sidebarArea">
-          <Sidebar />
+          <Sidebar navigation={sidebarNavigation} />
         </aside>
         {/********Content Area**********/}
 
