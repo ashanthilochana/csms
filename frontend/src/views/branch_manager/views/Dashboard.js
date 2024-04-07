@@ -4,8 +4,11 @@ import DashboardOrdersTable from "../components/DashboardOrdersTable";
 import DashboardTopCards from "../components/DashboardTopCards";
 import DashboardSalesChart from "../components/DashboardSalesChart";
 import react, {useEffect, useState} from "react";
+import useCookie from "../../../hooks/useCookies";
+import BranchManagerController from "../controllers/branch_manager.controller";
 
 const Dashboard = () => {
+  let [getCookie, setCookie] = useCookie();
 
   let [summaryData, setSummaryData] = useState({
     availableOrders: "",
@@ -13,6 +16,28 @@ const Dashboard = () => {
     tickets: "",
     feedbacks: ""
   });
+
+  useEffect(() => {
+
+    async function getBranchId(){
+      let userNIC = getCookie('user-nic');
+      let data = await BranchManagerController.getBranchIdByBranchManagerNIC(userNIC);
+      if(data.error)
+      {
+        alert(data.error);
+      }
+      else
+      {
+        console.log(data);
+        let branchId = data.branchId;
+        setCookie('user-branch-id', branchId);
+      }
+
+    }
+
+    getBranchId();
+
+  }, []);
 
   return (
     <div>
