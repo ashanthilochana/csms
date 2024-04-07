@@ -1,15 +1,19 @@
 import AxiosController from "../../../controllers/axios.controller";
 
-let DashboardController = {};
+let DashboardService = {}; 
 
 // Get totol order count belong to a branch
-DashboardController.getTotalOrderCountOfBranch = async(reqBody) => {
+DashboardService.getTotalOrderCountOfBranch = async(reqBody) => {
     try{
         let response = await AxiosController.instance.get("/api/getTotalOrderCountOfBranch");
         if(response.data.error){
             // Handle error
         }
         else {
+            if(response.status === 200)
+            {
+                return response.data;
+            }
             //Different status codes
             //201 if(){return {message : "Success Message"}}
             //400 if(){return {error : "Nad Request"}}
@@ -23,7 +27,7 @@ DashboardController.getTotalOrderCountOfBranch = async(reqBody) => {
 }
 
 // Add new order
-DashboardController.getTotalReceivedOrderCountOfBranch = async(reqBody) => {
+DashboardService.getTotalReceivedOrderCountOfBranch = async(reqBody) => {
     try{
         let response = await AxiosController.instance.get("/api/getTotalReceivedOrderCountOfBranch");
         if(response.data.error){
@@ -43,7 +47,7 @@ DashboardController.getTotalReceivedOrderCountOfBranch = async(reqBody) => {
 }
 
 // Add total opened ticket count
-DashboardController.getTotalOpenedTicketCountOfBranch = async(reqBody) => {
+DashboardService.getTotalOpenedTicketCountOfBranch = async(reqBody) => {
     try{
         let response = await AxiosController.instance.get("/api/getTotalReceivedOrderCountOfBranch");
         if(response.data.error){
@@ -63,7 +67,7 @@ DashboardController.getTotalOpenedTicketCountOfBranch = async(reqBody) => {
 }
 
 // Get total feedback count of branch
-DashboardController.getTotalFeedbackCountOfBranch = async(reqBody) => {
+DashboardService.getTotalFeedbackCountOfBranch = async(reqBody) => {
     try{
         let response = await AxiosController.instance.get("/api/getTotalFeedbackCountOfBranch");
         if(response.data.error){
@@ -82,4 +86,4 @@ DashboardController.getTotalFeedbackCountOfBranch = async(reqBody) => {
     }
 }
 
-export default DashboardController;
+export default DashboardService;

@@ -1,9 +1,9 @@
 import AxiosController from "../../../controllers/axios.controller.js";
 
-let AdminService = {};
+let BranchManagerService = {};
 
 // Add Clients
-AdminService.addClient = async (reqBody) => {
+BranchManagerService.addClient = async (reqBody) => {
     try{
         let response = await AxiosController.instance.post("/api/add-client", reqBody); // Call backend contorller and pass data which received to front end controller
         if(response.data.error){
@@ -25,7 +25,7 @@ AdminService.addClient = async (reqBody) => {
 }
 
 // Add new order
-AdminService.addOrder = async (reqBody) => {
+BranchManagerService.addOrder = async (reqBody) => {
 
     try{
         let response = await AxiosController.instance.post("/api/add-order", reqBody); // Call backend contorller and pass data which received to front end controller
@@ -48,4 +48,22 @@ AdminService.addOrder = async (reqBody) => {
     
 }
 
-export default AdminService;
+BranchManagerService.getBranchIdByBranchManagerNIC = async (reqBody) => {
+    try{
+        let response = await AxiosController.instance.post("/api/branch-id-by-nic", reqBody);
+        if(response.error)
+        {
+            return {error : response.error};
+        }
+        else
+        {
+            return response.data;
+        }
+    }
+    catch(e){
+        console.error(e);
+        throw e;
+    }
+}
+
+export default BranchManagerService;

@@ -3,15 +3,20 @@
 import React, { useState } from "react";
 import styles from "./LoginView.module.css";
 import AxiosController from "../../../controllers/axios.controller";
-import { useNavigate } from "react-router-dom";
+import useLogin from "../hooks/useLogin.js";
+import { useUserDataUpdate } from "../../../context/UserContext.js";
+
 
 function LoginView() {
 
   //useState hook to store credentials
   let [credentials, setCredentials] = useState({ nic: "", password: "" });
 
-  //navigator to do conditional navigating based on role_id of the user
-  const navigate = useNavigate();
+  //using login hook
+  let [updateRoleId] = useLogin();
+
+  //using context provider
+  let updateUserData = useUserDataUpdate();
 
   //input change handle function
   function handleChange(event) {
@@ -34,8 +39,16 @@ function LoginView() {
     );
 
     //conditional rendering/navigating based on role id. Find a better way if possible
-    if (response.data.status && response.data.role_id === 1) {
-      navigate("/");
+    if (response.data.status) {
+      let role_id = response.data.role_id;
+      let nic_no = response.data.nic_no;
+      console.log(`role_id : ${role_id}`);
+      console.log(`nic_no : ${nic_no}`);
+      //updationg context data
+      updateUserData({nic : nic_no, roleId : role_id});
+
+      //updating login hook and redirecting
+      updateRoleId(role_id);
     }
   };
 

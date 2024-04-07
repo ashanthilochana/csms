@@ -1,5 +1,5 @@
 import { Row, Col, Table, Card, CardTitle, CardBody } from "reactstrap";
-import ViewOrderTable from "./components/ViewOrdersTable";
+import ViewOrderTable from "../components/ViewOrdersTable";
 
 const ViewOrders = () => {
   return (

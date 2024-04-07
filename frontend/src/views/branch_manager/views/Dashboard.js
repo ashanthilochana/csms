@@ -1,19 +1,19 @@
 import { Col, Row } from "reactstrap";
-import DashboardFeeds from "./components/DashboardFeeds";
-import DashboardOrdersTable from "./components/DashboardOrdersTable";
-import DashboardTopCards from "./components/DashboardTopCards";
-import DashboardSalesChart from "./components/DashboardSalesChart";
-
-
-// Data map
-let topCardData = {
-  availableOrders: "400",
-  receivedOrder: "100",
-  tickets: "10",
-  feedbacks: "34"
-}
+import DashboardFeeds from "../components/DashboardFeeds";
+import DashboardOrdersTable from "../components/DashboardOrdersTable";
+import DashboardTopCards from "../components/DashboardTopCards";
+import DashboardSalesChart from "../components/DashboardSalesChart";
+import react, {useEffect, useState} from "react";
 
 const Dashboard = () => {
+
+  let [summaryData, setSummaryData] = useState({
+    availableOrders: "",
+    receivedOrder: "",
+    tickets: "",
+    feedbacks: ""
+  });
+
   return (
     <div>
       {/***Top Cards***/}
@@ -23,7 +23,7 @@ const Dashboard = () => {
             bg="bg-light-success text-success"
             title="Profit"
             subtitle="Available Orders"
-            earning= {topCardData.availableOrders}
+            earning= {summaryData.availableOrders}
             icon="bi bi-box"
           />
         </Col>
@@ -32,7 +32,7 @@ const Dashboard = () => {
             bg="bg-light-danger text-danger"
             title="Refunds"
             subtitle="Received Orders"
-            earning= {topCardData.receivedOrder}
+            earning= {summaryData.receivedOrder}
             icon="bi bi-box-seam-fill"
           />
         </Col>
@@ -41,7 +41,7 @@ const Dashboard = () => {
             bg="bg-light-info text-info"
             title="Tickets"
             subtitle="New Tickets"
-            earning= {topCardData.tickets}
+            earning= {summaryData.tickets}
             icon="bi bi-chat"
           />
         </Col>
@@ -50,7 +50,7 @@ const Dashboard = () => {
             bg="bg-light-warning text-warning"
             title="Feedbacks"
             subtitle="New Feedbacks"
-            earning= {topCardData.feedbacks}
+            earning= {summaryData.feedbacks}
             icon="bi bi-star"
           />
         </Col>
