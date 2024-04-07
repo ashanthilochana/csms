@@ -48,17 +48,17 @@ const AddNewOrder = () => {
   let [formattedSendingDate, setFormattedSendingDate] = useState();
 
   // Variable formatting
-  useEffect(() => {
-    const _formattedSendingDate = (
-      userInput.sendingDate === null
-        ? new Date()
-        : new Date(userInput.sendingDate)
-    )
-      .toISOString()
-      .split("T")[0];
+  // useEffect(() => {
+  //   const _formattedSendingDate = (
+  //     userInput.sendingDate === null
+  //       ? new Date()
+  //       : new Date(userInput.sendingDate)
+  //   )
+  //     .toISOString()
+  //     .split("T")[0];
 
-      setFormattedSendingDate(_formattedSendingDate);
-  }, [userInput]);
+  //     setFormattedSendingDate(_formattedSendingDate);
+  // }, [userInput]);
 
   // Set data to inpval map from form
   const onChanged = (e) => {
