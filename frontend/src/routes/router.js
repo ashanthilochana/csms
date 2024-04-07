@@ -3,14 +3,14 @@ import { Navigate } from "react-router-dom";
 import ProtectedRoute from "../views/common/views/ProtectedRoute.js";
 import UnauthorizedView from "../views/common/views/UnauthorizedView.jsx";
 import LoginView from "../views/common/views/LoginView.jsx";
+
+// Import sidebar routers
 import SidebarRoutes from "./sidebar.routes.js";
 
-/****Layouts*****/
+// Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
-/***** Pages ****/
-
-// These are my codes
+// Pages
 const BranchManagerDashboard = lazy(() =>
   import("../views/branch_manager/views/Dashboard.js")
 );
@@ -42,6 +42,7 @@ const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs.js"));
 /*****Routes******/
 
 const ThemeRoutes = [
+  ///////////////////////////////////////// Common Routers /////////////////////////////////////////////////
   {
     path: "/login",
     element: <LoginView></LoginView>,
@@ -52,6 +53,7 @@ const ThemeRoutes = [
     element: <UnauthorizedView></UnauthorizedView>,
     children: [],
   },
+  ///////////////////////////////////////// Admin Routers /////////////////////////////////////////////////
   {
     path: "/admin",
     element: <ProtectedRoute allowedUsers={["1"]}></ProtectedRoute>,
@@ -59,7 +61,7 @@ const ThemeRoutes = [
       {
         path: "/admin/",
         element: (
-          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} />
+          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} /> // Change side bar router here - Ashan
         ),
         children: [
           {
@@ -75,6 +77,7 @@ const ThemeRoutes = [
       },
     ],
   },
+  ///////////////////////////////////////// Branch Manager Routers /////////////////////////////////////////////////
   {
     path: "/branch-manager",
     element: <ProtectedRoute allowedUsers={["2"]}></ProtectedRoute>,
@@ -82,7 +85,7 @@ const ThemeRoutes = [
       {
         path: "/branch-manager/",
         element: (
-          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} />
+          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} /> // Change side bar router here - Ashan
         ),
         children: [
           {
@@ -123,20 +126,12 @@ const ThemeRoutes = [
           { path: "/branch-manager/about", exact: true, element: <About /> },
           { path: "/branch-manager/alerts", exact: true, element: <Alerts /> },
           { path: "/branch-manager/badges", exact: true, element: <Badges /> },
-          {
-            path: "/branch-manager/buttons",
-            exact: true,
-            element: <Buttons />,
-          },
+          { path: "/branch-manager/buttons", exact: true, element: <Buttons /> },
           { path: "/branch-manager/cards", exact: true, element: <Cards /> },
           { path: "/branch-manager/grid", exact: true, element: <Grid /> },
           { path: "/branch-manager/table", exact: true, element: <Tables /> },
           { path: "/branch-manager/forms", exact: true, element: <Forms /> },
-          {
-            path: "/branch-manager/breadcrumbs",
-            exact: true,
-            element: <Breadcrumbs />,
-          },
+          { path: "/branch-manager/breadcrumbs", exact: true, element: <Breadcrumbs /> },
         ],
       },
     ],

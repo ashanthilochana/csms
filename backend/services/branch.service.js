@@ -1,7 +1,6 @@
 // Branch Management Database Service
 
 import {pool} from "../database/database.js";
-import ClientService from "./client.service.js";
 
 let BranchService = {}
 
