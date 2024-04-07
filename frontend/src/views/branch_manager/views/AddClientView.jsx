@@ -15,9 +15,8 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Import controller
-import AdminController from "../controllers/branch_manager.controller";
-
+// Import frontend controller
+import BranchManagerController from "../controllers/branch_manager.controller";
 
 const AddNewClient = () => {
 
@@ -36,7 +35,7 @@ const AddNewClient = () => {
   })
 
   // Set data to inputData map from form
-  const onInputChanged = (e) => {
+  const onChanged = (e) => {
     console.log(e.target.value);
     const { name, value } = e.target;
     setInputData((preval) => {
@@ -51,10 +50,24 @@ const AddNewClient = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const { nic, email, name, address, contactNumber, branchId } = inputData;
+    const {
+      nic,
+      email,
+      name,
+      address,
+      contactNumber,
+      branchId
+    } = inputData;
 
     try {
-      const res = await AdminController.addClient(nic, email, name, address, contactNumber, branchId);
+      const res = await BranchManagerController.addClient(
+        nic,
+        email,
+        name,
+        address, 
+        contactNumber,
+        branchId
+      );
 
       // Error handling
       if (res.error) {
@@ -90,8 +103,8 @@ const AddNewClient = () => {
                   name="nic"
                   placeholder="Enter customer nic"
                   type="text"
+                  onChange={onChanged}
                   value={inputData.nic}
-                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -101,8 +114,8 @@ const AddNewClient = () => {
                   name="email"
                   placeholder="Enter customer email"
                   type="email"
+                  onChange={onChanged}
                   value={inputData.email}
-                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -112,8 +125,8 @@ const AddNewClient = () => {
                   name="name"
                   placeholder="Enter full name"
                   type="text"
+                  onChange={onChanged}
                   value={inputData.name}
-                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -123,8 +136,8 @@ const AddNewClient = () => {
                   name="address"
                   placeholder="Enter Address"
                   type="textarea"
+                  onChange={onChanged}
                   value={inputData.address}
-                  onChange={onInputChanged}
                 />
               </FormGroup>
 
@@ -135,8 +148,8 @@ const AddNewClient = () => {
                   name="contactNumber"
                   placeholder="Enter contact number"
                   type="number"
+                  onChange={onChanged}
                   value={inputData.contactNumber}
-                  onChange={onInputChanged}
                 />
               </FormGroup>
 
@@ -146,9 +159,9 @@ const AddNewClient = () => {
                   id="branch"
                   name="branchId"
                   type="select"
-                  value={inputData.branchId}
-                  onChange={onInputChanged}
                   placeholder="Select"
+                  onChange={onChanged}
+                  value={inputData.branchId}
                 >
                   <option>Colombo</option>
                   <option>Polonnaruwa</option>
