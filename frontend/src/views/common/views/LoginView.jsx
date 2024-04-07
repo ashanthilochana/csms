@@ -5,9 +5,12 @@ import styles from "./LoginView.module.css";
 import AxiosController from "../../../controllers/axios.controller";
 import useLogin from "../hooks/useLogin.js";
 import useCookie from "../../../hooks/useCookies";
+import { useNavigate } from "react-router-dom";
 
 
 function LoginView() {
+
+  const navigate = useNavigate();
 
   // useState hook to store credentials
   let [credentials, setCredentials] = useState({ nic: "", password: "" });

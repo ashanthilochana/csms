@@ -12,10 +12,10 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
 // Import Views ----- Branch Manager
 const BranchManagerDashboard = lazy(() =>
-  import("../views/branch_manager/views/Dashboard.js")
+  import("../views/branch_manager/views/DashboardView.js")
 );
 const ViewOrders = lazy(() =>
-  import("../views/branch_manager/views/ViewOrders.js")
+  import("../views/branch_manager/views/ViewOrdersView.js")
 );
 const AddOrderView = lazy(() =>
   import("../views/branch_manager/views/AddOrderView")
@@ -24,7 +24,7 @@ const AddClientView = lazy(() =>
   import("../views/branch_manager/views/AddClientView")
 );
 const ViewClients = lazy(() =>
-  import("../views/branch_manager/views/ViewClients.js")
+  import("../views/branch_manager/views/ViewClientsView.js")
 );
 
 
