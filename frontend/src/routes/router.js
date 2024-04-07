@@ -3,17 +3,27 @@ import { Navigate } from "react-router-dom";
 import ProtectedRoute from "../views/common/views/ProtectedRoute.js";
 import LoginView from "../views/common/views/LoginView.jsx";
 
+/****Contexts*****/
+import { BranchManagerProvider } from "../views/branch_manager/context/BranchManagerContext.js";
+import UnauthorizedView from "../views/common/views/UnauthorizedView.jsx";
+
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
 /***** Pages ****/
 
 // These are my codes
-const Dashboard = lazy(() => import("../views/Admin/Dashboard.js"));
-const ViewOrders = lazy(() => import("../views/Admin/ViewOrders.js"));
-const AddNewOrder = lazy(() => import("../views/Admin/AddNewOrder.js"));
-const AddNewClient = lazy(() => import("../views/Admin/AddNewClient.js"))
-const ViewClients = lazy(() => import("../views/Admin/ViewClients.js"))
+const BranchManagerDashboard = lazy(() =>
+  import("../views/branch_manager/Dashboard.js")
+);
+const ViewOrders = lazy(() => import("../views/branch_manager/ViewOrders.js"));
+const AddOrderView = lazy(() => import("../views/branch_manager/AddOrderView"));
+const AddClientView = lazy(() =>
+  import("../views/branch_manager/AddClientView")
+);
+const ViewClients = lazy(() =>
+  import("../views/branch_manager/ViewClients.js")
+);
 
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
@@ -28,34 +38,124 @@ const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs.js"));
 
 /*****Routes******/
 
-
 const ThemeRoutes = [
   {
-    path : "/login",
-    element : <LoginView></LoginView>,
-    children : [],
+    path: "/login",
+    element: <LoginView></LoginView>,
+    children: [],
   },
   {
-    path: "/",
-    element: <ProtectedRoute><FullLayout /></ProtectedRoute>,
+    path: "/unauthorized",
+    element: <UnauthorizedView></UnauthorizedView>,
+    children: [],
+  },
+  {
+    path: "/admin",
+    element: <ProtectedRoute allowedUsers={[1]}></ProtectedRoute>,
     children: [
-      { path: "/", element: <Navigate to="/dashboard" /> },
-      {path: "/dashboard", exact: true, element: <Dashboard/>},
-      {path: "/view-orders", exact: true, element: <ViewOrders/>},
-      {path: "/add-new-order", exact: true, element: <AddNewOrder/>},
-      {path: "/add-new-client", exact: true, element: <AddNewClient/>},
-      {path: "/view-clients", exact: true, element: <ViewClients/>},
-      
-      { path: "/starter", exact: true, element: <Starter /> },
-      { path: "/about", exact: true, element: <About /> },
-      { path: "/alerts", exact: true, element: <Alerts /> },
-      { path: "/badges", exact: true, element: <Badges /> },
-      { path: "/buttons", exact: true, element: <Buttons /> },
-      { path: "/cards", exact: true, element: <Cards /> },
-      { path: "/grid", exact: true, element: <Grid /> },
-      { path: "/table", exact: true, element: <Tables /> },
-      { path: "/forms", exact: true, element: <Forms /> },
-      { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+      {
+        path: "/admin/",
+        element: <FullLayout />,
+        children: [
+          {
+            path: "/admin/",
+            element: <Navigate to="/admin/dashboard" />,
+          },
+          {
+            path: "/admin/dashboard",
+            exact: true,
+            element: (
+              <BranchManagerProvider>
+                <BranchManagerDashboard />
+              </BranchManagerProvider>
+            ),
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/branch-manager",
+    element: <ProtectedRoute allowedUsers={[2]}></ProtectedRoute>,
+    children: [
+      {
+        path: "/branch-manager/",
+        element: <FullLayout />,
+        children: [
+          {
+            path: "/branch-manager/",
+            element: <Navigate to="/branch-manager/dashboard" />,
+          },
+          {
+            path: "/branch-manager/dashboard",
+            exact: true,
+            element: (
+              <BranchManagerProvider>
+                <BranchManagerDashboard />
+              </BranchManagerProvider>
+            ),
+          },
+          {
+            path: "/branch-manager/view-orders",
+            exact: true,
+            element: (
+              <BranchManagerProvider>
+                <ViewOrders />
+              </BranchManagerProvider>
+            ),
+          },
+          {
+            path: "/branch-manager/add-new-order",
+            exact: true,
+            element: (
+              <BranchManagerProvider>
+                <AddOrderView />
+              </BranchManagerProvider>
+            ),
+          },
+          {
+            path: "/branch-manager/add-new-client",
+            exact: true,
+            element: (
+              <BranchManagerProvider>
+                <AddClientView />
+              </BranchManagerProvider>
+            ),
+          },
+          {
+            path: "/branch-manager/view-clients",
+            exact: true,
+            element: (
+              <BranchManagerProvider>
+                <ViewClients />
+              </BranchManagerProvider>
+            ),
+          },
+
+          {
+            path: "/branch-manager/starter",
+            exact: true,
+            element: <Starter />,
+          },
+          { path: "/branch-manager/about", exact: true, element: <About /> },
+          { path: "/branch-manager/alerts", exact: true, element: <Alerts /> },
+          { path: "/branch-manager/badges", exact: true, element: <Badges /> },
+          {
+            path: "/branch-manager/buttons",
+            exact: true,
+            element: <Buttons />,
+          },
+          { path: "/branch-manager/cards", exact: true, element: <Cards /> },
+          { path: "/branch-manager/grid", exact: true, element: <Grid /> },
+          { path: "/branch-manager/table", exact: true, element: <Tables /> },
+          { path: "/branch-manager/forms", exact: true, element: <Forms /> },
+          {
+            path: "/branch-manager/breadcrumbs",
+            exact: true,
+            element: <Breadcrumbs />,
+          },
+        ],
+      },
     ],
   },
 ];
