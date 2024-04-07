@@ -5,12 +5,12 @@ import { verifyAuthentication } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 router.route("/api/add-client").post(
-    // verifyAuthentication,
+    verifyAuthentication,
     ClientController.addClient
 )
 
 router.route("/api/clients").get(
-    // verifyAuthentication,
+    verifyAuthentication,
     ClientController.getAllClients
 );
 
