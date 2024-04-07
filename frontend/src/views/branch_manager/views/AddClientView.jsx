@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Import controller
-import AdminController from "./controllers/branch_manager.controller";
+import AdminController from "../controllers/branch_manager.controller";
 
 
 const AddNewClient = () => {

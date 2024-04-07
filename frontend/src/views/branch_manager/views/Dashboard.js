@@ -1,8 +1,8 @@
 import { Col, Row } from "reactstrap";
-import DashboardFeeds from "./components/DashboardFeeds";
-import DashboardOrdersTable from "./components/DashboardOrdersTable";
-import DashboardTopCards from "./components/DashboardTopCards";
-import DashboardSalesChart from "./components/DashboardSalesChart";
+import DashboardFeeds from "../components/DashboardFeeds";
+import DashboardOrdersTable from "../components/DashboardOrdersTable";
+import DashboardTopCards from "../components/DashboardTopCards";
+import DashboardSalesChart from "../components/DashboardSalesChart";
 import react, {useEffect, useState} from "react";
 
 const Dashboard = () => {

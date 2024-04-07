@@ -14,15 +14,15 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
 // These are my codes
 const BranchManagerDashboard = lazy(() =>
-  import("../views/branch_manager/Dashboard.js")
+  import("../views/branch_manager/views/Dashboard.js")
 );
-const ViewOrders = lazy(() => import("../views/branch_manager/ViewOrders.js"));
-const AddOrderView = lazy(() => import("../views/branch_manager/AddOrderView"));
+const ViewOrders = lazy(() => import("../views/branch_manager/views/ViewOrders.js"));
+const AddOrderView = lazy(() => import("../views/branch_manager/views/AddOrderView"));
 const AddClientView = lazy(() =>
-  import("../views/branch_manager/AddClientView")
+  import("../views/branch_manager/views/AddClientView")
 );
 const ViewClients = lazy(() =>
-  import("../views/branch_manager/ViewClients.js")
+  import("../views/branch_manager/views/ViewClients.js")
 );
 
 const Starter = lazy(() => import("../views/Starter.js"));

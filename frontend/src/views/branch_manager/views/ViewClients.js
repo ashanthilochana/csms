@@ -1,5 +1,5 @@
 import { Row, Col, Table, Card, CardTitle, CardBody } from "reactstrap";
-import ViewClientsTable from "./components/ViewClientsTable";
+import ViewClientsTable from "../components/ViewClientsTable";
 
 const ViewClients = () => {
   return (

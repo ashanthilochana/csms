@@ -2,7 +2,7 @@ import react, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import AdminController from "./controllers/branch_manager.controller";
+import BranchManagerController from "../controllers/branch_manager.controller.js";
 
 import {
   Card,
@@ -92,7 +92,7 @@ const AddNewOrder = () => {
     } = userInput;
 
     try {
-      const res = await AdminController.addOrder(
+      const res = await BranchManagerController.addOrder(
         weight,
         sendingDate,
         paymentDate,
