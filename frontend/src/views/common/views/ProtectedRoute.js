@@ -2,13 +2,12 @@ import { Outlet, Navigate } from "react-router-dom";
 import AxiosController from "../../../controllers/axios.controller";
 import { useEffect, useState } from "react";
 import LoadingIndicator from "../../../components/common/LoadingIndicator";
-import { useUserData } from "../../../context/UserContext.js";
-import UnauthorizedView from "./UnauthorizedView.jsx";
+import useCookie from "../../../hooks/useCookies";
 
 const ProtectedRoute = ({ allowedUsers }) => {
   let [isAuthenticated, setIsAuthenticated] = useState(false);
   let [loading, setLoading] = useState(true);
-  let userData = useUserData();
+  let [getCookie, setCookie] = useCookie();
 
   console.log(allowedUsers);
 
@@ -39,9 +38,8 @@ const ProtectedRoute = ({ allowedUsers }) => {
       </div>
     );
   } else if (isAuthenticated) {
-    let roleId = userData.roleId;
-    console.log(roleId);
-    let userAuthorized = allowedUsers === ["*"] || allowedUsers === "*" || allowedUsers.includes(roleId);
+    let roleId = getCookie('user-role-id');
+    let userAuthorized = allowedUsers === "*" || allowedUsers.includes(roleId);
     if (userAuthorized) {
       return <Outlet />;
     } else {

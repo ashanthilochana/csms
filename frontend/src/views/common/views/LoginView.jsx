@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./LoginView.module.css";
 import AxiosController from "../../../controllers/axios.controller";
 import useLogin from "../hooks/useLogin.js";
-import { useUserDataUpdate } from "../../../context/UserContext.js";
+import useCookie from "../../../hooks/useCookies";
 
 
 function LoginView() {
@@ -15,8 +15,7 @@ function LoginView() {
   //using login hook
   let [updateRoleId] = useLogin();
 
-  //using context provider
-  let updateUserData = useUserDataUpdate();
+  let [getCookie, setCookie]  = useCookie();
 
   //input change handle function
   function handleChange(event) {
@@ -42,10 +41,10 @@ function LoginView() {
     if (response.data.status) {
       let role_id = response.data.role_id;
       let nic_no = response.data.nic_no;
-      console.log(`role_id : ${role_id}`);
-      console.log(`nic_no : ${nic_no}`);
-      //updationg context data
-      updateUserData({nic : nic_no, roleId : role_id});
+      
+      //set cookies
+      setCookie('user-nic', nic_no);
+      setCookie('user-role-id', role_id);
 
       //updating login hook and redirecting
       updateRoleId(role_id);
