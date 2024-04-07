@@ -9,16 +9,17 @@ import useCookie from "../../../hooks/useCookies";
 
 function LoginView() {
 
-  //useState hook to store credentials
+  // useState hook to store credentials
   let [credentials, setCredentials] = useState({ nic: "", password: "" });
 
-  //using login hook
+  // using login hook
   let [updateRoleId] = useLogin();
 
+  // Create a cookies object
   let [getCookie, setCookie]  = useCookie();
 
-  //input change handle function
-  function handleChange(event) {
+  // input change handle function
+  function onChange(event) {
     let { name, value } = event.target;
     setCredentials((prevOptions) => ({
       ...prevOptions,
@@ -26,8 +27,8 @@ function LoginView() {
     }));
   }
 
-  //submit handler. move axios instance code to a seperate controller if possible
-  const handleSubmit = async (event) => {
+  //submit handler. Move axios instance code to a seperate controller if possible for security purpose
+  const onSubmit = async (event) => {
     event.preventDefault();
     let response = await AxiosController.instance.post(
       "/api/user/login",
@@ -37,12 +38,14 @@ function LoginView() {
       }
     );
 
-    //conditional rendering/navigating based on role id. Find a better way if possible
+    // Conditional rendering/navigating based on role id. Find a better way if possible
     if (response.data.status) {
+
+      // store role id and nic no in a variable
       let role_id = response.data.role_id;
       let nic_no = response.data.nic_no;
       
-      //set cookies
+      //set cookies - userNIC and user roleID
       setCookie('user-nic', nic_no);
       setCookie('user-role-id', role_id);
 
@@ -53,14 +56,14 @@ function LoginView() {
 
   return (
     <div className={styles.main_cont}>
-      <form className={styles.form_cont} onSubmit={handleSubmit}>
+      <form className={styles.form_cont} onSubmit={onSubmit}>
         <label>
           NIC:
           <input
             name="nic"
             type="text"
             value={credentials.nic}
-            onChange={handleChange}
+            onChange={onChange}
           />
         </label>
         <label>
@@ -69,7 +72,7 @@ function LoginView() {
             name="password"
             type="password"
             value={credentials.password}
-            onChange={handleChange}
+            onChange={onChange}
           />
         </label>
         <input type="submit" value="Submit" style={{ width: "100px" }} />

@@ -1,16 +1,27 @@
+// Protected Route to denied router access to unauthorized parties
+
 import { Outlet, Navigate } from "react-router-dom";
 import AxiosController from "../../../controllers/axios.controller";
 import { useEffect, useState } from "react";
 import LoadingIndicator from "../../../components/common/LoadingIndicator";
 import useCookie from "../../../hooks/useCookies";
 
+
 const ProtectedRoute = ({ allowedUsers }) => {
+
+  // Create variable to save autheniticated status - default false
   let [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Loading screen
   let [loading, setLoading] = useState(true);
+
+  // Create cookie object to get cookie details to check roleID
   let [getCookie, setCookie] = useCookie();
 
+  // Print allowed user which passed as class parameter above
   console.log(allowedUsers);
 
+  // Authorize access with JWT [NOT CLEAR------------------------------------------------------]
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -27,7 +38,6 @@ const ProtectedRoute = ({ allowedUsers }) => {
         setLoading(false);
       }
     };
-
     checkAuth();
   }, []);
 
@@ -38,8 +48,10 @@ const ProtectedRoute = ({ allowedUsers }) => {
       </div>
     );
   } else if (isAuthenticated) {
-    let roleId = getCookie('user-role-id');
+
+    let roleId = getCookie('user-role-id'); // Get user role ID by cookies
     let userAuthorized = allowedUsers === "*" || allowedUsers.includes(roleId);
+
     if (userAuthorized) {
       return <Outlet />;
     } else {

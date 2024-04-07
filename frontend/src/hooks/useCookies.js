@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-// Create getter and setter function for Cookies
+// Create a hook to set and get cookies
 function useCookie(){
 
     // Set cookies
