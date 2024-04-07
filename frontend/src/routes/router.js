@@ -1,11 +1,9 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import ProtectedRoute from "../views/common/views/ProtectedRoute.js";
-import LoginView from "../views/common/views/LoginView.jsx";
-
-/****Contexts*****/
-import { BranchManagerProvider } from "../views/branch_manager/context/BranchManagerContext.js";
 import UnauthorizedView from "../views/common/views/UnauthorizedView.jsx";
+import LoginView from "../views/common/views/LoginView.jsx";
+import SidebarRoutes from "./sidebar.routes.js";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -16,14 +14,19 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 const BranchManagerDashboard = lazy(() =>
   import("../views/branch_manager/views/Dashboard.js")
 );
-const ViewOrders = lazy(() => import("../views/branch_manager/views/ViewOrders.js"));
-const AddOrderView = lazy(() => import("../views/branch_manager/views/AddOrderView"));
+const ViewOrders = lazy(() =>
+  import("../views/branch_manager/views/ViewOrders.js")
+);
+const AddOrderView = lazy(() =>
+  import("../views/branch_manager/views/AddOrderView")
+);
 const AddClientView = lazy(() =>
   import("../views/branch_manager/views/AddClientView")
 );
 const ViewClients = lazy(() =>
   import("../views/branch_manager/views/ViewClients.js")
 );
+
 
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
@@ -51,11 +54,13 @@ const ThemeRoutes = [
   },
   {
     path: "/admin",
-    element: <ProtectedRoute allowedUsers={[1]}></ProtectedRoute>,
+    element: <ProtectedRoute allowedUsers={["1"]}></ProtectedRoute>,
     children: [
       {
         path: "/admin/",
-        element: <FullLayout />,
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} />
+        ),
         children: [
           {
             path: "/admin/",
@@ -64,11 +69,7 @@ const ThemeRoutes = [
           {
             path: "/admin/dashboard",
             exact: true,
-            element: (
-              <BranchManagerProvider>
-                <BranchManagerDashboard />
-              </BranchManagerProvider>
-            ),
+            element: <BranchManagerDashboard />,
           },
         ],
       },
@@ -76,11 +77,13 @@ const ThemeRoutes = [
   },
   {
     path: "/branch-manager",
-    element: <ProtectedRoute allowedUsers={[2]}></ProtectedRoute>,
+    element: <ProtectedRoute allowedUsers={["2"]}></ProtectedRoute>,
     children: [
       {
         path: "/branch-manager/",
-        element: <FullLayout />,
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} />
+        ),
         children: [
           {
             path: "/branch-manager/",
@@ -89,47 +92,27 @@ const ThemeRoutes = [
           {
             path: "/branch-manager/dashboard",
             exact: true,
-            element: (
-              <BranchManagerProvider>
-                <BranchManagerDashboard />
-              </BranchManagerProvider>
-            ),
+            element: <BranchManagerDashboard />,
           },
           {
             path: "/branch-manager/view-orders",
             exact: true,
-            element: (
-              <BranchManagerProvider>
-                <ViewOrders />
-              </BranchManagerProvider>
-            ),
+            element: <ViewOrders />,
           },
           {
             path: "/branch-manager/add-new-order",
             exact: true,
-            element: (
-              <BranchManagerProvider>
-                <AddOrderView />
-              </BranchManagerProvider>
-            ),
+            element: <AddOrderView />,
           },
           {
             path: "/branch-manager/add-new-client",
             exact: true,
-            element: (
-              <BranchManagerProvider>
-                <AddClientView />
-              </BranchManagerProvider>
-            ),
+            element: <AddClientView />,
           },
           {
             path: "/branch-manager/view-clients",
             exact: true,
-            element: (
-              <BranchManagerProvider>
-                <ViewClients />
-              </BranchManagerProvider>
-            ),
+            element: <ViewClients />,
           },
 
           {
