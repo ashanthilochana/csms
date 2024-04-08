@@ -20,6 +20,8 @@ import { router as branchRouter } from "./routes/branch.routes.js";
 import {router as orderRouter} from "./routes/order.routes.js";
 import {router as routeRouter} from "./routes/route.routes.js"
 import {router as transportRouter} from "./routes/transport.routes.js"
+import {router as deliveryRouter} from "./routes/delivery.routes.js"
+
 
 // Do not edit anything below - (Ashan Thilochana)
 
@@ -40,6 +42,7 @@ app.use(branchRouter);
 app.use(orderRouter);
 app.use(routeRouter);
 app.use(transportRouter);
+app.use(deliveryRouter);
 
 // Setup port listner
 app.listen(PORT, () => {
