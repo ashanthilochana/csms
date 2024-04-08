@@ -13,10 +13,7 @@ ClientController.addClient = async (req, res) => {
         let userExists = await ClientService.checkUserExistStatus(nic);
 
         if (!userExists) {
-
-            let [firstName, lastName] = name.split(" ");
-
-            await ClientService.addClient(nic, email, firstName, lastName, address, contactNumber, branchId);
+            await ClientService.addClient(nic, email, name, address, contactNumber, branchId);
 
             res.status(201).send({ message: "User added successfully" });
         }
