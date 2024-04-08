@@ -44,63 +44,37 @@ BranchManagerController.addOrder = async (
   packageTypes,
   sendingBranch,
   receivingBranch,
-  speicialNotes,
+  specialNotes,
   orderStatus,
   sender,
   receiver,
   contactNumber,
   address
 ) => {
-  // Front end form validation
-  if (weight === "") {
-    return { error: "Weight cannot be empty!" };
-  } else if (sendingDate === "") {
-    return { error: "Sending date cannot be empty!" };
-  } else if (paymentDate === "") {
-    return { error: "Payment date cannot be empty!" };
-  } else if (packageTypes === "") {
-    return { error: "Pacakage type cannot be empty!" };
-  } else if (sendingBranch === "") {
-    return { error: "Sending branch cannot be empty!" };
-  } else if (receivingBranch === "") {
-    return { error: "Receiving Branch cannot be empty!" };
-  } else if (speicialNotes === "") {
-    return { error: "Special notice cannot be empty!" };
-  } else if (orderStatus === "") {
-    return { error: "Order status cannot be empty!" };
-  } else if (sender === "") {
-    return { error: "Sender cannot be empty!" };
-  } else if (contactNumber === "") {
-    return { error: "Contact number cannot be empty!" };
-  } else if (address === "") {
-    return { error: "Address cannot be empty!" };
-  } else {
-    // If form validation successful
 
-    let reqBody = {
-      weight,
-      sendingDate,
-      paymentDate,
-      packageTypes,
-      sendingBranch,
-      receivingBranch,
-      speicialNotes,
-      orderStatus,
-      sender,
-      receiver,
-      contactNumber,
-      address,
-    };
+  let reqBody = {
+    weight,
+    sendingDate,
+    paymentDate,
+    packageTypes,
+    sendingBranch,
+    receivingBranch,
+    specialNotes,
+    orderStatus,
+    sender,
+    receiver,
+    contactNumber,
+    address,
+  };
 
-    try {
-      let response = await BranchManagerService.addOrder(reqBody);
-      if (response.error) {
-        return { error: response.error };
-      }
-      return { message: "Success Message" };
-    } catch (e) {
-      return { error: "Message" };
+  try {
+    let response = await BranchManagerService.addOrder(reqBody);
+    if (response.error) {
+      return { error: response.error };
     }
+    return { message: "Success Message" };
+  } catch (e) {
+    return { error: "Message" };
   }
 };
 
@@ -126,94 +100,55 @@ BranchManagerController.getBranchIdByBranchManagerNIC = async (nic) => {
 /////////////////////////////////////// Get All Branches ////////////////////////////////////////////////
 
 BranchManagerController.getAllBranches = async () => {
-  try{let response = await BranchManagerService.getAllBranches();
+  try {
+    let response = await BranchManagerService.getAllBranches();
 
-  if(response.error)
-  {
-    return {error : response.error};
-  }
+    if (response.error) {
+      return { error: response.error };
+    }
 
-  else
-  {
-    return {data : response.data};
-  }}catch(e)
-  {
-    return {error : e};
+    else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    return { error: e };
   }
 }
 
 /////////////////////////////////////// Get All Package Types ////////////////////////////////////////////////
 
 BranchManagerController.getAllPackageTypes = async () => {
-  try{
+  try {
     let response = await BranchManagerService.getAllPackageTypes();
 
-  if(response.error)
-  {
-    return {error : response.error};
-  }
+    if (response.error) {
+      return { error: response.error };
+    }
 
-  else
-  {
-    return {data : response.data};
-  }}catch(e)
-  {
-    return {error : e};
+    else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    return { error: e };
   }
 }
 
-// Add a new transportagent
-// BranchManagerController.addTransportagent = async (nic, email, name, vehicleNumber, contactNumber, branchId) =>{
+/////////////////////////////////////// Get All Package Types ////////////////////////////////////////////////
 
-//   // Front end form validation
-//   if (nic == "") {
-//       return { error: "NIC cannot be empty!"};
-//     } else if (!email.includes("@")) {
-//       return { error: "Email should include '@'mark always"};
-//     } else if (name == "") {
-//       return { error: "Name cannot be empty!"};
-//     } else if (address == "") {
-//       return { error: "Address cannot be empty!"};
-//     } else if (contactNumber == "") {
-//       return { error: "Contact Number cannot be empty!"};
-//     } else if (branchId == "") {
-//       return { error: "Branch ID cannot be empty!"};
-//     } else { // If form validation successful
+BranchManagerController.getAllOrderStatus = async () => {
+  try {
+    let response = await BranchManagerService.getAllOrderStatus();
 
-//       let reqBody = {
-//           nic,
-//           email,
-//           name,
-//           address,
-//           contactNumber,
-//           branchId
-//           }
+    if (response.error) {
+      return { error: response.error };
+    }
+    else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
 
-//           try{
-//               let response = await BranchManagerService.addClient(reqBody);
-//               if(response.error){
-//                   return {error : response.error};
-//               }
-//               return {message : "Success Message"};
-//           }catch(e)
-//           {
-//               return {error : "Message"};
-//           }
-
-//     }
-
-//   //Check for null
-//   // if()
-//   // {
-//   //     return {error: "Message"};
-//   // }
-
-//   //Form Validation
-//   // if()
-//   // {
-//   //     return {error: "Message"};
-//   // }
-
-// }
 
 export default BranchManagerController;

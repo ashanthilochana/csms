@@ -41,10 +41,7 @@ BranchManagerService.addClient = async (reqBody) => {
 
 BranchManagerService.addOrder = async (reqBody) => {
   try {
-    let response = await AxiosController.instance.post(
-      "/api/add-order",
-      reqBody
-    ); // Call backend contorller and pass data which received to front end controller
+    let response = await AxiosController.instance.post("/api/add-order", reqBody ); // Call backend contorller and pass data which received to front end controller
     if (response.data.error) {
       //Handle Error
     } else {
@@ -102,6 +99,24 @@ BranchManagerService.getAllBranches = async () => {
 BranchManagerService.getAllPackageTypes = async () => {
   try {
     let response = await AxiosController.instance.get("/api/packagetypes");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Get all order status ////////////////////////////////////////////////
+
+BranchManagerService.getAllOrderStatus = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/orderstatus");
     if (response.error) {
       return { error: response.error };
     } else if (response.data.error) {

@@ -4,43 +4,65 @@ import OrderService from "../services/order.service.js";
 
 let OrderController = {};
 
-// Add a new client
-// OrderController.addOrder = async (req, res) => {
+/////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
-//     try {
-//         const { nic, email, name, address, contactNumber, branchId } = req.body;
+OrderController.addOrder = async (req, res) => {
 
-//         let userExists = await ClientService.checkUserExistStatus(nic);
+    try {
+        const {
+            weight,
+            sendingDate,
+            paymentDate,
+            packageTypes,
+            sendingBranch,
+            receivingBranch,
+            specialNotes,
+            orderStatus,
+            sender,
+            receiver,
+            contactNumber,
+            address
+        } = req.body;
 
-//         if (!userExists) {
-//             await ClientService.addClient(nic, email, name, address, contactNumber, branchId);
+        await OrderService.addOrder(
+            weight,
+            sendingDate,
+            paymentDate,
+            packageTypes,
+            sendingBranch,
+            receivingBranch,
+            specialNotes,
+            orderStatus,
+            sender,
+            receiver,
+            contactNumber,
+            address
+        );
 
-//             res.status(201).send({ message: "User added successfully" });
-//         }
-//         else {
-//             res.status(422).send({ error: "User Already Exists!" })
-//         }
-//     } catch (e) {
-//         console.error(e);
-//         res.status(500).send({error : "Internal Server Error"});
-//      }
-// };
+        res.status(201).send({ message: "Order added successfully" });
 
-// Get all client details
-// ClientController.getAllClients = async (req, res) => {
-//     try{
-//         let data = await ClientService.getAllClients();
-//         res.status(200).send(data);
-//     }
-//     catch(e)
-//     {
-//         res.status(500).send({error : "Internal Server Error"});
-//     }
-// }
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+};
+
+/////////////////////////////////////// Get all package types ////////////////////////////////////////////////
 
 OrderController.getAllPackageTypes = async (req, res) => {
     try {
         let data = await OrderService.getAllPackageTypes();
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
+/////////////////////////////////////// Get all order status ////////////////////////////////////////////////
+
+OrderController.getAllOrderStatus = async (req, res) => {
+    try {
+        let data = await OrderService.getAllOrderStatus();
         res.status(200).send(data);
     } catch (e) {
         res.status(500).send({ error: "Internal Server Error" });

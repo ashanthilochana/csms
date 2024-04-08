@@ -1,5 +1,3 @@
-
-
 import {
   Card,
   Row,
@@ -12,7 +10,6 @@ import {
   FormFeedback,
   Label,
   Input,
-  FormText,
 } from "reactstrap";
 
 import React, { useEffect, useState } from "react";
@@ -26,9 +23,12 @@ import BranchManagerController from "../controllers/branch_manager.controller.js
 
 // Get current date and format it as yyyy-mm-dd
 import { format } from "date-fns";
-const currentDate = format(new Date(), "yyyy-MM-dd");
+
 
 const AddNewOrder = () => {
+
+  // Get current date
+  const currentDate = format(new Date(), "yyyy-MM-dd");
 
   // Create object for use navigator
   const navigate = useNavigate();
@@ -36,9 +36,16 @@ const AddNewOrder = () => {
   // Dropdown state variables
   let [branches, setBranches] = useState([]);
   let [packageTypes, setPackageTypes] = useState([]);
+  let [orderStatus, setOrderStatus] = useState([]);
 
-  // Fetch dropdown data
+  // Fetch dropdown data [RUN ONE TIME WHEN PAGE LOADING]
   useEffect(() => {
+
+    // Set current date as sending date
+    userInput.sendingDate = currentDate;
+    userInput.paymentDate = currentDate;
+
+    //Fetch branches to fill dropdown
     async function fetchAllBranches() {
       let response = await BranchManagerController.getAllBranches();
       if (response.error) {
@@ -49,10 +56,7 @@ const AddNewOrder = () => {
       }
     }
 
-    fetchAllBranches();
-  }, []);
-
-  useEffect(() => {
+    //Fetch all packages types to fill dropdown
     async function fetchAllPackageTypes() {
       let response = await BranchManagerController.getAllPackageTypes();
       if (response.error) {
@@ -63,7 +67,20 @@ const AddNewOrder = () => {
       }
     }
 
+    //Fetch all  order satatus to fill dropdown
+    async function fetchAllOrderStatus() {
+      let response = await BranchManagerController.getAllOrderStatus();
+      if (response.error) {
+        alert(response.error);
+      }
+      else {
+        setOrderStatus(response.data);
+      }
+    }
+
+    fetchAllBranches();
     fetchAllPackageTypes();
+    fetchAllOrderStatus();
   }, []);
 
   // Map variable
@@ -133,7 +150,7 @@ const AddNewOrder = () => {
     return true;
   };
 
-  let [formattedSendingDate, setFormattedSendingDate] = useState();
+  //let [formattedSendingDate, setFormattedSendingDate] = useState();
 
 
   // Variable formatting
@@ -228,7 +245,6 @@ const AddNewOrder = () => {
                   name="sendingDate"
                   placeholder="Enter sending date"
                   type="date"
-                  // value={formattedSendingDate}
                   onChange={onChange}
                   value={userInput.sendingDate}
                 // value={formattedSendingDate}
@@ -325,10 +341,10 @@ const AddNewOrder = () => {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="exampleText">Speicial Notes</Label>
+                <Label for="specialNotes">Speicial Notes</Label>
                 <Input
-                  id="exampleText"
-                  name="text"
+                  id="specialNotes"
+                  name="specialNotes"
                   type="textarea"
                   placeholder="If you have any special notes. Type here..."
                   onChange={onChange}
@@ -345,41 +361,18 @@ const AddNewOrder = () => {
                   onChange={onChange}
                   value={userInput.orderStatus}
                 >
-                  <option>Registered</option>
-                  <option>On going</option>
-                  <option>Received</option>
-                  <option>Delivered</option>
+                  {orderStatus.map((orderStat) => {
+                    return (
+                      <DropdownOption
+                        key={orderStat.statusId}
+                        id={orderStat.statusId}
+                        value={orderStat.status}
+                        onChange={onChange}
+                      />
+                    );
+                  })}
                 </Input>
               </FormGroup>
-              {/* <FormGroup>
-                <Label for="exampleFile">File</Label>
-                <Input id="exampleFile" name="file" type="file" />
-                <FormText>
-                  This is some placeholder block-level help text for the above
-                  input. It's a bit lighter and easily wraps to a new line.
-                </FormText>
-              </FormGroup> */}
-              {/* <FormGroup tag="fieldset">
-                <legend>Radio Buttons</legend>
-                <FormGroup check>
-                  <Input name="radio1" type="radio" />{" "}
-                  <Label check className="form-label">
-                    Option one is this and that—be sure to include why it's
-                    great
-                  </Label>
-                </FormGroup>
-                <FormGroup check>
-                  <Input name="radio1" type="radio" />{" "}
-                  <Label check className="form-label">
-                    Option two can be something else and selecting it will
-                    deselect option one
-                  </Label>
-                </FormGroup>
-                <FormGroup check disabled>
-                  <Input disabled name="radio1" type="radio" />{" "}
-                  <Label check>Option three is disabled</Label>
-                </FormGroup>
-              </FormGroup> */}
             </CardBody>
           </Card>
         </Col>
@@ -389,10 +382,10 @@ const AddNewOrder = () => {
             <CardBody>
               <legend className="mt-2">Sender</legend>
               <FormGroup>
-                <Label for="senderNIC">Sender</Label>
+                <Label for="sender">Sender</Label>
                 <Input
-                  id="senderNIC"
-                  name="senderNIC"
+                  id="sender"
+                  name="sender"
                   placeholder="Enter sender NIC Number"
                   type="text"
                   onChange={onChange}
@@ -401,10 +394,10 @@ const AddNewOrder = () => {
               </FormGroup>
               <legend className="mt-2">Receiver</legend>
               <FormGroup>
-                <Label for="receiverName">Name</Label>
+                <Label for="receiver">Name</Label>
                 <Input
-                  id="receiverName"
-                  name="receiverName"
+                  id="receiver"
+                  name="receiver"
                   placeholder="Enter packge receiver name"
                   type="text"
                   invalid={validations.receiver}
@@ -414,10 +407,10 @@ const AddNewOrder = () => {
                 <FormFeedback>Invalid name</FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="receiverContact">Contact Number</Label>
+                <Label for="contactNumber">Contact Number</Label>
                 <Input
-                  id="receiverContact"
-                  name="receiverContact"
+                  id="contactNumber"
+                  name="contactNumber"
                   placeholder="Enter receiver contact number"
                   type="number"
                   invalid={validations.contactNumber}
@@ -427,10 +420,10 @@ const AddNewOrder = () => {
                 <FormFeedback>Invalid contact number</FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="receivingAddress">Address</Label>
+                <Label for="address">Address</Label>
                 <Input
-                  id="receivingAddress"
-                  name="receivingAddress"
+                  id="address"
+                  name="address"
                   placeholder="Enter destination address"
                   type="textarea"
                   onChange={onChange}

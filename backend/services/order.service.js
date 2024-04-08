@@ -21,8 +21,8 @@ OrderService.addOrder = async(
     address) => {
 
     let query = `
-    INSERT INTO orders(weight, registeredDate, receivedDate, deliveryDate, paymentDate, receiverName, receiverAddress, receiverContactNumber, packageTypeId, senderNic, statusId, sendingBranchId, receivingBranchId) 
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO orders(weight, registeredDate, paymentDate, receiverName, receiverAddress, receiverContactNumber, packageTypeId, senderNic, statusId, sendingBranchId, receivingBranchId, specialNote) 
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     try {
@@ -30,15 +30,16 @@ OrderService.addOrder = async(
             weight,
             sendingDate,
             paymentDate,
+            receiver,
+            address,
+            contactNumber,
             packageTypes,
+            sender,
+            orderStatus,
             sendingBranch,
             receivingBranch,
             specialNotes,
-            orderStatus,
-            sender,
-            receiver,
-            contactNumber,
-            address ]);
+            ]);
     }
     catch (e) {
         console.error(e);
@@ -133,6 +134,24 @@ OrderService.deleteOrder = async(orderId) => {
 OrderService.getAllPackageTypes = async () => {
     let query = `
     SELECT * FROM packagetype
+    `;
+
+    try{
+        let [rows] = await pool.query(query);
+        return rows;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+
+/////////////////////////////////////// Get all order status ////////////////////////////////////////////////
+
+OrderService.getAllOrderStatus = async () => {
+    let query = `
+    SELECT * FROM orderstatus
     `;
 
     try{
