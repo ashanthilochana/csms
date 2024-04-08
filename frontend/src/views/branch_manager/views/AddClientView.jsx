@@ -7,6 +7,7 @@ import {
   Button,
   Form,
   FormGroup,
+  FormFeedback,
   Label,
   Input,
   FormText,
@@ -39,8 +40,33 @@ const AddNewClient = () => {
     contactNumber: "",
   })
 
-  // Set data to inputData map from form
-  const onInputChanged = (e) => {
+  // Validation data map
+  const [validations, setValidations] = useState({
+    nic: false,
+    email: false,
+    name: false,
+    address: false,
+    contactNumber: false,
+  });
+
+  
+  // onChange Form validation
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'nic':
+        if(value > 0 && value < 999999999999){
+          return true;
+        }
+        else{
+          return false;
+        }
+      default:
+        return true;
+    }
+  };
+
+  // onChange
+  const onChange = (e) => {
     console.log(e.target.value);
     const { name, value } = e.target;
     setInputData((preval) => {
@@ -49,10 +75,27 @@ const AddNewClient = () => {
         [name]: value
       }
     })
+    // onChange Form validation data set on change
+    setValidations({
+       ...validations,
+       [name]: !validateField(name, value) // Not sign for conver false to true
+    });
   }
 
-  // Call controller addClient method
+  // Check form valid status to appear submit buttons
+  const isFormValid = () => {
+    for (const key in validations) {
+      if (validations[key]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+
+  // onSubmit
   const onSubmit = async (e) => {
+
     e.preventDefault();
 
     const { nic, email, name, address, contactNumber } = inputData;
@@ -81,7 +124,6 @@ const AddNewClient = () => {
     <Form>
       <Row className="justify-content-center">
         <Col className="col-md-8">
-
           <Card>
             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
               <i className="bi bi-person-add me-2"> </i>
@@ -96,8 +138,10 @@ const AddNewClient = () => {
                   placeholder="Enter customer nic"
                   type="text"
                   value={inputData.nic}
-                  onChange={onInputChanged}
+                  onChange={onChange}
+                  invalid = {validations.nic}
                 />
+                <FormFeedback>Enter a valid NIC number</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="customerEmail">E-mail</Label>
@@ -106,9 +150,11 @@ const AddNewClient = () => {
                   name="email"
                   placeholder="Enter customer email"
                   type="email"
+                  onChange={onChange}
                   value={inputData.email}
-                  onChange={onInputChanged}
+                  invalid = {validations.email}
                 />
+                <FormFeedback>Enter a valid email address</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="customerName">Full Name</Label>
@@ -118,8 +164,10 @@ const AddNewClient = () => {
                   placeholder="Enter full name"
                   type="text"
                   value={inputData.name}
-                  onChange={onInputChanged}
+                  onChange={onChange}
+                  invalid = {validations.name}
                 />
+                <FormFeedback>Enter a valid name</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="customerAddress">Address</Label>
@@ -129,8 +177,10 @@ const AddNewClient = () => {
                   placeholder="Enter Address"
                   type="textarea"
                   value={inputData.address}
-                  onChange={onInputChanged}
+                  onChange={onChange}
+                  invalid = {validations.address}
                 />
+                <FormFeedback>Enter a valid address</FormFeedback>
               </FormGroup>
 
               <FormGroup>
@@ -141,8 +191,10 @@ const AddNewClient = () => {
                   placeholder="Enter contact number"
                   type="number"
                   value={inputData.contactNumber}
-                  onChange={onInputChanged}
+                  onChange={onChange}
+                  invalid = {validations.contactNumber}
                 />
+                <FormFeedback>Enter a valid contact number</FormFeedback>
               </FormGroup>
 
               {/* <FormGroup>
@@ -152,7 +204,7 @@ const AddNewClient = () => {
                   name="branchId"
                   type="select"
                   value={inputData.branchId}
-                  onChange={onInputChanged}
+                  onChange={onChange}
                   placeholder="Select"
                 >
                   <option>Colombo</option>
@@ -162,7 +214,7 @@ const AddNewClient = () => {
                 </Input>
               </FormGroup> */}
 
-              <Button type="submit" onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Order</Button>
+              <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Order</Button>
               <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
 
             </CardBody>
