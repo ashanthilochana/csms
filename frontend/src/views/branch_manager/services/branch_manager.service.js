@@ -41,15 +41,30 @@ BranchManagerService.addClient = async (reqBody) => {
 
 BranchManagerService.addOrder = async (reqBody) => {
   try {
-    let response = await AxiosController.instance.post("/api/add-order", reqBody ); // Call backend contorller and pass data which received to front end controller
+    let response = await AxiosController.instance.post(
+      "/api/add-order",
+      reqBody
+    ); // Call backend contorller and pass data which received to front end controller
     if (response.data.error) {
-      //Handle Error
+      return { error: response.data.error };
     } else {
       //Different status codes
-      //201 if(){return {message : "Success Message"}}
-      //400 if(){return {error : "Nad Request"}}
-      //401 if
-      //422 if
+      //201
+      if (response.status) {
+        return { message: "Order Added Successfully" };
+      }
+      //400
+      if (response.status) {
+        return { error: "Bad Request" };
+      }
+      //401
+      if (response.status) {
+        return { error: "Unauthorized" };
+      }
+      //422
+      if (response.status) {
+        return { error: "Duplicate Entry" };
+      }
     }
   } catch (e) {
     console.error(e);

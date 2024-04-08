@@ -14,7 +14,8 @@ import {
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { BranchManagerRoutes } from "../../../routes/all_user.routes";
+import useCookie from "../../../hooks/useCookies.js";
 
 //New import for component dropdown option
 import DropdownOption from "../../../components/common/DropdownOption.jsx";
@@ -33,6 +34,9 @@ const AddNewOrder = () => {
   // Create object for use navigator
   const navigate = useNavigate();
 
+  // Create an object to use cookies
+  let [getCookie, setCookie] = useCookie();
+
   // Dropdown state variables
   let [branches, setBranches] = useState([]);
   let [packageTypes, setPackageTypes] = useState([]);
@@ -40,10 +44,6 @@ const AddNewOrder = () => {
 
   // Fetch dropdown data [RUN ONE TIME WHEN PAGE LOADING]
   useEffect(() => {
-
-    // Set current date as sending date
-    userInput.sendingDate = currentDate;
-    userInput.paymentDate = currentDate;
 
     //Fetch branches to fill dropdown
     async function fetchAllBranches() {
@@ -78,6 +78,14 @@ const AddNewOrder = () => {
       }
     }
 
+    // get user branch with cookies
+    let branchId = getCookie('user-branch-id');
+
+    // Save previous data and save new data
+    setInputData((prev) => {
+      return { ...prev, sendingBranch: branchId }
+    });
+
     fetchAllBranches();
     fetchAllPackageTypes();
     fetchAllOrderStatus();
@@ -86,19 +94,18 @@ const AddNewOrder = () => {
   // Map variable
   const [userInput, setInputData] = useState({
     weight: "",
-    sendingDate: "",
-    paymentDate: "",
+    sendingDate: currentDate,
+    paymentDate: currentDate,
     packageTypes: "",
     sendingBranch: "",
     receivingBranch: "",
     specialNotes: "",
-    orderStatus: "",
+    orderStatus: 1,
     sender: "",
     receiver: "",
     contactNumber: "",
     address: "",
   });
-
 
   // Validation data map
   const [validations, setValidations] = useState({
@@ -189,11 +196,11 @@ const AddNewOrder = () => {
         weight,
         sendingDate,
         paymentDate,
-        packageTypes,
-        sendingBranch,
-        receivingBranch,
+        parseInt(packageTypes),
+        parseInt(sendingBranch),
+        parseInt(receivingBranch),
         specialNotes,
-        orderStatus,
+        parseInt(orderStatus),
         sender,
         receiver,
         contactNumber,
@@ -205,7 +212,7 @@ const AddNewOrder = () => {
         alert(res.error);
       } else {
         //show success message in a suitable way
-        navigate("/");
+        navigate(BranchManagerRoutes.dashboard)
         // setUdata(data);
         console.log("Order Added Succeccfully");
       }

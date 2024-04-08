@@ -4,7 +4,7 @@
 //Depends on bcrypt to hash/compare user passwords
 
 import UserService from "../services/user.service.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt"; // Encrypt password
 import AuthController from "./auth.controller.js";
 
 let UserController = {};

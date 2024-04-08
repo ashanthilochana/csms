@@ -74,7 +74,8 @@ BranchManagerController.addOrder = async (
     }
     return { message: "Success Message" };
   } catch (e) {
-    return { error: "Message" };
+    console.error(e);
+    return { error: "Error" };
   }
 };
 
