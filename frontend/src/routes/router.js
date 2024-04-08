@@ -26,7 +26,9 @@ const AddClientView = lazy(() =>
 const ViewClients = lazy(() =>
   import("../views/branch_manager/views/ViewClientsView.js")
 );
-
+const ViewReceivedOrders = lazy(() =>
+  import("../views/branch_manager/views/ViewReceivedOrdersView.js")
+);
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -101,6 +103,11 @@ const ThemeRoutes = [
             path: "/branch-manager/view-orders",
             exact: true,
             element: <ViewOrders />,
+          },
+          {
+            path: "/branch-manager/view-received-orders",
+            exact: true,
+            element: <ViewReceivedOrders />,
           },
           {
             path: "/branch-manager/add-new-order",

@@ -25,7 +25,7 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "Received Orders",
-          href: "#",
+          href: BranchManagerRoutes.viewReceivedOrders,
           icon: "bi bi-box-arrow-in-down-left",
         },
         {

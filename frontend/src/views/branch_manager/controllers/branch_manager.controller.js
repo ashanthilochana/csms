@@ -128,6 +128,7 @@ BranchManagerController.addOrder = async (
   }
 };
 
+// Get Branch ID by Branch Manager NIC
 BranchManagerController.getBranchIdByBranchManagerNIC = async (nic) => {
   try {
     let data = await BranchManagerService.getBranchIdByBranchManagerNIC({
