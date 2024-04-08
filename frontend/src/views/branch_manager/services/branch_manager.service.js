@@ -177,4 +177,93 @@ BranchManagerService.addBranch = async (reqBody) => {
   }
 };
 
+/////////////////////////////////////// Get all routes ////////////////////////////////////////////////
+
+BranchManagerService.getAllRoutes = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/routes");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Add a transport agent ////////////////////////////////////////////////
+
+
+BranchManagerService.addTransportAgent = async (reqBody) => {
+  try {
+    let response = await AxiosController.instance.post(
+      "/api/add-transport-agent",
+      reqBody
+    ); // Call backend contorller and pass data which received to front end controller
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      //Different status codes
+      //201
+      if (response.status === 201) {
+        return { message: "Transport Agent Added Successfully" };
+      }
+      //400
+      if (response.status === 400) {
+        return { error: "Bad Request" };
+      }
+      //401
+      if (response.status === 401) {
+        return { error: "Unauthorized" };
+      }
+      //422
+      if (response.status === 422) {
+        return { error: "Transport Agent Already Exists" };
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Add a delivery person ////////////////////////////////////////////////
+
+BranchManagerService.addDeliveryPerson = async (reqBody) => {
+  try {
+    let response = await AxiosController.instance.post(
+      "/api/add-delivery-person",
+      reqBody
+    ); // Call backend contorller and pass data which received to front end controller
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      //Different status codes
+      //201
+      if (response.status === 201) {
+        return { message: "Delivery Person Added Successfully" };
+      }
+      //400
+      if (response.status === 400) {
+        return { error: "Bad Request" };
+      }
+      //401
+      if (response.status === 401) {
+        return { error: "Unauthorized" };
+      }
+      //422
+      if (response.status === 422) {
+        return { error: "Transport Agent Already Exists" };
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 export default BranchManagerService;

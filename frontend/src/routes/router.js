@@ -35,6 +35,10 @@ const AddBranchView = lazy(() =>
 const AddTransportAgentView = lazy(() =>
   import("../views/branch_manager/views/AddTrasportAgentView.jsx")
 );
+const AddDeliveryPerson = lazy(() =>
+  import("../views/branch_manager/views/AddDeliveryPersonView.jsx")
+);
+
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -144,6 +148,11 @@ const ThemeRoutes = [
             path: "/branch-manager/add-transport-agent",
             exact: true,
             element: <AddTransportAgentView />,
+          },
+          {
+            path: "/branch-manager/add-delivery-person",
+            exact: true,
+            element: <AddDeliveryPerson />,
           },
 
           {

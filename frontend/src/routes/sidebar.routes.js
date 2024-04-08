@@ -89,7 +89,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a Delivery Person",
-          href: "#",
+          href: BranchManagerRoutes.addDeliveryPerson,
           icon: "bi bi-person-add",
         },
         {

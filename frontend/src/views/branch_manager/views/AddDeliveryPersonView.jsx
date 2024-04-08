@@ -20,7 +20,7 @@ import validator from "../../../validation/validation.js";
 import DropdownOption from "../../../components/common/DropdownOption.jsx";
 import BranchManagerController from "../controllers/branch_manager.controller.js";
 
-const AddTransportAgent = () => {
+const AddDeliveryPerson = () => {
 
     // Alert
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -42,30 +42,32 @@ const AddTransportAgent = () => {
     const navigate = useNavigate();
 
     // Dropdown state variables
-    let [routes, setRoutes] = useState([]);
+    let [branches, setBranches] = useState([]);
 
     useEffect(() => {
-        //Fetch all routes to fill dropdown
-        async function fetchAllRoutes() {
-            let response = await BranchManagerController.getAllRoutes();
+        //Fetch branches to fill dropdown
+        async function fetchAllBranches() {
+            let response = await BranchManagerController.getAllBranches();
             if (response.error) {
                 alert(response.error);
             }
             else {
-                setRoutes(response.data);
+                setBranches(response.data);
             }
         }
 
-        fetchAllRoutes();
+        fetchAllBranches();
     }, []);
 
     // Map variable
     const [inputData, setInputData] = useState({
         nic: "",
         email: "",
-        name: "",
+        fullName: "",
+        address: "",
+        contactNumber: "",
         vehicleNumber: "",
-        routeId: "1",
+        branchId: "1",
     })
 
     // Validation data map
@@ -73,6 +75,7 @@ const AddTransportAgent = () => {
         nic: false,
         email: false,
         name: false,
+        contactNumber: false,
     });
 
     // onChange Form validation
@@ -118,10 +121,26 @@ const AddTransportAgent = () => {
 
         e.preventDefault();
 
-        const { nic, email, name, vehicleNumber, routeId } = inputData;
+        const {
+            nic,
+            email,
+            fullName,
+            address,
+            contactNumber,
+            vehicleNumber,
+            branchId
+        } = inputData;
 
         try {
-            const res = await BranchManagerController.addTransportAgent(nic, email, name, vehicleNumber, routeId);
+            const res = await BranchManagerController.addDeliveryPerson(
+                nic,
+                email,
+                fullName,
+                address,
+                contactNumber,
+                vehicleNumber,
+                branchId
+            );
 
             // Error handling
             if (res.error) {
@@ -144,18 +163,18 @@ const AddTransportAgent = () => {
 
     return (
         <Form>
-            <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Transport Agent Added Successfully!</Alert>
+            <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Delivery Person Added Successfully!</Alert>
             <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> Something Went Wrong! </Alert>
             <Row className="justify-content-center">
                 <Col className="col-md-8">
                     <Card>
                         <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                            <i className="bi bi-truck me-2"> </i>
-                            Add a New Transport Agent
+                            <i className="bi bi-person-plus me-2"> </i>
+                            Add a New Delivery Person
                         </CardTitle>
                         <CardBody>
                             <FormGroup>
-                                <Label for="nic">Transport Agent NIC </Label>
+                                <Label for="nic">Delivery Person NIC </Label>
                                 <Input
                                     id="nic"
                                     name="nic"
@@ -194,6 +213,19 @@ const AddTransportAgent = () => {
                                 <FormFeedback>Enter a valid name</FormFeedback>
                             </FormGroup>
                             <FormGroup>
+                                <Label for="contactNumber">Contact Number</Label>
+                                <Input
+                                    id="contactNumber"
+                                    name="contactNumber"
+                                    placeholder="Enter delivery person's contact number"
+                                    type="text"
+                                    value={inputData.contactNumber}
+                                    onChange={onChange}
+                                    invalid={validations.contactNumber}
+                                />
+                                <FormFeedback>Enter a valid name</FormFeedback>
+                            </FormGroup>
+                            <FormGroup>
                                 <Label for="vehicleNumber">Vehicle Number</Label>
                                 <Input
                                     id="vehicleNumber"
@@ -206,20 +238,20 @@ const AddTransportAgent = () => {
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="routeId">Assign a Route</Label>
+                                <Label for="branchId">Assign a Branch</Label>
                                 <Input
-                                    id="routeId"
-                                    name="routeId"
+                                    id="branchId"
+                                    name="branchId"
                                     type="select"
                                     onChange={onChange}
-                                    value={inputData.routeId}
+                                    value={inputData.branchId}
                                 >
-                                    {routes.map((route) => {
+                                    {branches.map((branch) => {
                                         return (
                                             <DropdownOption
-                                                key={route.routeId}
-                                                id={route.routeId}
-                                                value={route.routeName}
+                                                key={branch.branchId}
+                                                id={branch.branchId}
+                                                value={branch.district}
                                                 onChange={onChange}
                                             />
                                         );
@@ -239,5 +271,5 @@ const AddTransportAgent = () => {
 };
 
 
-export default AddTransportAgent;
+export default AddDeliveryPerson;
 

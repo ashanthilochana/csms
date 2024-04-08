@@ -153,7 +153,7 @@ BranchManagerController.getAllOrderStatus = async () => {
 
 /////////////////////////////////////// Add a branch ////////////////////////////////////////////////
 
-BranchManagerController.addBranch = async ( district, address, mapLocation, contactNumber) => {
+BranchManagerController.addBranch = async (district, address, mapLocation, contactNumber) => {
 
   let reqBody = {
     district,
@@ -173,5 +173,69 @@ BranchManagerController.addBranch = async ( district, address, mapLocation, cont
   }
 };
 
+/////////////////////////////////////// Get all routes ////////////////////////////////////////////////
+
+BranchManagerController.getAllRoutes = async () => {
+  try {
+    let response = await BranchManagerService.getAllRoutes();
+
+    if (response.error) {
+      return { error: response.error };
+    }
+    else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Add Transport Agent ////////////////////////////////////////////////
+
+BranchManagerController.addTransportAgent = async (nic, email, name, vehicleNumber, routeId) => {
+
+  let reqBody = {
+    nic,
+    email,
+    name,
+    vehicleNumber,
+    routeId,
+  };
+
+  try {
+    let response = await BranchManagerService.addTransportAgent(reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Transport Agent Added Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
+/////////////////////////////////////// Add a delivery person ////////////////////////////////////////////////
+
+BranchManagerController.addDeliveryPerson = async (nic, email, fullName, address, contactNumber, vehicleNumber, branchId) => {
+
+  let reqBody = {
+    nic,
+    email,
+    fullName,
+    address,
+    contactNumber,
+    vehicleNumber,
+    branchId
+  };
+
+  try {
+    let response = await BranchManagerService.addDeliveryPerson(reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Delivery Person Added Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
 
 export default BranchManagerController;
