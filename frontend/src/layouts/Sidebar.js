@@ -4,7 +4,7 @@ import { Button, Nav, NavItem, Dropdown, DropdownToggle, DropdownMenu, DropdownI
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
 import useCookie from "../hooks/useCookies";
-
+import { BranchManagerRoutes } from "../routes/all_user.routes"; // Import routes variables to create order button
 
 
 const Sidebar = ({navigation}) => {
@@ -28,7 +28,7 @@ const Sidebar = ({navigation}) => {
   // Create an order button appear conditions - check branch manager role id
   let buttonAppear = 'none';
   let roleId = getCookie('user-role-id'); // Get user role ID by cookies
-  
+
   if(roleId == 2){
     buttonAppear = 'display';
   }
@@ -95,7 +95,7 @@ const Sidebar = ({navigation}) => {
             tag="a"
             target="_blank"
             className="mt-3"
-            href="#"
+            href= {BranchManagerRoutes.addOrder}
           >
             Create an order
           </Button>
