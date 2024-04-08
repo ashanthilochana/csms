@@ -4,7 +4,8 @@ import { pool } from "../database/database.js";
 
 let OrderService = {};
 
-// Add a new order
+/////////////////////////////////////// Add a new order ////////////////////////////////////////////////
+
 OrderService.addOrder = async(
     weight,
     sendingDate,
@@ -46,7 +47,8 @@ OrderService.addOrder = async(
 
 };
 
-// Get all latest order to all order tables by branchId
+/////////////////////////////////////// Get latest order by branch by branch ID  ////////////////////////////////////////////////
+
 OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
     let query = `
     SELECT o.orderId, o.registeredDate, c.fullName, o.receivingBranchId, os.status
@@ -64,7 +66,8 @@ OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
     }
 };
 
-// Get all received orders to received order tables by branchId
+/////////////////////////////////////// Get all received orders to received order tables by branchId ////////////////////////////////////////////////
+
 OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
     let query = `
     
@@ -79,7 +82,8 @@ OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
     }
 };
 
-// Get an order details by OrderId
+/////////////////////////////////////// Get an order details by OrderId ////////////////////////////////////////////////
+
 OrderService.getSingleOrderDetails = async(orderId) => {
     let query = `
     SELECT o.orderId, o.weight, o.registeredDate, o.receivedDate, o.deliveryDate, o.paymentDate, o.receiverName, o.receiverAddress, o.receiverContactNumber, pt.packageType, c.nic AS senderNic, c.fullName AS senderName, os.status, bs.district AS sendingBranch, br.district AS receivingBranch
@@ -96,7 +100,8 @@ OrderService.getSingleOrderDetails = async(orderId) => {
     }
 }
 
-// Delete a order by orderID
+/////////////////////////////////////// Delete an order by orderID ////////////////////////////////////////////////
+
 OrderService.deleteOrder = async(orderId) => {
     let query1 = `
     DELETE FROM orderdelivery
@@ -123,5 +128,21 @@ OrderService.deleteOrder = async(orderId) => {
     }
 };
 
+/////////////////////////////////////// Get all packge types ////////////////////////////////////////////////
+
+OrderService.getAllPackageTypes = async () => {
+    let query = `
+    SELECT * FROM packagetype
+    `;
+
+    try{
+        let [rows] = await pool.query(query);
+        return rows;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
 
 export default OrderService;

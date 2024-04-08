@@ -10,20 +10,25 @@ import {
   FormFeedback,
   Label,
   Input,
-  FormText,
 } from "reactstrap";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import useCookie from "../../../hooks/useCookies";
-
-// Import controller
 import AdminController from "../controllers/branch_manager.controller";
 import { BranchManagerRoutes } from "../../../routes/all_user.routes";
+import validator from "../../../validation/validation.js";
 
 
 const AddNewClient = () => {
+
+  let {
+        validateNIC,
+        validateEmail,
+        validateName,
+        validateAddress,
+        validatePhoneNumber,
+      } = validator();
 
   
   // Create object for use navigator
@@ -42,24 +47,18 @@ const AddNewClient = () => {
 
   // Validation data map
   const [validations, setValidations] = useState({
-    nic: false,
+    nic: true,
     email: false,
     name: false,
     address: false,
     contactNumber: false,
   });
-
   
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
       case 'nic':
-        if(value > 0 && value < 999999999999){
-          return true;
-        }
-        else{
-          return false;
-        }
+        return !validateNIC(value);
       default:
         return true;
     }
@@ -214,7 +213,7 @@ const AddNewClient = () => {
                 </Input>
               </FormGroup> */}
 
-              <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Order</Button>
+              <Button type="submit" disabled = {!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Order</Button>
               <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
 
             </CardBody>

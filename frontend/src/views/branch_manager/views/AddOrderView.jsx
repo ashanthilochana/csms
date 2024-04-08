@@ -1,3 +1,5 @@
+
+
 import {
   Card,
   Row,
@@ -13,9 +15,12 @@ import {
   FormText,
 } from "reactstrap";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
+//New import for component dropdown option
+import DropdownOption from "../../../components/common/DropdownOption.jsx";
 // Import frontend controller
 import BranchManagerController from "../controllers/branch_manager.controller.js";
 
@@ -27,6 +32,39 @@ const AddNewOrder = () => {
 
   // Create object for use navigator
   const navigate = useNavigate();
+
+  // Dropdown state variables
+  let [branches, setBranches] = useState([]);
+  let [packageTypes, setPackageTypes] = useState([]);
+
+  // Fetch dropdown data
+  useEffect(() => {
+    async function fetchAllBranches() {
+      let response = await BranchManagerController.getAllBranches();
+      if (response.error) {
+        alert(response.error);
+      }
+      else {
+        setBranches(response.data);
+      }
+    }
+
+    fetchAllBranches();
+  }, []);
+
+  useEffect(() => {
+    async function fetchAllPackageTypes() {
+      let response = await BranchManagerController.getAllPackageTypes();
+      if (response.error) {
+        alert(response.error);
+      }
+      else {
+        setPackageTypes(response.data);
+      }
+    }
+
+    fetchAllPackageTypes();
+  }, []);
 
   // Map variable
   const [userInput, setInputData] = useState({
@@ -45,7 +83,6 @@ const AddNewOrder = () => {
   });
 
 
-  
   // Validation data map
   const [validations, setValidations] = useState({
     weight: false,
@@ -53,7 +90,7 @@ const AddNewOrder = () => {
     contactNumber: false,
   });
 
-  
+
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
@@ -81,8 +118,8 @@ const AddNewOrder = () => {
     })
     // onChange Form validation data set on change
     setValidations({
-       ...validations,
-       [name]: !validateField(name, value) // Not sign for conver false to true
+      ...validations,
+      [name]: !validateField(name, value) // Not sign for conver false to true
     });
   }
 
@@ -97,6 +134,7 @@ const AddNewOrder = () => {
   };
 
   let [formattedSendingDate, setFormattedSendingDate] = useState();
+
 
   // Variable formatting
   // useEffect(() => {
@@ -177,11 +215,11 @@ const AddNewOrder = () => {
                   name="weight"
                   placeholder="Enter packge weight"
                   type="number"
-                  invalid = {validations.weight}
-                  onChange={onChanged}
+                  invalid={validations.weight}
+                  onChange={onChange}
                   value={userInput.weight}
                 />
-              <FormFeedback>Invalid weight</FormFeedback>
+                <FormFeedback>Invalid weight</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="sendingDate">Sending Date</Label>
@@ -191,8 +229,9 @@ const AddNewOrder = () => {
                   placeholder="Enter sending date"
                   type="date"
                   // value={formattedSendingDate}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sendingDate}
+                // value={formattedSendingDate}
                 />
               </FormGroup>
               <FormGroup>
@@ -203,7 +242,7 @@ const AddNewOrder = () => {
                   placeholder="Enter payment date"
                   type="date"
                   // value={formattedSendingDate}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.paymentDate}
                 />
               </FormGroup>
@@ -213,11 +252,19 @@ const AddNewOrder = () => {
                   id="packageTypes"
                   name="packageTypes"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.packageTypes}
                 >
-                  <option>Glass</option>
-                  <option>Gift</option>
+                  {packageTypes.map((packageType) => {
+                    return (
+                      <DropdownOption
+                        key={packageType.packageTypeId}
+                        id={packageType.packageTypeId}
+                        value={packageType.packageType}
+                        onChange={onChange}
+                      />
+                    );
+                  })}
                 </Input>
               </FormGroup>
               <FormGroup>
@@ -226,13 +273,19 @@ const AddNewOrder = () => {
                   id="sendingBranch"
                   name="sendingBranch"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sendingBranch}
                 >
-                  <option>Colombo</option>
-                  <option>Polonnaruwa</option>
-                  <option>Kandy</option>
-                  <option>Galewela</option>
+                  {branches.map((branch) => {
+                    return (
+                      <DropdownOption
+                        key={branch.branchId}
+                        id={branch.branchId}
+                        value={branch.district}
+                        onChange={onChange}
+                      />
+                    );
+                  })}
                 </Input>
               </FormGroup>
               {/* <FormGroup>
@@ -254,15 +307,21 @@ const AddNewOrder = () => {
                 <Label for="receivingBranch">Receiving Branch</Label>
                 <Input
                   id="receivingBranch"
-                  name="receivingBranchs"
+                  name="receivingBranch"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.receivingBranch}
                 >
-                  <option>Colombo</option>
-                  <option>Polonnaruwa</option>
-                  <option>Kandy</option>
-                  <option>Galewela</option>
+                  {branches.map((branch) => {
+                    return (
+                      <DropdownOption
+                        key={branch.branchId}
+                        id={branch.branchId}
+                        value={branch.district}
+                        onChange={onChange}
+                      />
+                    );
+                  })}
                 </Input>
               </FormGroup>
               <FormGroup>
@@ -272,7 +331,7 @@ const AddNewOrder = () => {
                   name="text"
                   type="textarea"
                   placeholder="If you have any special notes. Type here..."
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.specialNotes}
                 />
               </FormGroup>
@@ -283,7 +342,7 @@ const AddNewOrder = () => {
                   id="orderStatus"
                   name="orderStatus"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.orderStatus}
                 >
                   <option>Registered</option>
@@ -336,7 +395,7 @@ const AddNewOrder = () => {
                   name="senderNIC"
                   placeholder="Enter sender NIC Number"
                   type="text"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sender}
                 />
               </FormGroup>
@@ -348,8 +407,8 @@ const AddNewOrder = () => {
                   name="receiverName"
                   placeholder="Enter packge receiver name"
                   type="text"
-                  invalid = {validations.receiver}
-                  onChange={onChanged}
+                  invalid={validations.receiver}
+                  onChange={onChange}
                   value={userInput.receiver}
                 />
                 <FormFeedback>Invalid name</FormFeedback>
@@ -361,8 +420,8 @@ const AddNewOrder = () => {
                   name="receiverContact"
                   placeholder="Enter receiver contact number"
                   type="number"
-                  invalid = {validations.contactNumber}
-                  onChange={onChanged}
+                  invalid={validations.contactNumber}
+                  onChange={onChange}
                   value={userInput.contactNumber}
                 />
                 <FormFeedback>Invalid contact number</FormFeedback>
@@ -374,7 +433,7 @@ const AddNewOrder = () => {
                   name="receivingAddress"
                   placeholder="Enter destination address"
                   type="textarea"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.address}
                 />
               </FormGroup>
@@ -384,10 +443,14 @@ const AddNewOrder = () => {
               {/* <FormGroup check className="form-label">
                 <Input type="checkbox" /> <Label check>Check me out</Label>
               </FormGroup> */}
-              <Button type="submit" disabled ={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
+
+              <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
                 Submit the Order
               </Button>
-              <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">
+              <Button
+                type="reset"
+                className="btn mt-2 w-100 pt-2 pb-2 bg-danger border"
+              >
                 Reset Details
               </Button>
             </CardBody>

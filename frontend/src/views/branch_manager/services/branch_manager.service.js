@@ -2,7 +2,8 @@ import AxiosController from "../../../controllers/axios.controller.js";
 
 let BranchManagerService = {};
 
-// Add Clients
+/////////////////////////////////////// Add a client ////////////////////////////////////////////////
+
 BranchManagerService.addClient = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
@@ -36,7 +37,8 @@ BranchManagerService.addClient = async (reqBody) => {
   }
 };
 
-// Add new order
+/////////////////////////////////////// Add a new order ////////////////////////////////////////////////
+
 BranchManagerService.addOrder = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
@@ -58,6 +60,8 @@ BranchManagerService.addOrder = async (reqBody) => {
   }
 };
 
+/////////////////////////////////////// Get branch ID by branch manger NIC ////////////////////////////////////////////////
+
 BranchManagerService.getBranchIdByBranchManagerNIC = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
@@ -68,6 +72,42 @@ BranchManagerService.getBranchIdByBranchManagerNIC = async (reqBody) => {
       return { error: response.error };
     } else {
       return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Get all branches ////////////////////////////////////////////////
+
+BranchManagerService.getAllBranches = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/branches");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Get all package typess ////////////////////////////////////////////////
+
+BranchManagerService.getAllPackageTypes = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/packagetypes");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
     }
   } catch (e) {
     console.error(e);
