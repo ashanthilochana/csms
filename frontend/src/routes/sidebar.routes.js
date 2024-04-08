@@ -73,37 +73,37 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Badges",
-          href: "/badges",
+          href: "/branch-manager/badges",
           icon: "bi bi-patch-check",
         },
         {
           title: "Buttons",
-          href: "/buttons",
+          href: "/branch-manager/buttons",
           icon: "bi bi-hdd-stack",
         },
         {
           title: "Cards",
-          href: "/cards",
+          href: "/branch-manager/cards",
           icon: "bi bi-card-text",
         },
         {
           title: "Grid",
-          href: "/grid",
+          href: "/branch-manager/grid",
           icon: "bi bi-columns",
         },
         {
           title: "Table",
-          href: "/table",
+          href: "/branch-manager/table",
           icon: "bi bi-layout-split",
         },
         {
           title: "Forms",
-          href: "/forms",
+          href: "/branch-manager/forms",
           icon: "bi bi-textarea-resize",
         },
         {
           title: "Breadcrumbs",
-          href: "/breadcrumbs",
+          href: "/branch-manager/breadcrumbs",
           icon: "bi bi-link",
         },
       ],
