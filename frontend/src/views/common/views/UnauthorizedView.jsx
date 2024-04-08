@@ -1,3 +1,5 @@
+// This is unauthorized view to show when user is not authorized
+
 import React from 'react'
 
 function UnauthorizedView() {

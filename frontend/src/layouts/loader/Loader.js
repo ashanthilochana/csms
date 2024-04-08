@@ -1,3 +1,5 @@
+// Loading screen
+
 import React from "react";
 import "./loader.scss";
 import { Spinner } from "reactstrap";
@@ -9,4 +11,5 @@ const Loader = () => (
     </div>
   </div>
 );
+
 export default Loader;
