@@ -41,6 +41,12 @@ const AddDeliveryPerson = lazy(() =>
 const AddRouteView = lazy(() =>
   import("../views/branch_manager/views/AddRouteView.jsx")
 );
+const AddTicketView = lazy(() =>
+  import("../views/branch_manager/views/AddTicketView.jsx")
+);
+const AddFeedbackView = lazy(() =>
+  import("../views/branch_manager/views/AddFeedbackView.jsx")
+);
 
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
@@ -161,6 +167,16 @@ const ThemeRoutes = [
             path: "/branch-manager/add-route",
             exact: true,
             element: <AddRouteView />,
+          },
+          {
+            path: "/branch-manager/add-ticket",
+            exact: true,
+            element: <AddTicketView />,
+          },
+          {
+            path: "/branch-manager/add-feedback",
+            exact: true,
+            element: <AddFeedbackView />,
           },
 
           {

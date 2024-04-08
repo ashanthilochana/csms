@@ -243,15 +243,15 @@ BranchManagerController.addDeliveryPerson = async (nic, email, fullName, address
 
 BranchManagerController.getAllOrdersByBranchId = async (branchId) => {
   try {
-    let response = await BranchManagerService.getAllOrdersByBranchId({branchId : branchId})
+    let response = await BranchManagerService.getAllOrdersByBranchId({ branchId: branchId })
 
     if (response.error) {
       return { error: response.error };
-    }  else {
+    } else {
       return response;
     }
   } catch (e) {
-    return {error : e};
+    return { error: e };
   }
 }
 
@@ -271,6 +271,76 @@ BranchManagerController.addRoute = async (routeName, fBranchId, sBranchId) => {
       return { error: response.error };
     }
     return { message: "Route Added Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
+/////////////////////////////////////// Get all ticket reasons ////////////////////////////////////////////////
+
+BranchManagerController.getAllReasons = async () => {
+  try {
+    let response = await BranchManagerService.getAllReasons();
+
+    if (response.error) {
+      return { error: response.error };
+    }
+    else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
+
+BranchManagerController.addTicket = async (
+  nic,
+  branchId,
+  reasonId,
+  message,
+  responseStatusId) => {
+
+  let reqBody = {
+    nic,
+    branchId,
+    reasonId,
+    message,
+    responseStatusId
+  };
+
+  try {
+    let response = await BranchManagerService.addTicket(reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Ticket Added Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
+/////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
+
+BranchManagerController.addFeedback = async (
+  nic,
+  rating,
+  message
+) => {
+
+  let reqBody = {
+    nic,
+    rating,
+    message
+  };
+
+  try {
+    let response = await BranchManagerService.addFeedback(reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Feedback Added Successfully" };
   } catch (e) {
     return { error: e };
   }

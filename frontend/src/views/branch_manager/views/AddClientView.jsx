@@ -65,8 +65,8 @@ const AddNewClient = () => {
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
-      case 'nic':
-        return !validateNIC(value);
+      // case 'nic':
+      //   return !validateNIC(value);
       default:
         return true;
     }
