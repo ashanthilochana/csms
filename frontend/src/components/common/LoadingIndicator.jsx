@@ -1,4 +1,4 @@
-//Simple Circular Indicator using mui. Can be used inside divs and screen overlay(which is a  div itself. Look for index.css)
+// Simple Circular Indicator using MUI. Can be used inside divs and screen overlay (which is a  div itself. Look for index.css)
 
 import React from 'react';
 import CircularProgress from "@mui/material/CircularProgress";

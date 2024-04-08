@@ -3,36 +3,36 @@ import DashboardFeeds from "../components/DashboardFeeds";
 import DashboardOrdersTable from "../components/DashboardOrdersTable";
 import DashboardTopCards from "../components/DashboardTopCards";
 import DashboardSalesChart from "../components/DashboardSalesChart";
-import react, {useEffect, useState} from "react";
+import react, { useEffect, useState } from "react";
 import useCookie from "../../../hooks/useCookies";
 import BranchManagerController from "../controllers/branch_manager.controller";
 
 const Dashboard = () => {
+
+  // Create coockie object to store
   let [getCookie, setCookie] = useCookie();
 
   let [summaryData, setSummaryData] = useState({
-    availableOrders: "",
-    receivedOrder: "",
-    tickets: "",
-    feedbacks: ""
+    availableOrders: "400",
+    receivedOrder: "100",
+    tickets: "15",
+    feedbacks: "15"
   });
 
+  // Get branchId with user nic and save as a cookie
   useEffect(() => {
 
-    async function getBranchId(){
+    async function getBranchId() {
       let userNIC = getCookie('user-nic');
       let data = await BranchManagerController.getBranchIdByBranchManagerNIC(userNIC);
-      if(data.error)
-      {
+      if (data.error) {
         alert(data.error);
       }
-      else
-      {
+      else {
         console.log(data);
         let branchId = data.branchId;
         setCookie('user-branch-id', branchId);
       }
-
     }
 
     getBranchId();
@@ -48,7 +48,7 @@ const Dashboard = () => {
             bg="bg-light-success text-success"
             title="Profit"
             subtitle="Available Orders"
-            earning= {summaryData.availableOrders}
+            earning={summaryData.availableOrders}
             icon="bi bi-box"
           />
         </Col>
@@ -57,7 +57,7 @@ const Dashboard = () => {
             bg="bg-light-danger text-danger"
             title="Refunds"
             subtitle="Received Orders"
-            earning= {summaryData.receivedOrder}
+            earning={summaryData.receivedOrder}
             icon="bi bi-box-seam-fill"
           />
         </Col>
@@ -66,7 +66,7 @@ const Dashboard = () => {
             bg="bg-light-info text-info"
             title="Tickets"
             subtitle="New Tickets"
-            earning= {summaryData.tickets}
+            earning={summaryData.tickets}
             icon="bi bi-chat"
           />
         </Col>
@@ -75,7 +75,7 @@ const Dashboard = () => {
             bg="bg-light-warning text-warning"
             title="Feedbacks"
             subtitle="New Feedbacks"
-            earning= {summaryData.feedbacks}
+            earning={summaryData.feedbacks}
             icon="bi bi-star"
           />
         </Col>
@@ -83,7 +83,7 @@ const Dashboard = () => {
       {/***Sales & Feed***/}
       <Row>
         <Col sm="6" lg="6" xl="7" xxl="8">
-          <DashboardSalesChart/>
+          <DashboardSalesChart />
         </Col>
         <Col sm="6" lg="6" xl="5" xxl="4">
           <DashboardFeeds />

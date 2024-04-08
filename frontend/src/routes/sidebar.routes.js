@@ -2,6 +2,7 @@ import { BranchManagerRoutes } from "./all_user.routes.js";
 
 let SidebarRoutes = {};
 
+// Branch Manager sideBar navigation menu
 SidebarRoutes.branchManagerRoutes = [
     {
       title: "Dashboard",
@@ -24,7 +25,7 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "Received Orders",
-          href: "#",
+          href: BranchManagerRoutes.viewReceivedOrders,
           icon: "bi bi-box-arrow-in-down-left",
         },
         {
@@ -67,46 +68,126 @@ SidebarRoutes.branchManagerRoutes = [
       ],
     },
     {
-      title: "Components",
-      icon: "bi bi-layers",
+      title: "Trasport Management ",
+      icon: "bi bi-truck",
       subItems: [
         {
-          title: "Badges",
-          href: "/badges",
-          icon: "bi bi-patch-check",
+          title: "Add a New Trasport Agent",
+          href: "#",
+          icon: "bi bi-person-add",
         },
         {
-          title: "Buttons",
-          href: "/buttons",
-          icon: "bi bi-hdd-stack",
-        },
-        {
-          title: "Cards",
-          href: "/cards",
-          icon: "bi bi-card-text",
-        },
-        {
-          title: "Grid",
-          href: "/grid",
-          icon: "bi bi-columns",
-        },
-        {
-          title: "Table",
-          href: "/table",
-          icon: "bi bi-layout-split",
-        },
-        {
-          title: "Forms",
-          href: "/forms",
-          icon: "bi bi-textarea-resize",
-        },
-        {
-          title: "Breadcrumbs",
-          href: "/breadcrumbs",
-          icon: "bi bi-link",
+          title: "All Transport Agents",
+          href: "#",
+          icon: "bi bi-person",
         },
       ],
     },
+    {
+      title: "Delivery Management ",
+      icon: "bi bi-airplane",
+      subItems: [
+        {
+          title: "Add a Delivery Person",
+          href: "#",
+          icon: "bi bi-person-add",
+        },
+        {
+          title: "All Delivery Persons",
+          href: "#",
+          icon: "bi bi-person",
+        },
+      ],
+    },
+    {
+      title: "Route Management ",
+      icon: "bi bi-sign-turn-right",
+      subItems: [
+        {
+          title: "Add a New Route",
+          href: "#",
+          icon: "bi bi-sign-intersection",
+        },
+        {
+          title: "All Routes",
+          href: "#",
+          icon: "bi bi-sign-intersection-y",
+        },
+      ],
+    },
+    {
+      title: "C. Affair Management ",
+      icon: "bi bi-telephone-inbound",
+      subItems: [
+        {
+          title: "Add a New Ticket",
+          href: "#",
+          icon: "bi bi-envelope-plus",
+        },
+        {
+          title: "All Tickets",
+          href: "#",
+          icon: "bi bi-envelope",
+        },
+      ],
+    },
+    {
+      title: "Quality Management ",
+      icon: "bi bi-star",
+      subItems: [
+        {
+          title: "Add a Feedback",
+          href: "#",
+          icon: "bi bi-star",
+        },
+        {
+          title: "All Feedbacks",
+          href: "#",
+          icon: "bi bi-star-half",
+        },
+      ],
+    },
+    // {
+    //   title: "Components",
+    //   icon: "bi bi-layers",
+    //   subItems: [
+    //     {
+    //       title: "Badges",
+    //       href: "/branch-manager/badges",
+    //       icon: "bi bi-patch-check",
+    //     },
+    //     {
+    //       title: "Buttons",
+    //       href: "/branch-manager/buttons",
+    //       icon: "bi bi-hdd-stack",
+    //     },
+    //     {
+    //       title: "Cards",
+    //       href: "/branch-manager/cards",
+    //       icon: "bi bi-card-text",
+    //     },
+    //     {
+    //       title: "Grid",
+    //       href: "/branch-manager/grid",
+    //       icon: "bi bi-columns",
+    //     },
+    //     {
+    //       title: "Table",
+    //       href: "/branch-manager/table",
+    //       icon: "bi bi-layout-split",
+    //     },
+    //     {
+    //       title: "Forms",
+    //       href: "/branch-manager/forms",
+    //       icon: "bi bi-textarea-resize",
+    //     },
+    //     {
+    //       title: "Breadcrumbs",
+    //       href: "/branch-manager/breadcrumbs",
+    //       icon: "bi bi-link",
+    //     },
+    //   ],
+    // },
   ];
   
 

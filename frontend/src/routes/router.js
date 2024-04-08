@@ -3,19 +3,19 @@ import { Navigate } from "react-router-dom";
 import ProtectedRoute from "../views/common/views/ProtectedRoute.js";
 import UnauthorizedView from "../views/common/views/UnauthorizedView.jsx";
 import LoginView from "../views/common/views/LoginView.jsx";
+
+// Import sidebar routers
 import SidebarRoutes from "./sidebar.routes.js";
 
-/****Layouts*****/
+// Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
-/***** Pages ****/
-
-// These are my codes
+// Import Views ----- Branch Manager
 const BranchManagerDashboard = lazy(() =>
-  import("../views/branch_manager/views/Dashboard.js")
+  import("../views/branch_manager/views/DashboardView.js")
 );
 const ViewOrders = lazy(() =>
-  import("../views/branch_manager/views/ViewOrders.js")
+  import("../views/branch_manager/views/ViewOrdersView.js")
 );
 const AddOrderView = lazy(() =>
   import("../views/branch_manager/views/AddOrderView")
@@ -24,12 +24,14 @@ const AddClientView = lazy(() =>
   import("../views/branch_manager/views/AddClientView")
 );
 const ViewClients = lazy(() =>
-  import("../views/branch_manager/views/ViewClients.js")
+  import("../views/branch_manager/views/ViewClientsView.js")
+);
+const ViewReceivedOrders = lazy(() =>
+  import("../views/branch_manager/views/ViewReceivedOrdersView.js")
 );
 
-
-const Starter = lazy(() => import("../views/Starter.js"));
-const About = lazy(() => import("../views/About.js"));
+const Starter = lazy(() => import("../views/ui/Starter.js"));
+const About = lazy(() => import("../views/ui/About.js"));
 const Alerts = lazy(() => import("../views/ui/Alerts.js"));
 const Badges = lazy(() => import("../views/ui/Badges.js"));
 const Buttons = lazy(() => import("../views/ui/Buttons.js"));
@@ -42,6 +44,12 @@ const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs.js"));
 /*****Routes******/
 
 const ThemeRoutes = [
+  ///////////////////////////////////////// Common Routers /////////////////////////////////////////////////
+  {
+    path : "/",
+    element : <Navigate to="/login" />,
+    children : [],
+  },
   {
     path: "/login",
     element: <LoginView></LoginView>,
@@ -52,6 +60,7 @@ const ThemeRoutes = [
     element: <UnauthorizedView></UnauthorizedView>,
     children: [],
   },
+  ///////////////////////////////////////// Admin Routers /////////////////////////////////////////////////
   {
     path: "/admin",
     element: <ProtectedRoute allowedUsers={["1"]}></ProtectedRoute>,
@@ -59,7 +68,7 @@ const ThemeRoutes = [
       {
         path: "/admin/",
         element: (
-          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} />
+          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} /> // Change side bar router here - Ashan
         ),
         children: [
           {
@@ -75,6 +84,7 @@ const ThemeRoutes = [
       },
     ],
   },
+  ///////////////////////////////////////// Branch Manager Routers /////////////////////////////////////////////////
   {
     path: "/branch-manager",
     element: <ProtectedRoute allowedUsers={["2"]}></ProtectedRoute>,
@@ -82,7 +92,7 @@ const ThemeRoutes = [
       {
         path: "/branch-manager/",
         element: (
-          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} />
+          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} /> // Change side bar router here - Ashan
         ),
         children: [
           {
@@ -98,6 +108,11 @@ const ThemeRoutes = [
             path: "/branch-manager/view-orders",
             exact: true,
             element: <ViewOrders />,
+          },
+          {
+            path: "/branch-manager/view-received-orders",
+            exact: true,
+            element: <ViewReceivedOrders />,
           },
           {
             path: "/branch-manager/add-new-order",
@@ -123,20 +138,12 @@ const ThemeRoutes = [
           { path: "/branch-manager/about", exact: true, element: <About /> },
           { path: "/branch-manager/alerts", exact: true, element: <Alerts /> },
           { path: "/branch-manager/badges", exact: true, element: <Badges /> },
-          {
-            path: "/branch-manager/buttons",
-            exact: true,
-            element: <Buttons />,
-          },
+          { path: "/branch-manager/buttons", exact: true, element: <Buttons /> },
           { path: "/branch-manager/cards", exact: true, element: <Cards /> },
           { path: "/branch-manager/grid", exact: true, element: <Grid /> },
           { path: "/branch-manager/table", exact: true, element: <Tables /> },
           { path: "/branch-manager/forms", exact: true, element: <Forms /> },
-          {
-            path: "/branch-manager/breadcrumbs",
-            exact: true,
-            element: <Breadcrumbs />,
-          },
+          { path: "/branch-manager/breadcrumbs", exact: true, element: <Breadcrumbs /> },
         ],
       },
     ],

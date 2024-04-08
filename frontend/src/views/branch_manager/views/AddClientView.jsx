@@ -15,8 +15,11 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import useCookie from "../../../hooks/useCookies";
+
 // Import controller
 import AdminController from "../controllers/branch_manager.controller";
+import { BranchManagerRoutes } from "../../../routes/all_user.routes";
 
 
 const AddNewClient = () => {
@@ -25,6 +28,8 @@ const AddNewClient = () => {
   // Create object for use navigator
   const navigate = useNavigate();
 
+  const [getCookie, setCookie] = useCookie();
+
   // Map variable
   const [inputData, setInputData] = useState({
     nic: "",
@@ -32,7 +37,6 @@ const AddNewClient = () => {
     name: "",
     address: "",
     contactNumber: "",
-    branchId: ""
   })
 
   // Set data to inputData map from form
@@ -51,7 +55,8 @@ const AddNewClient = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const { nic, email, name, address, contactNumber, branchId } = inputData;
+    const { nic, email, name, address, contactNumber } = inputData;
+    let branchId = getCookie('user-branch-id');
 
     try {
       const res = await AdminController.addClient(nic, email, name, address, contactNumber, branchId);
@@ -61,8 +66,8 @@ const AddNewClient = () => {
         alert(res.error);
       }
       else {
-        navigate('/');
-        console.log("Customer Added");
+        alert(res.message);
+        navigate(BranchManagerRoutes.dashboard);
       }
     }
     catch (e) {
@@ -140,7 +145,7 @@ const AddNewClient = () => {
                 />
               </FormGroup>
 
-              <FormGroup>
+              {/* <FormGroup>
                 <Label for="branch">Branch</Label>
                 <Input
                   id="branch"
@@ -155,7 +160,7 @@ const AddNewClient = () => {
                   <option>Kandy</option>
                   <option>Galewela</option>
                 </Input>
-              </FormGroup>
+              </FormGroup> */}
 
               <Button type="submit" onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Order</Button>
               <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
