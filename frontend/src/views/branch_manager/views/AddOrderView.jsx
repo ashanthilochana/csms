@@ -67,22 +67,7 @@ const AddNewOrder = () => {
 
   // Create varibale to store formatted sending date
   // let [formattedSendingDate, setFormattedSendingDate] = useState();
-  useEffect(() => {
-    async function fetchAllBranches()
-    {
-      let response = await BranchManagerController.getAllBranches();
-      if(response.error)
-      {
-        alert(response.error);
-      }
-      else{
-        setBranches(response.data);
-      }
-    }
-
-    fetchAllBranches();
-  }, []);
-
+  
   // Create varibale to store formatted sending date
   // let [formattedSendingDate, setFormattedSendingDate] = useState();
 
