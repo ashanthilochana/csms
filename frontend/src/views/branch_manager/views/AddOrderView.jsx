@@ -259,7 +259,7 @@ const AddNewOrder = () => {
                         key={branch.branchId}
                         id={branch.branchId}
                         value={branch.district}
-                        onChange={onChanged}
+                        onChange={onChange}
                       />
                     );
                   })}
@@ -301,7 +301,7 @@ const AddNewOrder = () => {
                         key={branch.branchId}
                         id={branch.branchId}
                         value={branch.district}
-                        onChange={onChanged}
+                        onChange={onChange}
                       />
                     );
                   })}
