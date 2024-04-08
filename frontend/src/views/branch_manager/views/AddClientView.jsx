@@ -15,14 +15,20 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Import frontend controller
-import BranchManagerController from "../controllers/branch_manager.controller";
+import useCookie from "../../../hooks/useCookies";
+
+// Import controller
+import AdminController from "../controllers/branch_manager.controller";
+import { BranchManagerRoutes } from "../../../routes/all_user.routes";
+
 
 const AddNewClient = () => {
 
   
   // Create object for use navigator
   const navigate = useNavigate();
+
+  const [getCookie, setCookie] = useCookie();
 
   // Map variable
   const [inputData, setInputData] = useState({
@@ -31,11 +37,10 @@ const AddNewClient = () => {
     name: "",
     address: "",
     contactNumber: "",
-    branchId: ""
   })
 
   // Set data to inputData map from form
-  const onChanged = (e) => {
+  const onInputChanged = (e) => {
     console.log(e.target.value);
     const { name, value } = e.target;
     setInputData((preval) => {
@@ -50,32 +55,19 @@ const AddNewClient = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const {
-      nic,
-      email,
-      name,
-      address,
-      contactNumber,
-      branchId
-    } = inputData;
+    const { nic, email, name, address, contactNumber } = inputData;
+    let branchId = getCookie('user-branch-id');
 
     try {
-      const res = await BranchManagerController.addClient(
-        nic,
-        email,
-        name,
-        address, 
-        contactNumber,
-        branchId
-      );
+      const res = await AdminController.addClient(nic, email, name, address, contactNumber, branchId);
 
       // Error handling
       if (res.error) {
         alert(res.error);
       }
       else {
-        navigate('/');
-        console.log("Customer Added");
+        alert(res.message);
+        navigate(BranchManagerRoutes.dashboard);
       }
     }
     catch (e) {
@@ -103,8 +95,8 @@ const AddNewClient = () => {
                   name="nic"
                   placeholder="Enter customer nic"
                   type="text"
-                  onChange={onChanged}
                   value={inputData.nic}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -114,8 +106,8 @@ const AddNewClient = () => {
                   name="email"
                   placeholder="Enter customer email"
                   type="email"
-                  onChange={onChanged}
                   value={inputData.email}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -125,8 +117,8 @@ const AddNewClient = () => {
                   name="name"
                   placeholder="Enter full name"
                   type="text"
-                  onChange={onChanged}
                   value={inputData.name}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
               <FormGroup>
@@ -136,8 +128,8 @@ const AddNewClient = () => {
                   name="address"
                   placeholder="Enter Address"
                   type="textarea"
-                  onChange={onChanged}
                   value={inputData.address}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
 
@@ -148,27 +140,27 @@ const AddNewClient = () => {
                   name="contactNumber"
                   placeholder="Enter contact number"
                   type="number"
-                  onChange={onChanged}
                   value={inputData.contactNumber}
+                  onChange={onInputChanged}
                 />
               </FormGroup>
 
-              <FormGroup>
+              {/* <FormGroup>
                 <Label for="branch">Branch</Label>
                 <Input
                   id="branch"
                   name="branchId"
                   type="select"
-                  placeholder="Select"
-                  onChange={onChanged}
                   value={inputData.branchId}
+                  onChange={onInputChanged}
+                  placeholder="Select"
                 >
                   <option>Colombo</option>
                   <option>Polonnaruwa</option>
                   <option>Kandy</option>
                   <option>Galewela</option>
                 </Input>
-              </FormGroup>
+              </FormGroup> */}
 
               <Button type="submit" onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Order</Button>
               <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>

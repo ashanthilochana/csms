@@ -7,8 +7,8 @@ let ClientService = {};
 // Client already existing validation
 ClientService.checkUserExistStatus = async (nic) => {
     let query = `
-        SELECT * FROM customer
-        WHERE customer_nic = ?
+        SELECT * FROM client
+        WHERE nic = ?
         LIMIT 1
         `;
 
@@ -29,10 +29,10 @@ ClientService.checkUserExistStatus = async (nic) => {
 };
 
 // Add a new client
-ClientService.addClient = async (nic, email, fristName, lastName, address, contactNumber, branchId, userNic, password, roleId) => {
+ClientService.addClient = async (nic, email, fullName, address, contactNumber, branchId) => {
     let queryForClientTable = `
-    INSERT INTO customer
-    VALUES(?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO client
+    VALUES(?, ?, ?, ?, ?, ?)
     `;
 
     let queryForCredentialTable = `
@@ -41,8 +41,8 @@ ClientService.addClient = async (nic, email, fristName, lastName, address, conta
     `;
 
     try {
-        const [rows] = await pool.query(queryForClientTable, [nic, email, fristName, lastName, address, contactNumber, branchId]);
-        await pool.query(queryForCredentialTable, [userNic, password, roleId]);
+        const [rows] = await pool.query(queryForClientTable, [nic, email, fullName, address, contactNumber, branchId]);
+        await pool.query(queryForCredentialTable, [nic, nic, 6]);
     }
     catch (e) {
         console.error(e);

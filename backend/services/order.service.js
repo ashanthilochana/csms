@@ -1,6 +1,6 @@
 // Order Management Service [COMPLETED] - Ashan
 
-import { pool } from "../database/database";
+import { pool } from "../database/database.js";
 
 let OrderService = {};
 
@@ -65,7 +65,7 @@ OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
 };
 
 // Get all received orders to received order tables by branchId
-OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
+OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
     let query = `
     
     `;
