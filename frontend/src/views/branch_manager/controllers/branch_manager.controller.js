@@ -151,5 +151,27 @@ BranchManagerController.getAllOrderStatus = async () => {
   }
 }
 
+/////////////////////////////////////// Add a branch ////////////////////////////////////////////////
+
+BranchManagerController.addBranch = async ( district, address, mapLocation, contactNumber) => {
+
+  let reqBody = {
+    district,
+    address,
+    mapLocation,
+    contactNumber
+  };
+
+  try {
+    let response = await BranchManagerService.addBranch(reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Branch Added Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
 
 export default BranchManagerController;

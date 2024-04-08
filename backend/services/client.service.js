@@ -1,6 +1,7 @@
 // Client Management Database Service [COMPLETED] - Ashan
 
 import { pool } from "../database/database.js";
+import UserController from "../controllers/user.controller.js";
 
 let ClientService = {};
 
@@ -29,26 +30,36 @@ ClientService.checkUserExistStatus = async (nic) => {
 };
 
 // Add a new client
-ClientService.addClient = async (nic, email, fullName, address, contactNumber, branchId) => {
+ClientService.addClient = async (
+    nic,
+    email,
+    fullName,
+    address,
+    contactNumber,
+    branchId
+  ) => {
     let queryForClientTable = `
-    INSERT INTO client
-    VALUES(?, ?, ?, ?, ?, ?)
-    `;
-
-    let queryForCredentialTable = `
-    INSERT INTO usercredentials
-    VALUES (?, ?, ?)
-    `;
-
+      INSERT INTO client
+      VALUES(?, ?, ?, ?, ?, ?)
+      `;
+  
     try {
-        const [rows] = await pool.query(queryForClientTable, [nic, email, fullName, address, contactNumber, branchId]);
-        await pool.query(queryForCredentialTable, [nic, nic, 6]);
+      const [rows] = await pool.query(queryForClientTable, [
+        nic,
+        email,
+        fullName,
+        address,
+        contactNumber,
+        branchId,
+      ]);
+      
+      await UserController.signUpUser(nic, nic, 6);
+  
+    } catch (e) {
+      console.error(e);
+      throw e;
     }
-    catch (e) {
-        console.error(e);
-        throw e;
-    }
-};
+  };
 
 // Get all clients
 ClientService.getAllClients = async() => {

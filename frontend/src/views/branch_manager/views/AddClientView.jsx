@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useCookie from "../../../hooks/useCookies";
-import AdminController from "../controllers/branch_manager.controller";
+import BranchManagerController from "../controllers/branch_manager.controller";
 import { BranchManagerRoutes } from "../../../routes/all_user.routes";
 import validator from "../../../validation/validation.js";
 
@@ -109,7 +109,7 @@ const AddNewClient = () => {
     let branchId = getCookie('user-branch-id');
 
     try {
-      const res = await AdminController.addClient(nic, email, name, address, contactNumber, branchId);
+      const res = await BranchManagerController.addClient(nic, email, name, address, contactNumber, branchId);
 
       // Error handling
       if (res.error) {

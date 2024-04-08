@@ -57,7 +57,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a New Branch",
-          href: "#",
+          href: BranchManagerRoutes.addBranch,
           icon: "bi bi-house-add",
         },
         {
@@ -73,7 +73,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a New Trasport Agent",
-          href: "#",
+          href: BranchManagerRoutes.addTransportAgent,
           icon: "bi bi-person-add",
         },
         {

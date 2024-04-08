@@ -67,7 +67,8 @@ UserController.signUpUser = async (nicNo, password, roleId) => {
     if (userList.length !== 0) {
       throw Error("User already exists");
     } else {
-      await UserService.registerUser(nicNo, password, roleId);
+      let hashedPassword = hashPassword(password);
+      await UserService.registerUser(nicNo, hashedPassword, roleId);
     }
   } catch (e) {
     console.error("Error registering user : " + e);

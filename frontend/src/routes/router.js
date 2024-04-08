@@ -29,6 +29,12 @@ const ViewClients = lazy(() =>
 const ViewReceivedOrders = lazy(() =>
   import("../views/branch_manager/views/ViewReceivedOrdersView.js")
 );
+const AddBranchView = lazy(() =>
+  import("../views/branch_manager/views/AddBranchView.jsx")
+);
+const AddTransportAgentView = lazy(() =>
+  import("../views/branch_manager/views/AddTrasportAgentView.jsx")
+);
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -128,6 +134,16 @@ const ThemeRoutes = [
             path: "/branch-manager/view-clients",
             exact: true,
             element: <ViewClients />,
+          },
+          {
+            path: "/branch-manager/add-branch",
+            exact: true,
+            element: <AddBranchView />,
+          },
+          {
+            path: "/branch-manager/add-transport-agent",
+            exact: true,
+            element: <AddTransportAgentView />,
           },
 
           {

@@ -1,230 +1,199 @@
 import {
-    Card,
-    Row,
-    Col,
-    CardTitle,
-    CardBody,
-    Button,
-    Form,
-    FormGroup,
-    FormFeedback,
-    Label,
-    Input,
-  } from "reactstrap";
-  
-  import { useState } from "react";
-  import { useNavigate } from "react-router-dom";
-  import useCookie from "../../../hooks/useCookies";
-  import AdminController from "../controllers/branch_manager.controller";
-  import { BranchManagerRoutes } from "../../../routes/all_user.routes";
-  import validator from "../../../validation/validation.js";
-  
-  
-  const AddNewBranch = () => {
-  
-    let {
-          validateNIC,
-          validateEmail,
-          validateName,
-          validateAddress,
-          validatePhoneNumber,
-        } = validator();
-  
-    
-    // Create object for use navigator
-    const navigate = useNavigate();
-  
-    const [getCookie, setCookie] = useCookie();
-  
-    // Map variable
-    const [inputData, setInputData] = useState({
-      nic: "",
-      email: "",
-      name: "",
-      address: "",
-      contactNumber: "",
-    })
-  
-    // Validation data map
-    const [validations, setValidations] = useState({
-      nic: true,
-      email: false,
-      name: false,
-      address: false,
-      contactNumber: false,
-    });
-    
-    // onChange Form validation
-    const validateField = (name, value) => {
-      switch (name) {
-        case 'nic':
-          return !validateNIC(value);
-        default:
-          return true;
-      }
-    };
-  
-    // onChange
-    const onChange = (e) => {
-      console.log(e.target.value);
-      const { name, value } = e.target;
-      setInputData((preval) => {
-        return {
-          ...preval,
-          [name]: value
-        }
-      })
-      // onChange Form validation data set on change
-      setValidations({
-         ...validations,
-         [name]: !validateField(name, value) // Not sign for conver false to true
-      });
+  Card,
+  Row,
+  Col,
+  CardTitle,
+  CardBody,
+  Button,
+  Form,
+  FormGroup,
+  FormFeedback,
+  Label,
+  Input,
+  Alert
+} from "reactstrap";
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import BranchManagerController from "../controllers/branch_manager.controller";
+import { BranchManagerRoutes } from "../../../routes/all_user.routes";
+import validator from "../../../validation/validation.js";
+
+
+const AddNewBranch = () => {
+
+  // Alert
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(BranchManagerRoutes.dashboard); }
+
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const hideErrorDialog = () => setShowErrorDialog(false);
+
+  let {
+    validateNIC,
+    validateEmail,
+    validateName,
+    validateAddress,
+    validatePhoneNumber,
+  } = validator();
+
+
+  // Create object for use navigator
+  const navigate = useNavigate();
+
+  // Map variable
+  const [inputData, setInputData] = useState({
+    district: "",
+    address: "",
+    mapLocation: "",
+    contactNumber: "",
+  })
+
+  // Validation data map
+  const [validations, setValidations] = useState({
+    district: false,
+    contactNumber: false,
+  });
+
+  // onChange Form validation
+  const validateField = (name, value) => {
+    switch (name) {
+      // case 'district':
+      //   return !validateNIC(value);
+      default:
+        return true;
     }
-  
-    // Check form valid status to appear submit buttons
-    const isFormValid = () => {
-      for (const key in validations) {
-        if (validations[key]) {
-          return false;
-        }
-      }
-      return true;
-    };
-  
-  
-    // onSubmit
-    const onSubmit = async (e) => {
-  
-      e.preventDefault();
-  
-      const { nic, email, name, address, contactNumber } = inputData;
-      let branchId = getCookie('user-branch-id');
-  
-      try {
-        const res = await AdminController.addClient(nic, email, name, address, contactNumber, branchId);
-  
-        // Error handling
-        if (res.error) {
-          alert(res.error);
-        }
-        else {
-          alert(res.message);
-          navigate(BranchManagerRoutes.dashboard);
-        }
-      }
-      catch (e) {
-        console.error(e);
-        throw e;
-      }
-    }
-  
-  
-    return (
-      <Form>
-        <Row className="justify-content-center">
-          <Col className="col-md-8">
-            <Card>
-              <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                <i className="bi bi-person-add me-2"> </i>
-                Add a New Customer
-              </CardTitle>
-              <CardBody>
-                <FormGroup>
-                  <Label for="customerNic">Customer NIC </Label>
-                  <Input
-                    id="customerNic"
-                    name="nic"
-                    placeholder="Enter customer nic"
-                    type="text"
-                    value={inputData.nic}
-                    onChange={onChange}
-                    invalid = {validations.nic}
-                  />
-                  <FormFeedback>Enter a valid NIC number</FormFeedback>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="customerEmail">E-mail</Label>
-                  <Input
-                    id="customerEmail"
-                    name="email"
-                    placeholder="Enter customer email"
-                    type="email"
-                    onChange={onChange}
-                    value={inputData.email}
-                    invalid = {validations.email}
-                  />
-                  <FormFeedback>Enter a valid email address</FormFeedback>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="customerName">Full Name</Label>
-                  <Input
-                    id="customerName"
-                    name="name"
-                    placeholder="Enter full name"
-                    type="text"
-                    value={inputData.name}
-                    onChange={onChange}
-                    invalid = {validations.name}
-                  />
-                  <FormFeedback>Enter a valid name</FormFeedback>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="customerAddress">Address</Label>
-                  <Input
-                    id="customerAddress"
-                    name="address"
-                    placeholder="Enter Address"
-                    type="textarea"
-                    value={inputData.address}
-                    onChange={onChange}
-                    invalid = {validations.address}
-                  />
-                  <FormFeedback>Enter a valid address</FormFeedback>
-                </FormGroup>
-  
-                <FormGroup>
-                  <Label for="customerContactNo">Contact Number</Label>
-                  <Input
-                    id="customerContactNo"
-                    name="contactNumber"
-                    placeholder="Enter contact number"
-                    type="number"
-                    value={inputData.contactNumber}
-                    onChange={onChange}
-                    invalid = {validations.contactNumber}
-                  />
-                  <FormFeedback>Enter a valid contact number</FormFeedback>
-                </FormGroup>
-  
-                {/* <FormGroup>
-                  <Label for="branch">Branch</Label>
-                  <Input
-                    id="branch"
-                    name="branchId"
-                    type="select"
-                    value={inputData.branchId}
-                    onChange={onChange}
-                    placeholder="Select"
-                  >
-                    <option>Colombo</option>
-                    <option>Polonnaruwa</option>
-                    <option>Kandy</option>
-                    <option>Galewela</option>
-                  </Input>
-                </FormGroup> */}
-  
-                <Button type="submit" disabled = {!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Client</Button>
-                <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
-  
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </Form>
-    );
   };
-  
-  
-  export default AddNewBranch;
-  
-  
+
+  // onChange
+  const onChange = (e) => {
+    console.log(e.target.value);
+    const { name, value } = e.target;
+    setInputData((preval) => {
+      return {
+        ...preval,
+        [name]: value
+      }
+    })
+    // onChange Form validation data set on change
+    setValidations({
+      ...validations,
+      [name]: !validateField(name, value) // Not sign for conver false to true
+    });
+  }
+
+  // Check form valid status to appear submit buttons
+  const isFormValid = () => {
+    for (const key in validations) {
+      if (validations[key]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+
+  // onSubmit
+  const onSubmit = async (e) => {
+
+    e.preventDefault();
+
+    const { district, address, mapLocation, contactNumber } = inputData;
+
+    try {
+      const res = await BranchManagerController.addBranch(district, address, mapLocation, contactNumber);
+
+      // Error handling
+      if (res.error) {
+        // alert(res.error);
+        setShowErrorDialog(true);
+      }
+      else {
+        // alert(res.message);
+        // navigate(BranchManagerRoutes.dashboard);
+        setShowErrorDialog(false);
+        setShowSuccessDialog(true);
+      }
+    }
+    catch (e) {
+      console.error(e);
+      throw e;
+    }
+  }
+
+
+  return (
+    <Form>
+      <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Branch Added Successfully!</Alert>
+      <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> Something Went Wrong! </Alert>
+      <Row className="justify-content-center">
+        <Col className="col-md-8">
+          <Card>
+            <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+              <i className="bi bi-house-add me-2"> </i>
+              Add a New Branch
+            </CardTitle>
+            <CardBody>
+              <FormGroup>
+                <Label for="district">District</Label>
+                <Input
+                  id="district"
+                  name="district"
+                  placeholder="Enter branch district"
+                  type="text"
+                  value={inputData.district}
+                  onChange={onChange}
+                  invalid={validations.district}
+                />
+                <FormFeedback>Enter a valid district</FormFeedback>
+              </FormGroup>
+              <FormGroup>
+                <Label for="address">Address</Label>
+                <Input
+                  id="address"
+                  name="address"
+                  placeholder="Enter branch address"
+                  type="text"
+                  onChange={onChange}
+                  value={inputData.address}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="mapLocation">Map Location</Label>
+                <Input
+                  id="mapLocation"
+                  name="mapLocation"
+                  placeholder="Enter the branch map location URL"
+                  type="text"
+                  value={inputData.mapLocation}
+                  onChange={onChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="contactNumber">Contact Number</Label>
+                <Input
+                  id="contactNumber"
+                  name="contactNumber"
+                  placeholder="Enter branch contact number"
+                  type="number"
+                  value={inputData.contactNumber}
+                  onChange={onChange}
+                  invalid={validations.contactNumber}
+                />
+                <FormFeedback>Enter a valid contact number</FormFeedback>
+              </FormGroup>
+
+              <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Branch</Button>
+              <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
+
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </Form>
+  );
+};
+
+
+export default AddNewBranch;
+
