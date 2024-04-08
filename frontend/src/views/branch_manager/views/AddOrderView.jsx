@@ -1,4 +1,4 @@
-import React from "react";
+
 
 import {
   Card,
@@ -14,13 +14,12 @@ import {
   FormText,
 } from "reactstrap";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
 //New import for component dropdown option
 import DropdownOption from "../../../components/common/DropdownOption.jsx"; 
-
 // Import frontend controller
 import BranchManagerController from "../controllers/branch_manager.controller.js";
 
@@ -29,6 +28,7 @@ import { format } from "date-fns";
 const currentDate = format(new Date(), "yyyy-MM-dd");
 
 const AddNewOrder = () => {
+
   // Create object for use navigator
   const navigate = useNavigate();
 
@@ -49,7 +49,24 @@ const AddNewOrder = () => {
     contactNumber: "",
     address: "",
   });
+  useEffect(() => {
+    async function fetchAllBranches()
+    {
+      let response = await BranchManagerController.getAllBranches();
+      if(response.error)
+      {
+        alert(response.error);
+      }
+      else{
+        setBranches(response.data);
+      }
+    }
 
+    fetchAllBranches();
+  }, []);
+
+  // Create varibale to store formatted sending date
+  // let [formattedSendingDate, setFormattedSendingDate] = useState();
   useEffect(() => {
     async function fetchAllBranches()
     {
@@ -174,6 +191,7 @@ const AddNewOrder = () => {
                   // value={formattedSendingDate}
                   onChange={onChanged}
                   value={userInput.sendingDate}
+                  // value={formattedSendingDate}
                 />
               </FormGroup>
               <FormGroup>
@@ -210,6 +228,7 @@ const AddNewOrder = () => {
                   onChange={onChanged}
                   value={userInput.sendingBranch}
                 >
+
                   {branches.map((branch) => {
                     return (
                       <DropdownOption
@@ -221,6 +240,8 @@ const AddNewOrder = () => {
                     );
                   })}
                   {/* <option>Colombo</option>
+
+                  <option>Colombo</option>
                   <option>Polonnaruwa</option>
                   <option>Kandy</option>
                   <option>Galewela</option> */}
@@ -245,7 +266,7 @@ const AddNewOrder = () => {
                 <Label for="receivingBranch">Receiving Branch</Label>
                 <Input
                   id="receivingBranch"
-                  name="receivingBranchs"
+                  name="receivingBranch"
                   type="select"
                   onChange={onChanged}
                   value={userInput.receivingBranch}
@@ -377,6 +398,7 @@ const AddNewOrder = () => {
               {/* <FormGroup check className="form-label">
                 <Input type="checkbox" /> <Label check>Check me out</Label>
               </FormGroup> */}
+
               <Button
                 type="submit"
                 onClick={onSubmit}
