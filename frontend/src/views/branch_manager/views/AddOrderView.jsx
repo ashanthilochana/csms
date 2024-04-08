@@ -10,6 +10,7 @@ import {
   FormFeedback,
   Label,
   Input,
+  Alert
 } from "reactstrap";
 
 import React, { useEffect, useState } from "react";
@@ -27,6 +28,13 @@ import { format } from "date-fns";
 
 
 const AddNewOrder = () => {
+
+  // Alert
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(BranchManagerRoutes.dashboard); }
+
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const hideErrorDialog = () => setShowErrorDialog(false);
 
   // Get current date
   const currentDate = format(new Date(), "yyyy-MM-dd");
@@ -209,11 +217,14 @@ const AddNewOrder = () => {
 
       // Error handling
       if (res.error) {
-        alert(res.error);
+        // alert(res.error);
+        setShowErrorDialog(true);
       } else {
         //show success message in a suitable way
-        navigate(BranchManagerRoutes.dashboard)
+        // navigate(BranchManagerRoutes.dashboard)
         // setUdata(data);
+        hideErrorDialog();
+        setShowSuccessDialog(true);
         console.log("Order Added Succeccfully");
       }
     } catch (e) {
@@ -224,6 +235,8 @@ const AddNewOrder = () => {
 
   return (
     <Form>
+      <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Order Placed Successfully!</Alert>
+      <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> Something Went Wrong! </Alert>
       <Row>
         <Col className="col-md-8">
           <Card>
