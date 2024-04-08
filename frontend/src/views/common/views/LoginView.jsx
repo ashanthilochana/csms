@@ -1,14 +1,15 @@
 //A simple login ui to check for authentication of jwts and conditional rendering. Test for more
 
+// Import reacstrap componenet to design loginView
 import { Container, Row, Col, Card, CardBody, Form, FormGroup, Label, Input, Button } from 'reactstrap';
-
 
 import React, { useState } from "react";
 import AxiosController from "../../../controllers/axios.controller";
 import useLogin from "../hooks/useLogin.js";
 import useCookie from "../../../hooks/useCookies";
 import { useNavigate } from "react-router-dom";
-import './LoginView.module.css';
+
+import './LoginView.module.css'; // This is not wooooooooooooooooooooooooooooooooooooooooooooooorking, Not importing shiiiiiiit
 
 function LoginView() {
 

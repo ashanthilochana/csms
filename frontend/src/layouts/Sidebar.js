@@ -3,9 +3,15 @@ import React, { useState } from "react";
 import { Button, Nav, NavItem, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
+import useCookie from "../hooks/useCookies";
+
 
 
 const Sidebar = ({navigation}) => {
+
+  // Get cookie to show create order button
+  let [getCookie, setCookie] = useCookie();
+
   const [dropdownOpen, setDropdownOpen] = useState({});
   const toggleDropdown = (index) => {
     setDropdownOpen(prevState => ({
@@ -17,6 +23,15 @@ const Sidebar = ({navigation}) => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   let location = useLocation();
+
+
+  // Create an order button appear conditions - check branch manager role id
+  let buttonAppear = 'none';
+  let roleId = getCookie('user-role-id'); // Get user role ID by cookies
+  
+  if(roleId == 2){
+    buttonAppear = 'display';
+  }
 
   return (
     <div className="p-3">
@@ -75,6 +90,7 @@ const Sidebar = ({navigation}) => {
             </NavItem>
           ))}
           <Button
+            style={{ display: (buttonAppear)}}
             color="danger"
             tag="a"
             target="_blank"
