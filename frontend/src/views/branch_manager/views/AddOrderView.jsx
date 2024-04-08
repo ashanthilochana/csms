@@ -9,6 +9,7 @@ import {
   Button,
   Form,
   FormGroup,
+  FormFeedback,
   Label,
   Input,
   FormText,
@@ -35,7 +36,7 @@ const AddNewOrder = () => {
   let [branches, setBranches] = useState([]);
 
   // Map variable
-  const [userInput, setUserInput] = useState({
+  const [userInput, setInputData] = useState({
     weight: "",
     sendingDate: "",
     paymentDate: "",
@@ -64,12 +65,60 @@ const AddNewOrder = () => {
 
     fetchAllBranches();
   }, []);
-
-  // Create varibale to store formatted sending date
-  // let [formattedSendingDate, setFormattedSendingDate] = useState();
   
-  // Create varibale to store formatted sending date
-  // let [formattedSendingDate, setFormattedSendingDate] = useState();
+  
+  // Validation data map
+  const [validations, setValidations] = useState({
+    weight: false,
+    receiver: false,
+    contactNumber: false,
+  });
+
+  
+  // onChange Form validation
+  const validateField = (name, value) => {
+    switch (name) {
+      // case 'nic':
+      //   if(value > 0 && value < 999999999999){
+      //     return true;
+      //   }
+      //   else{
+      //     return false;
+      //   }
+      default:
+        return true;
+    }
+  };
+
+  // onChange
+  const onChange = (e) => {
+    console.log(e.target.value);
+    const { name, value } = e.target;
+    setInputData((preval) => {
+      return {
+        ...preval,
+        [name]: value
+      }
+    })
+    // onChange Form validation data set on change
+    setValidations({
+       ...validations,
+       [name]: !validateField(name, value) // Not sign for conver false to true
+    });
+  }
+
+  // Check form valid status to appear submit buttons
+  const isFormValid = () => {
+    for (const key in validations) {
+      if (validations[key]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  let [formattedSendingDate, setFormattedSendingDate] = useState();
+
 
   // Variable formatting
   // useEffect(() => {
@@ -84,18 +133,6 @@ const AddNewOrder = () => {
   //     setFormattedSendingDate(_formattedSendingDate);
   // }, [userInput]);
 
-  // onChanged
-  const onChanged = (e) => {
-    const { name, value } = e.target;
-    setUserInput((preval) => {
-      return {
-        ...preval,
-        [name]: value,
-      };
-    });
-  };
-
-  // OnSubmit
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -162,9 +199,11 @@ const AddNewOrder = () => {
                   name="weight"
                   placeholder="Enter packge weight"
                   type="number"
-                  onChange={onChanged}
+                  invalid = {validations.weight}
+                  onChange={onChange}
                   value={userInput.weight}
                 />
+              <FormFeedback>Invalid weight</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="sendingDate">Sending Date</Label>
@@ -174,7 +213,7 @@ const AddNewOrder = () => {
                   placeholder="Enter sending date"
                   type="date"
                   // value={formattedSendingDate}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sendingDate}
                   // value={formattedSendingDate}
                 />
@@ -187,7 +226,7 @@ const AddNewOrder = () => {
                   placeholder="Enter payment date"
                   type="date"
                   // value={formattedSendingDate}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.paymentDate}
                 />
               </FormGroup>
@@ -197,7 +236,7 @@ const AddNewOrder = () => {
                   id="packageTypes"
                   name="packageTypes"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.packageTypes}
                 >
                   <option>Glass</option>
@@ -210,7 +249,7 @@ const AddNewOrder = () => {
                   id="sendingBranch"
                   name="sendingBranch"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sendingBranch}
                 >
 
@@ -253,7 +292,7 @@ const AddNewOrder = () => {
                   id="receivingBranch"
                   name="receivingBranch"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.receivingBranch}
                 >
                   {branches.map((branch) => {
@@ -275,7 +314,7 @@ const AddNewOrder = () => {
                   name="text"
                   type="textarea"
                   placeholder="If you have any special notes. Type here..."
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.specialNotes}
                 />
               </FormGroup>
@@ -286,7 +325,7 @@ const AddNewOrder = () => {
                   id="orderStatus"
                   name="orderStatus"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.orderStatus}
                 >
                   <option>Registered</option>
@@ -339,7 +378,7 @@ const AddNewOrder = () => {
                   name="senderNIC"
                   placeholder="Enter sender NIC Number"
                   type="text"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sender}
                 />
               </FormGroup>
@@ -351,9 +390,11 @@ const AddNewOrder = () => {
                   name="receiverName"
                   placeholder="Enter packge receiver name"
                   type="text"
-                  onChange={onChanged}
+                  invalid = {validations.receiver}
+                  onChange={onChange}
                   value={userInput.receiver}
                 />
+                <FormFeedback>Invalid name</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="receiverContact">Contact Number</Label>
@@ -362,9 +403,11 @@ const AddNewOrder = () => {
                   name="receiverContact"
                   placeholder="Enter receiver contact number"
                   type="number"
-                  onChange={onChanged}
+                  invalid = {validations.contactNumber}
+                  onChange={onChange}
                   value={userInput.contactNumber}
                 />
+                <FormFeedback>Invalid contact number</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="receivingAddress">Address</Label>
@@ -373,7 +416,7 @@ const AddNewOrder = () => {
                   name="receivingAddress"
                   placeholder="Enter destination address"
                   type="textarea"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.address}
                 />
               </FormGroup>
@@ -384,11 +427,7 @@ const AddNewOrder = () => {
                 <Input type="checkbox" /> <Label check>Check me out</Label>
               </FormGroup> */}
 
-              <Button
-                type="submit"
-                onClick={onSubmit}
-                className="btn mt-4 w-100 pt-2 pb-2 bg-primary border"
-              >
+              <Button type="submit" disabled ={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
                 Submit the Order
               </Button>
               <Button
