@@ -13,8 +13,10 @@ import {
   Dropdown,
   Button,
 } from "reactstrap";
-import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
-import user1 from "../assets/images/users/user4.jpg";
+
+import { ReactComponent as LogoWhite } from "../assets/images/logos/csms-logo.svg"; // Logo image
+import user1 from "../assets/images/users/user4.jpg"; // User image
+
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -59,13 +61,13 @@ const Header = () => {
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
           <NavItem>
-            <Link to="/dashboard" className="nav-link">
-              Dashboard
+            <Link to="#" className="nav-link"> 
+              Documentations
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/about" className="nav-link">
-              About
+            <Link to="#" className="nav-link">
+              Contact
             </Link>
           </NavItem>
           <UncontrolledDropdown inNavbar nav>
@@ -94,7 +96,7 @@ const Header = () => {
             <DropdownItem>My Account</DropdownItem>
             <DropdownItem>Edit Profile</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>My Orders</DropdownItem>
+            {/* <DropdownItem>My Orders</DropdownItem> */}
             <DropdownItem>Inbox</DropdownItem>
             <DropdownItem>Logout</DropdownItem>
           </DropdownMenu>

@@ -1,7 +1,7 @@
-// This is the database service which handles database functionaloties for user credentials and authentication
-// A common service handles authentication and registration for all user types.
+// User Management [COMPLETED] - Ashan
 
 import { pool } from "../database/database.js";
+
 let UserService = {};
 
 //Function to get user credentials when logging in
