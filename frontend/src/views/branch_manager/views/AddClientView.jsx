@@ -10,6 +10,7 @@ import {
   FormFeedback,
   Label,
   Input,
+  Alert
 } from "reactstrap";
 
 import { useState } from "react";
@@ -22,15 +23,22 @@ import validator from "../../../validation/validation.js";
 
 const AddNewClient = () => {
 
-  let {
-        validateNIC,
-        validateEmail,
-        validateName,
-        validateAddress,
-        validatePhoneNumber,
-      } = validator();
+  // Alert
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(BranchManagerRoutes.dashboard); }
 
-  
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const hideErrorDialog = () => setShowErrorDialog(false);
+
+  let {
+    validateNIC,
+    validateEmail,
+    validateName,
+    validateAddress,
+    validatePhoneNumber,
+  } = validator();
+
+
   // Create object for use navigator
   const navigate = useNavigate();
 
@@ -47,13 +55,13 @@ const AddNewClient = () => {
 
   // Validation data map
   const [validations, setValidations] = useState({
-    nic: true,
+    nic: false,
     email: false,
     name: false,
     address: false,
     contactNumber: false,
   });
-  
+
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
@@ -76,8 +84,8 @@ const AddNewClient = () => {
     })
     // onChange Form validation data set on change
     setValidations({
-       ...validations,
-       [name]: !validateField(name, value) // Not sign for conver false to true
+      ...validations,
+      [name]: !validateField(name, value) // Not sign for conver false to true
     });
   }
 
@@ -105,11 +113,14 @@ const AddNewClient = () => {
 
       // Error handling
       if (res.error) {
-        alert(res.error);
+        // alert(res.error);
+        setShowErrorDialog(true);
       }
       else {
-        alert(res.message);
-        navigate(BranchManagerRoutes.dashboard);
+        // alert(res.message);
+        // navigate(BranchManagerRoutes.dashboard);
+        setShowErrorDialog(false);
+        setShowSuccessDialog(true);
       }
     }
     catch (e) {
@@ -121,6 +132,8 @@ const AddNewClient = () => {
 
   return (
     <Form>
+      <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Client Added Successfully!</Alert>
+      <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> Something Went Wrong! </Alert>
       <Row className="justify-content-center">
         <Col className="col-md-8">
           <Card>
@@ -138,7 +151,7 @@ const AddNewClient = () => {
                   type="text"
                   value={inputData.nic}
                   onChange={onChange}
-                  invalid = {validations.nic}
+                  invalid={validations.nic}
                 />
                 <FormFeedback>Enter a valid NIC number</FormFeedback>
               </FormGroup>
@@ -151,7 +164,7 @@ const AddNewClient = () => {
                   type="email"
                   onChange={onChange}
                   value={inputData.email}
-                  invalid = {validations.email}
+                  invalid={validations.email}
                 />
                 <FormFeedback>Enter a valid email address</FormFeedback>
               </FormGroup>
@@ -164,7 +177,7 @@ const AddNewClient = () => {
                   type="text"
                   value={inputData.name}
                   onChange={onChange}
-                  invalid = {validations.name}
+                  invalid={validations.name}
                 />
                 <FormFeedback>Enter a valid name</FormFeedback>
               </FormGroup>
@@ -177,7 +190,7 @@ const AddNewClient = () => {
                   type="textarea"
                   value={inputData.address}
                   onChange={onChange}
-                  invalid = {validations.address}
+                  invalid={validations.address}
                 />
                 <FormFeedback>Enter a valid address</FormFeedback>
               </FormGroup>
@@ -191,7 +204,7 @@ const AddNewClient = () => {
                   type="number"
                   value={inputData.contactNumber}
                   onChange={onChange}
-                  invalid = {validations.contactNumber}
+                  invalid={validations.contactNumber}
                 />
                 <FormFeedback>Enter a valid contact number</FormFeedback>
               </FormGroup>
@@ -213,7 +226,7 @@ const AddNewClient = () => {
                 </Input>
               </FormGroup> */}
 
-              <Button type="submit" disabled = {!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Client</Button>
+              <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Client</Button>
               <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
 
             </CardBody>
