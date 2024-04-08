@@ -1,9 +1,3 @@
-import react, { useEffect, useState } from "react";
-
-import { useNavigate } from "react-router-dom";
-
-import BranchManagerController from "../controllers/branch_manager.controller.js";
-
 import {
   Card,
   Row,
@@ -18,14 +12,18 @@ import {
   FormText,
 } from "reactstrap";
 
-// Import cotrollers
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-// Import npms
+// Import frontend controller
+import BranchManagerController from "../controllers/branch_manager.controller.js";
+
+// Get current date and format it as yyyy-mm-dd
 import { format } from "date-fns";
-
 const currentDate = format(new Date(), "yyyy-MM-dd");
 
 const AddNewOrder = () => {
+
   // Create object for use navigator
   const navigate = useNavigate();
 
@@ -45,7 +43,8 @@ const AddNewOrder = () => {
     address: "",
   });
 
-  let [formattedSendingDate, setFormattedSendingDate] = useState();
+  // Create varibale to store formatted sending date
+  // let [formattedSendingDate, setFormattedSendingDate] = useState();
 
   // Variable formatting
   // useEffect(() => {
@@ -60,7 +59,7 @@ const AddNewOrder = () => {
   //     setFormattedSendingDate(_formattedSendingDate);
   // }, [userInput]);
 
-  // Set data to inpval map from form
+  // onChanged
   const onChanged = (e) => {
     console.log(e.target.value);
     const { name, value } = e.target;
@@ -72,7 +71,7 @@ const AddNewOrder = () => {
     });
   };
 
-  // Call controller addOrder method
+  // OnSubmit
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -139,6 +138,8 @@ const AddNewOrder = () => {
                   name="weight"
                   placeholder="Enter packge weight"
                   type="number"
+                  onChange={onChanged}
+                  value={userInput.weight}
                 />
               </FormGroup>
               <FormGroup>
@@ -146,9 +147,11 @@ const AddNewOrder = () => {
                 <Input
                   id="sendingDate"
                   name="sendingDate"
-                  value={formattedSendingDate}
                   placeholder="Enter sending date"
                   type="date"
+                  // value={formattedSendingDate}
+                  onChange={onChanged}
+                  value={userInput.sendingDate}
                 />
               </FormGroup>
               <FormGroup>
@@ -156,21 +159,35 @@ const AddNewOrder = () => {
                 <Input
                   id="paymentDate"
                   name="paymentDate"
-                  value={formattedSendingDate}
                   placeholder="Enter payment date"
                   type="date"
+                  // value={formattedSendingDate}
+                  onChange={onChanged}
+                  value={userInput.paymentDate}
                 />
               </FormGroup>
               <FormGroup>
                 <Label for="packageTypes">Package Types</Label>
-                <Input id="packageTypes" name="packageTypes" type="select">
+                <Input
+                  id="packageTypes"
+                  name="packageTypes"
+                  type="select"
+                  onChange={onChanged}
+                  value={userInput.packageTypes}
+                >
                   <option>Glass</option>
                   <option>Gift</option>
                 </Input>
               </FormGroup>
               <FormGroup>
                 <Label for="sendingBranch">Sending Branch</Label>
-                <Input id="sendingBranch" name="sendingBranch" type="select">
+                <Input
+                  id="sendingBranch"
+                  name="sendingBranch"
+                  type="select"
+                  onChange={onChanged}
+                  value={userInput.sendingBranch}
+                >
                   <option>Colombo</option>
                   <option>Polonnaruwa</option>
                   <option>Kandy</option>
@@ -198,6 +215,8 @@ const AddNewOrder = () => {
                   id="receivingBranch"
                   name="receivingBranchs"
                   type="select"
+                  onChange={onChanged}
+                  value={userInput.receivingBranch}
                 >
                   <option>Colombo</option>
                   <option>Polonnaruwa</option>
@@ -212,12 +231,20 @@ const AddNewOrder = () => {
                   name="text"
                   type="textarea"
                   placeholder="If you have any special notes. Type here..."
+                  onChange={onChanged}
+                  value={userInput.specialNotes}
                 />
               </FormGroup>
               {/* <legend className="mt-2">Order Status</legend> */}
               <FormGroup>
                 <Label for="orderStatus">Order Status</Label>
-                <Input id="orderStatus" name="orderStatus" type="select">
+                <Input
+                  id="orderStatus"
+                  name="orderStatus"
+                  type="select"
+                  onChange={onChanged}
+                  value={userInput.orderStatus}
+                >
                   <option>Registered</option>
                   <option>On going</option>
                   <option>Received</option>
@@ -268,6 +295,8 @@ const AddNewOrder = () => {
                   name="senderNIC"
                   placeholder="Enter sender NIC Number"
                   type="text"
+                  onChange={onChanged}
+                  value={userInput.sender}
                 />
               </FormGroup>
               <legend className="mt-2">Receiver</legend>
@@ -278,6 +307,8 @@ const AddNewOrder = () => {
                   name="receiverName"
                   placeholder="Enter packge receiver name"
                   type="text"
+                  onChange={onChanged}
+                  value={userInput.receiver}
                 />
               </FormGroup>
               <FormGroup>
@@ -287,6 +318,8 @@ const AddNewOrder = () => {
                   name="receiverContact"
                   placeholder="Enter receiver contact number"
                   type="number"
+                  onChange={onChanged}
+                  value={userInput.contactNumber}
                 />
               </FormGroup>
               <FormGroup>
@@ -296,6 +329,8 @@ const AddNewOrder = () => {
                   name="receivingAddress"
                   placeholder="Enter destination address"
                   type="textarea"
+                  onChange={onChanged}
+                  value={userInput.address}
                 />
               </FormGroup>
               <legend className="mt-2">
@@ -304,10 +339,10 @@ const AddNewOrder = () => {
               {/* <FormGroup check className="form-label">
                 <Input type="checkbox" /> <Label check>Check me out</Label>
               </FormGroup> */}
-              <Button className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
+              <Button type="submit" onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
                 Submit the Order
               </Button>
-              <Button className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">
+              <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">
                 Reset Details
               </Button>
             </CardBody>
