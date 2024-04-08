@@ -13,10 +13,10 @@ const Dashboard = () => {
   let [getCookie, setCookie] = useCookie();
 
   let [summaryData, setSummaryData] = useState({
-    availableOrders: "",
-    receivedOrder: "",
-    tickets: "",
-    feedbacks: ""
+    availableOrders: "400",
+    receivedOrder: "100",
+    tickets: "15",
+    feedbacks: "15"
   });
 
   // Get branchId with user nic and save as a cookie
