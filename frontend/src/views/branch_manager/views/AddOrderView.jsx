@@ -13,6 +13,7 @@ import {
   Button,
   Form,
   FormGroup,
+  FormFeedback,
   Label,
   Input,
   FormText,
@@ -30,7 +31,7 @@ const AddNewOrder = () => {
   const navigate = useNavigate();
 
   // Map variable
-  const [userInput, setUserInput] = useState({
+  const [userInput, setInputData] = useState({
     weight: "",
     sendingDate: "",
     paymentDate: "",
@@ -44,6 +45,57 @@ const AddNewOrder = () => {
     contactNumber: "",
     address: "",
   });
+
+  
+  // Validation data map
+  const [validations, setValidations] = useState({
+    weight: false,
+    receiver: false,
+    contactNumber: false,
+  });
+
+  
+  // onChange Form validation
+  const validateField = (name, value) => {
+    switch (name) {
+      // case 'nic':
+      //   if(value > 0 && value < 999999999999){
+      //     return true;
+      //   }
+      //   else{
+      //     return false;
+      //   }
+      default:
+        return true;
+    }
+  };
+
+  // onChange
+  const onChange = (e) => {
+    console.log(e.target.value);
+    const { name, value } = e.target;
+    setInputData((preval) => {
+      return {
+        ...preval,
+        [name]: value
+      }
+    })
+    // onChange Form validation data set on change
+    setValidations({
+       ...validations,
+       [name]: !validateField(name, value) // Not sign for conver false to true
+    });
+  }
+
+  // Check form valid status to appear submit buttons
+  const isFormValid = () => {
+    for (const key in validations) {
+      if (validations[key]) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   let [formattedSendingDate, setFormattedSendingDate] = useState();
 
@@ -59,18 +111,6 @@ const AddNewOrder = () => {
 
   //     setFormattedSendingDate(_formattedSendingDate);
   // }, [userInput]);
-
-  // Set data to inpval map from form
-  const onChanged = (e) => {
-    console.log(e.target.value);
-    const { name, value } = e.target;
-    setUserInput((preval) => {
-      return {
-        ...preval,
-        [name]: value,
-      };
-    });
-  };
 
   // Call controller addOrder method
   const onSubmit = async (e) => {
@@ -139,7 +179,9 @@ const AddNewOrder = () => {
                   name="weight"
                   placeholder="Enter packge weight"
                   type="number"
+                  invalid = {validations.weight}
                 />
+              <FormFeedback>Invalid weight</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="sendingDate">Sending Date</Label>
@@ -278,7 +320,9 @@ const AddNewOrder = () => {
                   name="receiverName"
                   placeholder="Enter packge receiver name"
                   type="text"
+                  invalid = {validations.receiver}
                 />
+                <FormFeedback>Invalid name</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="receiverContact">Contact Number</Label>
@@ -287,7 +331,9 @@ const AddNewOrder = () => {
                   name="receiverContact"
                   placeholder="Enter receiver contact number"
                   type="number"
+                  invalid = {validations.contactNumber}
                 />
+                <FormFeedback>Invalid contact number</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="receivingAddress">Address</Label>
@@ -304,10 +350,10 @@ const AddNewOrder = () => {
               {/* <FormGroup check className="form-label">
                 <Input type="checkbox" /> <Label check>Check me out</Label>
               </FormGroup> */}
-              <Button className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
+              <Button type="submit" disabled ={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
                 Submit the Order
               </Button>
-              <Button className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">
+              <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">
                 Reset Details
               </Button>
             </CardBody>

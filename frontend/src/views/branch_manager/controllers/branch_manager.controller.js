@@ -11,20 +11,21 @@ BranchManagerController.addClient = async (
   contactNumber,
   branchId
 ) => {
+
   // Front end form validation
-  if (nic === "") {
-    return { error: "NIC cannot be empty!" };
-  } else if (!email.includes("@")) {
-    return { error: "Email should include '@'mark always" };
-  } else if (name === "") {
-    return { error: "Name cannot be empty!" };
-  } else if (address === "") {
-    return { error: "Address cannot be empty!" };
-  } else if (contactNumber === "") {
-    return { error: "Contact Number cannot be empty!" };
-  } else if (branchId === "") {
-    return { error: "Branch ID cannot be empty!" };
-  } else {
+  // if (nic === "") {
+  //   return { error: "NIC cannot be empty!" };
+  // } else if (!email.includes("@")) {
+  //   return { error: "Email should include '@'mark always" };
+  // } else if (name === "") {
+  //   return { error: "Name cannot be empty!" };
+  // } else if (address === "") {
+  //   return { error: "Address cannot be empty!" };
+  // } else if (contactNumber === "") {
+  //   return { error: "Contact Number cannot be empty!" };
+  // } else if (branchId === "") {
+  //   return { error: "Branch ID cannot be empty!" };
+  // } else {
     // If form validation successful
 
     let reqBody = {
@@ -58,7 +59,7 @@ BranchManagerController.addClient = async (
   // {
   //     return {error: "Message"};
   // }
-};
+//};
 
 // Add a new order
 BranchManagerController.addOrder = async (
