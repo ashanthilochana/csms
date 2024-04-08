@@ -122,6 +122,23 @@ BranchManagerController.getBranchIdByBranchManagerNIC = async (nic) => {
   }
 };
 
+BranchManagerController.getAllBranches = async () => {
+  try{let response = await BranchManagerService.getAllBranches();
+
+  if(response.error)
+  {
+    return {error : response.error};
+  }
+
+  else
+  {
+    return {data : response.data};
+  }}catch(e)
+  {
+    return {error : e};
+  }
+}
+
 // Add a new transportagent
 // BranchManagerController.addTransportagent = async (nic, email, name, vehicleNumber, contactNumber, branchId) =>{
 

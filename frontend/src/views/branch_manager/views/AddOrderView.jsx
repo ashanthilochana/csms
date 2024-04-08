@@ -1,3 +1,5 @@
+
+
 import {
   Card,
   Row,
@@ -13,9 +15,12 @@ import {
   FormText,
 } from "reactstrap";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
+//New import for component dropdown option
+import DropdownOption from "../../../components/common/DropdownOption.jsx"; 
 // Import frontend controller
 import BranchManagerController from "../controllers/branch_manager.controller.js";
 
@@ -27,6 +32,8 @@ const AddNewOrder = () => {
 
   // Create object for use navigator
   const navigate = useNavigate();
+
+  let [branches, setBranches] = useState([]);
 
   // Map variable
   const [userInput, setInputData] = useState({
@@ -43,8 +50,22 @@ const AddNewOrder = () => {
     contactNumber: "",
     address: "",
   });
+  useEffect(() => {
+    async function fetchAllBranches()
+    {
+      let response = await BranchManagerController.getAllBranches();
+      if(response.error)
+      {
+        alert(response.error);
+      }
+      else{
+        setBranches(response.data);
+      }
+    }
 
-
+    fetchAllBranches();
+  }, []);
+  
   
   // Validation data map
   const [validations, setValidations] = useState({
@@ -97,6 +118,7 @@ const AddNewOrder = () => {
   };
 
   let [formattedSendingDate, setFormattedSendingDate] = useState();
+
 
   // Variable formatting
   // useEffect(() => {
@@ -193,6 +215,7 @@ const AddNewOrder = () => {
                   // value={formattedSendingDate}
                   onChange={onChange}
                   value={userInput.sendingDate}
+                  // value={formattedSendingDate}
                 />
               </FormGroup>
               <FormGroup>
@@ -229,10 +252,23 @@ const AddNewOrder = () => {
                   onChange={onChange}
                   value={userInput.sendingBranch}
                 >
+
+                  {branches.map((branch) => {
+                    return (
+                      <DropdownOption
+                        key={branch.branchId}
+                        id={branch.branchId}
+                        value={branch.district}
+                        onChange={onChanged}
+                      />
+                    );
+                  })}
+                  {/* <option>Colombo</option>
+
                   <option>Colombo</option>
                   <option>Polonnaruwa</option>
                   <option>Kandy</option>
-                  <option>Galewela</option>
+                  <option>Galewela</option> */}
                 </Input>
               </FormGroup>
               {/* <FormGroup>
@@ -254,15 +290,21 @@ const AddNewOrder = () => {
                 <Label for="receivingBranch">Receiving Branch</Label>
                 <Input
                   id="receivingBranch"
-                  name="receivingBranchs"
+                  name="receivingBranch"
                   type="select"
                   onChange={onChange}
                   value={userInput.receivingBranch}
                 >
-                  <option>Colombo</option>
-                  <option>Polonnaruwa</option>
-                  <option>Kandy</option>
-                  <option>Galewela</option>
+                  {branches.map((branch) => {
+                    return (
+                      <DropdownOption
+                        key={branch.branchId}
+                        id={branch.branchId}
+                        value={branch.district}
+                        onChange={onChanged}
+                      />
+                    );
+                  })}
                 </Input>
               </FormGroup>
               <FormGroup>
@@ -384,10 +426,14 @@ const AddNewOrder = () => {
               {/* <FormGroup check className="form-label">
                 <Input type="checkbox" /> <Label check>Check me out</Label>
               </FormGroup> */}
+
               <Button type="submit" disabled ={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
                 Submit the Order
               </Button>
-              <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">
+              <Button
+                type="reset"
+                className="btn mt-2 w-100 pt-2 pb-2 bg-danger border"
+              >
                 Reset Details
               </Button>
             </CardBody>
