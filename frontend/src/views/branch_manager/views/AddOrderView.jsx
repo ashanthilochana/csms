@@ -178,7 +178,7 @@ const AddNewOrder = () => {
                   placeholder="Enter packge weight"
                   type="number"
                   invalid = {validations.weight}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.weight}
                 />
               <FormFeedback>Invalid weight</FormFeedback>
@@ -191,7 +191,7 @@ const AddNewOrder = () => {
                   placeholder="Enter sending date"
                   type="date"
                   // value={formattedSendingDate}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sendingDate}
                 />
               </FormGroup>
@@ -203,7 +203,7 @@ const AddNewOrder = () => {
                   placeholder="Enter payment date"
                   type="date"
                   // value={formattedSendingDate}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.paymentDate}
                 />
               </FormGroup>
@@ -213,7 +213,7 @@ const AddNewOrder = () => {
                   id="packageTypes"
                   name="packageTypes"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.packageTypes}
                 >
                   <option>Glass</option>
@@ -226,7 +226,7 @@ const AddNewOrder = () => {
                   id="sendingBranch"
                   name="sendingBranch"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sendingBranch}
                 >
                   <option>Colombo</option>
@@ -256,7 +256,7 @@ const AddNewOrder = () => {
                   id="receivingBranch"
                   name="receivingBranchs"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.receivingBranch}
                 >
                   <option>Colombo</option>
@@ -272,7 +272,7 @@ const AddNewOrder = () => {
                   name="text"
                   type="textarea"
                   placeholder="If you have any special notes. Type here..."
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.specialNotes}
                 />
               </FormGroup>
@@ -283,7 +283,7 @@ const AddNewOrder = () => {
                   id="orderStatus"
                   name="orderStatus"
                   type="select"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.orderStatus}
                 >
                   <option>Registered</option>
@@ -336,7 +336,7 @@ const AddNewOrder = () => {
                   name="senderNIC"
                   placeholder="Enter sender NIC Number"
                   type="text"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.sender}
                 />
               </FormGroup>
@@ -349,7 +349,7 @@ const AddNewOrder = () => {
                   placeholder="Enter packge receiver name"
                   type="text"
                   invalid = {validations.receiver}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.receiver}
                 />
                 <FormFeedback>Invalid name</FormFeedback>
@@ -362,7 +362,7 @@ const AddNewOrder = () => {
                   placeholder="Enter receiver contact number"
                   type="number"
                   invalid = {validations.contactNumber}
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.contactNumber}
                 />
                 <FormFeedback>Invalid contact number</FormFeedback>
@@ -374,7 +374,7 @@ const AddNewOrder = () => {
                   name="receivingAddress"
                   placeholder="Enter destination address"
                   type="textarea"
-                  onChange={onChanged}
+                  onChange={onChange}
                   value={userInput.address}
                 />
               </FormGroup>
