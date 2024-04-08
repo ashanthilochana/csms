@@ -266,4 +266,57 @@ BranchManagerService.addDeliveryPerson = async (reqBody) => {
   }
 };
 
+/////////////////////////////////////// Get all orders by branch id ////////////////////////////////////////////////
+
+
+BranchManagerService.getAllOrdersByBranchId = async (reqBody) => {
+  try {
+    let response = await AxiosController.instance.post("/api/orders-by-branch", reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Add a route ////////////////////////////////////////////////
+BranchManagerService.addRoute = async (reqBody) => {
+  try {
+    let response = await AxiosController.instance.post(
+      "/api/add-route",
+      reqBody
+    ); // Call backend contorller and pass data which received to front end controller
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      //Different status codes
+      //201
+      if (response.status === 201) {
+        return { message: "Route Added Successfully" };
+      }
+      //400
+      if (response.status === 400) {
+        return { error: "Bad Request" };
+      }
+      //401
+      if (response.status === 401) {
+        return { error: "Unauthorized" };
+      }
+      //422
+      if (response.status === 422) {
+        return { error: "Route Already Exists" };
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 export default BranchManagerService;

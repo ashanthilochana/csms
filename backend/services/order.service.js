@@ -69,11 +69,21 @@ OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
 
 /////////////////////////////////////// Get all received orders to received order tables by branchId ////////////////////////////////////////////////
 
-OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
-    let query = `
-    
-    `;
 
+OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
+    let query = `select o.orderId as order_id, 
+    o.registeredDate as orderDate, 
+    c.fullName as sender, 
+    b.district as destinationBranch, 
+    os.status 
+    from orders o
+    join client c
+    on o.senderNic = c.nic
+    join branch b
+    on o.receivingBranchId = b.branchId
+    join orderstatus os
+    on o.statusId = os.statusId
+    where o.sendingBranchId = ?`;
     try{
         let [rows] = await pool.query(query, [sendingBranchId]);
         return rows;

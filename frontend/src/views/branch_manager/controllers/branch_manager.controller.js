@@ -238,4 +238,43 @@ BranchManagerController.addDeliveryPerson = async (nic, email, fullName, address
   }
 };
 
+
+/////////////////////////////////////// Get all orders by order ID ////////////////////////////////////////////////
+
+BranchManagerController.getAllOrdersByBranchId = async (branchId) => {
+  try {
+    let response = await BranchManagerService.getAllOrdersByBranchId({branchId : branchId})
+
+    if (response.error) {
+      return { error: response.error };
+    }  else {
+      return response;
+    }
+  } catch (e) {
+    return {error : e};
+  }
+}
+
+/////////////////////////////////////// Add a route ////////////////////////////////////////////////
+
+BranchManagerController.addRoute = async (routeName, fBranchId, sBranchId) => {
+
+  let reqBody = {
+    routeName,
+    fBranchId,
+    sBranchId
+  };
+
+  try {
+    let response = await BranchManagerService.addRoute(reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Route Added Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
+
 export default BranchManagerController;

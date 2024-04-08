@@ -105,7 +105,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a New Route",
-          href: "#",
+          href: BranchManagerRoutes.addRoute,
           icon: "bi bi-sign-intersection",
         },
         {

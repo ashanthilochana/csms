@@ -4,6 +4,11 @@ import RouteController from "../controllers/route.controller.js";
 
 const router = express.Router();
 
+router.route("/api/add-route").post(
+    verifyAuthentication,
+    RouteController.addRoute
+)
+
 router.route("/api/routes").get(
     verifyAuthentication,
     RouteController.getAllRoutes

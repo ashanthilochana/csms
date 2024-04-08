@@ -19,4 +19,9 @@ router.route("/api/orderstatus").get(
     OrderController.getAllOrderStatus
 );
 
+router.route("/api/orders-by-branch").post(
+    verifyAuthentication,
+    OrderController.getAllOrderByBranchId
+);
+
 export {router};

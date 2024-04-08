@@ -13,6 +13,7 @@ BranchManagerRoutes.viewClients = "/branch-manager/view-clients";
 BranchManagerRoutes.addBranch = "/branch-manager/add-branch";
 BranchManagerRoutes.addTransportAgent = "/branch-manager/add-transport-agent";
 BranchManagerRoutes.addDeliveryPerson = "/branch-manager/add-delivery-person";
+BranchManagerRoutes.addRoute = "/branch-manager/add-route";
 
 // Export high level variables
 export {BranchManagerRoutes};

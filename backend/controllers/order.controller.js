@@ -47,6 +47,19 @@ OrderController.addOrder = async (req, res) => {
     }
 };
 
+/////////////////////////////////////// Get all order by branch Id ////////////////////////////////////////////////
+
+
+OrderController.getAllOrderByBranchId = async(req, res) => {
+    let {branchId} = req.body;
+    try {
+        let data = await OrderService.getAllOrdersByBranch(branchId);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
 /////////////////////////////////////// Get all package types ////////////////////////////////////////////////
 
 OrderController.getAllPackageTypes = async (req, res) => {
