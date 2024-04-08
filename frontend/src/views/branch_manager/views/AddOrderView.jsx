@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 
 //New import for component dropdown option
-import DropdownOption from "../../../components/common/DropdownOption.jsx"; 
+import DropdownOption from "../../../components/common/DropdownOption.jsx";
 // Import frontend controller
 import BranchManagerController from "../controllers/branch_manager.controller.js";
 
@@ -33,7 +33,38 @@ const AddNewOrder = () => {
   // Create object for use navigator
   const navigate = useNavigate();
 
+  // Dropdown state variables
   let [branches, setBranches] = useState([]);
+  let [packageTypes, setPackageTypes] = useState([]);
+
+  // Fetch dropdown data
+  useEffect(() => {
+    async function fetchAllBranches() {
+      let response = await BranchManagerController.getAllBranches();
+      if (response.error) {
+        alert(response.error);
+      }
+      else {
+        setBranches(response.data);
+      }
+    }
+
+    fetchAllBranches();
+  }, []);
+
+  useEffect(() => {
+    async function fetchAllPackageTypes() {
+      let response = await BranchManagerController.getAllPackageTypes();
+      if (response.error) {
+        alert(response.error);
+      }
+      else {
+        setPackageTypes(response.data);
+      }
+    }
+
+    fetchAllPackageTypes();
+  }, []);
 
   // Map variable
   const [userInput, setInputData] = useState({
@@ -50,23 +81,8 @@ const AddNewOrder = () => {
     contactNumber: "",
     address: "",
   });
-  useEffect(() => {
-    async function fetchAllBranches()
-    {
-      let response = await BranchManagerController.getAllBranches();
-      if(response.error)
-      {
-        alert(response.error);
-      }
-      else{
-        setBranches(response.data);
-      }
-    }
 
-    fetchAllBranches();
-  }, []);
-  
-  
+
   // Validation data map
   const [validations, setValidations] = useState({
     weight: false,
@@ -74,7 +90,7 @@ const AddNewOrder = () => {
     contactNumber: false,
   });
 
-  
+
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
@@ -102,8 +118,8 @@ const AddNewOrder = () => {
     })
     // onChange Form validation data set on change
     setValidations({
-       ...validations,
-       [name]: !validateField(name, value) // Not sign for conver false to true
+      ...validations,
+      [name]: !validateField(name, value) // Not sign for conver false to true
     });
   }
 
@@ -199,11 +215,11 @@ const AddNewOrder = () => {
                   name="weight"
                   placeholder="Enter packge weight"
                   type="number"
-                  invalid = {validations.weight}
+                  invalid={validations.weight}
                   onChange={onChange}
                   value={userInput.weight}
                 />
-              <FormFeedback>Invalid weight</FormFeedback>
+                <FormFeedback>Invalid weight</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="sendingDate">Sending Date</Label>
@@ -215,7 +231,7 @@ const AddNewOrder = () => {
                   // value={formattedSendingDate}
                   onChange={onChange}
                   value={userInput.sendingDate}
-                  // value={formattedSendingDate}
+                // value={formattedSendingDate}
                 />
               </FormGroup>
               <FormGroup>
@@ -239,8 +255,16 @@ const AddNewOrder = () => {
                   onChange={onChange}
                   value={userInput.packageTypes}
                 >
-                  <option>Glass</option>
-                  <option>Gift</option>
+                  {packageTypes.map((packageType) => {
+                    return (
+                      <DropdownOption
+                        key={packageType.packageTypeId}
+                        id={packageType.packageTypeId}
+                        value={packageType.packageType}
+                        onChange={onChange}
+                      />
+                    );
+                  })}
                 </Input>
               </FormGroup>
               <FormGroup>
@@ -252,7 +276,6 @@ const AddNewOrder = () => {
                   onChange={onChange}
                   value={userInput.sendingBranch}
                 >
-
                   {branches.map((branch) => {
                     return (
                       <DropdownOption
@@ -263,12 +286,6 @@ const AddNewOrder = () => {
                       />
                     );
                   })}
-                  {/* <option>Colombo</option>
-
-                  <option>Colombo</option>
-                  <option>Polonnaruwa</option>
-                  <option>Kandy</option>
-                  <option>Galewela</option> */}
                 </Input>
               </FormGroup>
               {/* <FormGroup>
@@ -390,7 +407,7 @@ const AddNewOrder = () => {
                   name="receiverName"
                   placeholder="Enter packge receiver name"
                   type="text"
-                  invalid = {validations.receiver}
+                  invalid={validations.receiver}
                   onChange={onChange}
                   value={userInput.receiver}
                 />
@@ -403,7 +420,7 @@ const AddNewOrder = () => {
                   name="receiverContact"
                   placeholder="Enter receiver contact number"
                   type="number"
-                  invalid = {validations.contactNumber}
+                  invalid={validations.contactNumber}
                   onChange={onChange}
                   value={userInput.contactNumber}
                 />
@@ -427,7 +444,7 @@ const AddNewOrder = () => {
                 <Input type="checkbox" /> <Label check>Check me out</Label>
               </FormGroup> */}
 
-              <Button type="submit" disabled ={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
+              <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
                 Submit the Order
               </Button>
               <Button

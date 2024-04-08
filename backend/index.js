@@ -17,6 +17,7 @@ import { router as userRouter } from "./routes/user.routes.js";
 import { router as authRoutes } from "./routes/auth.routes.js";
 import { router as clientRouter } from "./routes/client.routes.js";
 import { router as branchRouter } from "./routes/branch.routes.js";
+import {router as orderRouter} from "./routes/order.routes.js";
 
 // Do not edit anything below - (Ashan Thilochana)
 
@@ -34,6 +35,7 @@ app.use(authRoutes);
 app.use(userRouter);
 app.use(clientRouter);
 app.use(branchRouter);
+app.use(orderRouter);
 
 // Setup port listner
 app.listen(PORT, () => {

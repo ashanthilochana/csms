@@ -122,8 +122,31 @@ BranchManagerController.getBranchIdByBranchManagerNIC = async (nic) => {
   }
 };
 
+
+/////////////////////////////////////// Get All Branches ////////////////////////////////////////////////
+
 BranchManagerController.getAllBranches = async () => {
   try{let response = await BranchManagerService.getAllBranches();
+
+  if(response.error)
+  {
+    return {error : response.error};
+  }
+
+  else
+  {
+    return {data : response.data};
+  }}catch(e)
+  {
+    return {error : e};
+  }
+}
+
+/////////////////////////////////////// Get All Package Types ////////////////////////////////////////////////
+
+BranchManagerController.getAllPackageTypes = async () => {
+  try{
+    let response = await BranchManagerService.getAllPackageTypes();
 
   if(response.error)
   {
