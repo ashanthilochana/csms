@@ -3,7 +3,8 @@ import validator from "../../../validation/validation.js";
 
 let BranchManagerController = {};
 
-// Add a new client
+/////////////////////////////////////// Add a new client ////////////////////////////////////////////////
+
 BranchManagerController.addClient = async (
   nic,
   email,
@@ -13,53 +14,6 @@ BranchManagerController.addClient = async (
   branchId
 ) => {
 
-
-//   let {
-//     validateNIC,
-//     validateEmail,
-//     validateName,
-//     validateAddress,
-//     validatePhoneNumber,
-//   } = validator();
-
-//   if (!nic || nic === "") {
-//     return { error: "NIC cannot be empty" };
-//   }
-
-//   if (!validateNIC(nic)) {
-//     return { error: "Invalid NIC" };
-//   }
-
-//   if (!email || email === "") {
-//     return { error: "Email cannot be empty" };
-//   }
-
-//   if (!validateEmail(email)) {
-//     return { error: "Invalid Email" };
-//   }
-
-//   if (!name || name === "") {
-//     return { error: "Name cannot be empty" };
-//   }
-
-//   if (!validateName(name)) {
-//     return { error: "Invalid Name" };
-//   }
-
-//   if (!address || address === "") {
-//     return { error: "Address cannot be empty" };
-//   }
-
-//   if (!validateAddress(address)) {
-//     return { error: "Invalid Address" };
-  
-//   if (!contactNumber || contactNumber === "") {
-//     return { error: "Contact Number cannot be empty" };
-//   }
-
-//   if (!validatePhoneNumber(contactNumber)) {
-//     return { error: "Invalid Contact Number" };
-//   }
 
   let reqBody = {
     nic,
@@ -81,7 +35,8 @@ BranchManagerController.addClient = async (
   }
 };
 
-// Add a new order
+/////////////////////////////////////// Add a new order ////////////////////////////////////////////////
+
 BranchManagerController.addOrder = async (
   weight,
   sendingDate,
@@ -149,7 +104,8 @@ BranchManagerController.addOrder = async (
   }
 };
 
-// Get Branch ID by Branch Manager NIC
+/////////////////////////////////////// Get Branch ID by Branch Manager NIC ////////////////////////////////////////////////
+
 BranchManagerController.getBranchIdByBranchManagerNIC = async (nic) => {
   try {
     let data = await BranchManagerService.getBranchIdByBranchManagerNIC({
