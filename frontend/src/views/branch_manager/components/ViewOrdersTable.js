@@ -80,9 +80,9 @@ const ViewOrderTable = () => {
                         <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-success text-white d-inline-block">
                           Delivered
                         </span>
-                      ) : tdata.status === "On going" ? (
+                      ) : tdata.status === "On Route" ? (
                         <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-warning text-white d-inline-block">
-                          On going
+                          On Route
                         </span>
                       ) : tdata.status === "Received" ? (
                         <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-info text-white d-inline-block">
@@ -92,8 +92,16 @@ const ViewOrderTable = () => {
                         <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">
                           Registered
                         </span>
-                      ) : (
+                      ) : tdata.status === "Handed to Delivery" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-success text-white d-inline-block">
+                          Handed
+                        </span>
+                      ) : tdata.status === "Returned" ? (
                         <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">
+                          Returned
+                        </span>
+                      ) :(
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-black text-white d-inline-block">
                           No Status
                         </span>
                       )}

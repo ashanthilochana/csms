@@ -187,7 +187,7 @@ const AddNewTicket = () => {
                 <Col className="col-md-8">
                     <Card>
                         <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                            <i className="bi bi-star me-2"> </i>
+                            <i className="bi bi-envelope-plus me-2"> </i>
                             Add a New Ticket
                         </CardTitle>
                         <CardBody>

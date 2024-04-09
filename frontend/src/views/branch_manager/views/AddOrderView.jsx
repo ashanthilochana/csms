@@ -17,6 +17,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BranchManagerRoutes } from "../../../routes/all_user.routes";
 import useCookie from "../../../hooks/useCookies.js";
+import validator from "../../../validation/validation.js";
+
 
 //New import for component dropdown option
 import DropdownOption from "../../../components/common/DropdownOption.jsx";
@@ -115,6 +117,15 @@ const AddNewOrder = () => {
     address: "",
   });
 
+  // Validation regex
+  let {
+    validateNIC,
+    validateEmail,
+    validateName,
+    validateAddress,
+    validatePhoneNumber,
+  } = validator();
+
   // Validation data map
   const [validations, setValidations] = useState({
     weight: false,
@@ -126,13 +137,12 @@ const AddNewOrder = () => {
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
-      // case 'nic':
-      //   if(value > 0 && value < 999999999999){
-      //     return true;
-      //   }
-      //   else{
-      //     return false;
-      //   }
+      case 'weight':
+        return (value > 0 && value < 9999999);
+      case 'receiver':
+        return (validateName(value));
+      case 'contactNumber':
+        return (validatePhoneNumber(value));
       default:
         return true;
     }
@@ -294,6 +304,7 @@ const AddNewOrder = () => {
                   type="select"
                   onChange={onChange}
                   value={userInput.sendingBranch}
+                  disabled = {true}
                 >
                   {branches.map((branch) => {
                     return (
@@ -307,21 +318,7 @@ const AddNewOrder = () => {
                   })}
                 </Input>
               </FormGroup>
-              {/* <FormGroup>
-                <Label for="exampleSelectMulti">Select Multiple</Label>
-                <Input
-                  id="exampleSelectMulti"
-                  multiple
-                  name="selectMulti"
-                  type="select"
-                >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Input>
-              </FormGroup> */}
+
               <FormGroup>
                 <Label for="receivingBranch">Receiving Branch</Label>
                 <Input
