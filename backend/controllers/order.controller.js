@@ -82,4 +82,16 @@ OrderController.getAllOrderStatus = async (req, res) => {
     }
 }
 
+
+OrderController.getCourierFee = async (req, res) => {
+    let { packageWeight, packageTypeId } = req.body;
+  
+    try {
+      let fee = await OrderService.getOrderFee(packageWeight, packageTypeId);
+      res.status(200).send({ fee: fee });
+    } catch (error) {
+      res.status(500).send({ error: "internal Server Error!" });
+    }
+  };
+  
 export default OrderController;

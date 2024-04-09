@@ -347,4 +347,40 @@ BranchManagerController.addFeedback = async (
 };
 
 
+BranchManagerController.getAllClientNICs = async () => {
+  try {
+    let response = await BranchManagerService.getAllClientNICs();
+
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      let modifiedData = response.data.map((nic) => {
+        return { value: nic, label: nic };
+      });
+      return { data: modifiedData };
+    }
+  } catch (e) {
+    return { error: e };
+  }
+};
+
+BranchManagerController.getCourierFee = async (
+  packageWeight,
+  packageTypeId
+) => {
+  try {
+    let response = await BranchManagerService.getCourierFee({
+      packageWeight,
+      packageTypeId,
+    });
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+};
+
 export default BranchManagerController;

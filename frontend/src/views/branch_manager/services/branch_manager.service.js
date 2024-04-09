@@ -407,4 +407,38 @@ BranchManagerService.addFeedback = async (reqBody) => {
   }
 };
 
+BranchManagerService.getAllClientNICs = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/clients/nic");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+BranchManagerService.getCourierFee = async (reqBody) => {
+  try{
+      let response = await AxiosController.instance.post("/api/courier-fee", reqBody);
+      if(response.data.error)
+      {
+        return {error : response.data.error};
+      }
+      else
+      {
+        return {fee : response.data.fee};
+      }
+  }
+  catch(e){
+    console.error(e);
+    throw e;
+  }
+}
+
 export default BranchManagerService;

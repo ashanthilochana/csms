@@ -24,4 +24,8 @@ router.route("/api/orders-by-branch").post(
     OrderController.getAllOrderByBranchId
 );
 
+router
+  .route("/api/courier-fee")
+  .post(verifyAuthentication, OrderController.getCourierFee);
+
 export {router};

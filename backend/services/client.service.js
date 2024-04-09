@@ -95,6 +95,20 @@ ClientService.getAllClients = async(branchId) => {
     }
 };
 
+ClientService.getAllClientsWithoutJoins = async () => {
+    let query = `
+      SELECT * FROM client
+      `;
+  
+    try {
+      const [rows] = await pool.query(query);
+      return rows;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  };
+
 // Delete a client
 ClientService.deleteCustomer = async (nic) => {
     let queryDeleteClientFeedbacks = `

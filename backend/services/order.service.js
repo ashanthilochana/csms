@@ -174,4 +174,15 @@ OrderService.getAllOrderStatus = async () => {
     }
 };
 
+OrderService.getOrderFee = async (packageWeight, packageTypeId) => {
+    let query = `CALL getCourierFee(?,?)`;
+    try {
+        let [rows] = await pool.query(query, [packageWeight, packageTypeId]);
+        return rows[0][0].totalFee;   
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 export default OrderService;

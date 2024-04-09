@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { BranchManagerRoutes } from "../../../routes/all_user.routes";
 import useCookie from "../../../hooks/useCookies.js";
 import validator from "../../../validation/validation.js";
+import Select from "react-select";
 
 
 //New import for component dropdown option
@@ -30,6 +31,9 @@ import { format } from "date-fns";
 
 
 const AddNewOrder = () => {
+
+  let [clientNICs, setClientNICs] = useState([]);
+  let [selectedSenderNIC, setSelectedSenderNIC] = useState("");
 
   // Alert
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -88,17 +92,27 @@ const AddNewOrder = () => {
       }
     }
 
+    async function fetchAllClientNICs() {
+      let response = await BranchManagerController.getAllClientNICs();
+      if (response.error) {
+        alert(response.error);
+      } else {
+        setClientNICs(response.data);
+      }
+    }
+
     // get user branch with cookies
     let branchId = getCookie('user-branch-id');
 
     // Save previous data and save new data
     setInputData((prev) => {
-      return { ...prev, sendingBranch: branchId }
+      return { ...prev, sendingBranch: branchId, receivingBranch : branchId };
     });
 
     fetchAllBranches();
     fetchAllPackageTypes();
     fetchAllOrderStatus();
+    fetchAllClientNICs();
   }, []);
 
   // Map variable
@@ -106,7 +120,7 @@ const AddNewOrder = () => {
     weight: "",
     sendingDate: currentDate,
     paymentDate: currentDate,
-    packageTypes: "",
+    packageTypes: 1,
     sendingBranch: "",
     receivingBranch: "",
     specialNotes: "",
@@ -116,6 +130,26 @@ const AddNewOrder = () => {
     contactNumber: "",
     address: "",
   });
+
+  let [courierFee, setCourierFee] = useState(0.0);
+
+  useEffect(() => {
+    async function getFee() {
+      var regex = /^\d+(\.\d+)?$/;
+      let valid = regex.test(userInput.weight);
+      if (!valid) {
+        setCourierFee(0.0);
+      } else {
+        let { fee } = await BranchManagerController.getCourierFee(
+          userInput.weight,
+          userInput.packageTypes
+        );
+        setCourierFee(fee);
+      }
+    }
+
+    getFee();
+  }, [userInput.weight, userInput.packageTypes]);
 
   // Validation regex
   let {
@@ -173,6 +207,16 @@ const AddNewOrder = () => {
       }
     }
     return true;
+  };
+
+  const handleSenderChange = (e) => {
+    setSelectedSenderNIC(e);
+    setInputData((prevOptions) => {
+      return {
+        ...prevOptions,
+        sender: e.value,
+      };
+    });
   };
 
   const onSubmit = async (e) => {
@@ -383,13 +427,20 @@ const AddNewOrder = () => {
               <legend className="mt-2">Sender</legend>
               <FormGroup>
                 <Label for="sender">Sender</Label>
-                <Input
+                {/* <Input
                   id="sender"
                   name="sender"
                   placeholder="Enter sender NIC Number"
                   type="text"
                   onChange={onChange}
                   value={userInput.sender}
+                /> */}
+                <Select
+                  id="sender"
+                  name="sender"
+                  value={selectedSenderNIC}
+                  onChange={handleSenderChange}
+                  options={clientNICs}
                 />
               </FormGroup>
               <legend className="mt-2">Receiver</legend>
@@ -431,7 +482,7 @@ const AddNewOrder = () => {
                 />
               </FormGroup>
               <legend className="mt-2">
-                Courier Fee - <b>Rs. 5,000</b>
+                Courier Fee - <b>Rs. {courierFee}</b>
               </legend>
               {/* <FormGroup check className="form-label">
                 <Input type="checkbox" /> <Label check>Check me out</Label>
