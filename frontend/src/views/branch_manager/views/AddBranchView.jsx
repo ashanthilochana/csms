@@ -52,14 +52,19 @@ const AddNewBranch = () => {
   // Validation data map
   const [validations, setValidations] = useState({
     district: false,
+    address: false,
     contactNumber: false,
   });
 
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
-      // case 'district':
-      //   return !validateNIC(value);
+      case 'district':
+        return (validateName(value));
+      case 'address':
+        return (!value == "");
+      case 'contactNumber':
+        return (!value == "");
       default:
         return true;
     }
@@ -156,7 +161,9 @@ const AddNewBranch = () => {
                   type="text"
                   onChange={onChange}
                   value={inputData.address}
+                  invalid = {validations.address}
                 />
+                <FormFeedback>Enter a valid address</FormFeedback>
               </FormGroup>
               <FormGroup>
                 <Label for="mapLocation">Map Location</Label>

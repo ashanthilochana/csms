@@ -98,13 +98,14 @@ const AddNewTicket = () => {
     // Validation data map
     const [validations, setValidations] = useState({
         nic: false,
+        message: true,
     });
 
     // onChange Form validation
     const validateField = (name, value) => {
         switch (name) {
-            // case 'nic':
-            //   return !validateNIC(value);
+            case 'message':
+                return (!value == "");
             default:
                 return true;
         }
@@ -257,7 +258,9 @@ const AddNewTicket = () => {
                                     type="textarea"
                                     value={inputData.message}
                                     onChange={onChange}
+                                    invalid = {validations.message}
                                 />
+                                <FormFeedback>Enter a ticket message body   </FormFeedback>
                             </FormGroup>
 
 

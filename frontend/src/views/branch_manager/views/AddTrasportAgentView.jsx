@@ -73,13 +73,20 @@ const AddTransportAgent = () => {
         nic: false,
         email: false,
         name: false,
+        vehicleNumber: false,
     });
 
     // onChange Form validation
     const validateField = (name, value) => {
         switch (name) {
-            // case 'nic':
-            //   return !validateNIC(value);
+            case 'nic':
+                return (!value == "");
+            case 'email':
+                return (validateEmail(value));
+            case 'name':
+                return (validateName(value));
+            case 'vehicleNumber':
+                return (!value == "");
             default:
                 return true;
         }
@@ -202,7 +209,9 @@ const AddTransportAgent = () => {
                                     type="text"
                                     value={inputData.vehicleNumber}
                                     onChange={onChange}
+                                    invalid = {validations.vehicleNumber}
                                 />
+                                <FormFeedback>Enter a valid vehicle number  </FormFeedback>
                             </FormGroup>
 
                             <FormGroup>

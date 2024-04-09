@@ -50,6 +50,16 @@ const AddTransportAgent = () => {
         fetchAllBranches();
     }, []);
 
+    // Validation regex
+    let {
+        validateNIC,
+        validateEmail,
+        validateName,
+        validateAddress,
+        validatePhoneNumber,
+    } = validator();
+
+
     // Map variable
     const [inputData, setInputData] = useState({
         routeName: "",
@@ -65,8 +75,8 @@ const AddTransportAgent = () => {
     // onChange Form validation
     const validateField = (name, value) => {
         switch (name) {
-            // case 'nic':
-            //   return !validateNIC(value);
+            case 'routeName':
+                return (validateName(value));
             default:
                 return true;
         }

@@ -74,15 +74,27 @@ const AddDeliveryPerson = () => {
     const [validations, setValidations] = useState({
         nic: false,
         email: false,
-        name: false,
+        fullName: false,
+        address: false,
         contactNumber: false,
+        vehicleNumber: false
     });
 
     // onChange Form validation
     const validateField = (name, value) => {
         switch (name) {
-            // case 'nic':
-            //   return !validateNIC(value);
+            case 'nic':
+                return (!value == "");
+            case 'email':
+                return (validateEmail(value));
+            case 'fullName':
+                return (validateName(value));
+            case 'address':
+                return (!value == "");
+            case 'contactNumber':
+                return (!value == "");
+            case 'vehicleNumber':
+                return (!value == "");
             default:
                 return true;
         }
@@ -200,15 +212,28 @@ const AddDeliveryPerson = () => {
                                 <FormFeedback>Enter a valid email address</FormFeedback>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="name">Full Name</Label>
+                                <Label for="fullName">Full Name</Label>
                                 <Input
-                                    id="name"
-                                    name="name"
+                                    id="fullName"
+                                    name="fullName"
                                     placeholder="Enter full name"
                                     type="text"
-                                    value={inputData.name}
+                                    value={inputData.fullName}
                                     onChange={onChange}
-                                    invalid={validations.name}
+                                    invalid={validations.fullName}
+                                />
+                                <FormFeedback>Enter a valid name</FormFeedback>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="address">Address</Label>
+                                <Input
+                                    id="address"
+                                    name="address"
+                                    placeholder="Enter delivery person home addresss"
+                                    type="text"
+                                    value={inputData.address}
+                                    onChange={onChange}
+                                    invalid={validations.address}
                                 />
                                 <FormFeedback>Enter a valid name</FormFeedback>
                             </FormGroup>
@@ -218,7 +243,7 @@ const AddDeliveryPerson = () => {
                                     id="contactNumber"
                                     name="contactNumber"
                                     placeholder="Enter delivery person's contact number"
-                                    type="text"
+                                    type="number"
                                     value={inputData.contactNumber}
                                     onChange={onChange}
                                     invalid={validations.contactNumber}

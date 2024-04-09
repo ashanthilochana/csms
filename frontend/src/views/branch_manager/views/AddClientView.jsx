@@ -30,6 +30,7 @@ const AddNewClient = () => {
   const [showErrorDialog, setShowErrorDialog] = useState(false);
   const hideErrorDialog = () => setShowErrorDialog(false);
 
+  // Validation regexs
   let {
     validateNIC,
     validateEmail,
@@ -65,8 +66,16 @@ const AddNewClient = () => {
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
-      // case 'nic':
-      //   return !validateNIC(value);
+      case 'nic':
+        return (!value == "");
+      case 'email':
+        return (validateEmail(value));
+      case 'name':
+        return (validateName(value));
+      case 'address':
+        return (!value == "");
+      case 'contactNumber':
+        return (!value == "");
       default:
         return true;
     }
@@ -209,22 +218,7 @@ const AddNewClient = () => {
                 <FormFeedback>Enter a valid contact number</FormFeedback>
               </FormGroup>
 
-              {/* <FormGroup>
-                <Label for="branch">Branch</Label>
-                <Input
-                  id="branch"
-                  name="branchId"
-                  type="select"
-                  value={inputData.branchId}
-                  onChange={onChange}
-                  placeholder="Select"
-                >
-                  <option>Colombo</option>
-                  <option>Polonnaruwa</option>
-                  <option>Kandy</option>
-                  <option>Galewela</option>
-                </Input>
-              </FormGroup> */}
+
 
               <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Client</Button>
               <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>

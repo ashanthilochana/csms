@@ -66,13 +66,14 @@ const AddNewTicket = () => {
     // Validation data map
     const [validations, setValidations] = useState({
         rating: false,
+        message: true,
     });
 
     // onChange Form validation
     const validateField = (name, value) => {
         switch (name) {
-            // case 'nic':
-            //   return !validateNIC(value);
+            case 'message':
+              return (!value == "");
             default:
                 return true;
         }
@@ -195,12 +196,14 @@ const AddNewTicket = () => {
                                     type="textarea"
                                     value={inputData.message}
                                     onChange={onChange}
+                                    invalid = {validations.message}
                                 />
+                                <FormFeedback>Enter a feedback message body</FormFeedback>
                             </FormGroup>
 
 
 
-                            <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Open The Ticket</Button>
+                            <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Feedback</Button>
                             <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
 
                         </CardBody>
