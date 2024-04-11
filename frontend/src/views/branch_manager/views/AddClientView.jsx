@@ -148,19 +148,20 @@ const AddNewClient = () => {
           <Card>
             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
               <i className="bi bi-person-add me-2"> </i>
-              Add a New Customer
+              Add a New Client
             </CardTitle>
             <CardBody>
               <FormGroup>
-                <Label for="customerNic">Customer NIC </Label>
+                <Label for="customerNic">Client NIC </Label>
                 <Input
                   id="customerNic"
                   name="nic"
-                  placeholder="Enter customer nic"
+                  placeholder="Enter client nic"
                   type="text"
                   value={inputData.nic}
                   onChange={onChange}
                   invalid={validations.nic}
+                  required = {true}
                 />
                 <FormFeedback>Enter a valid NIC number</FormFeedback>
               </FormGroup>
@@ -169,11 +170,12 @@ const AddNewClient = () => {
                 <Input
                   id="customerEmail"
                   name="email"
-                  placeholder="Enter customer email"
+                  placeholder="Enter email address"
                   type="email"
                   onChange={onChange}
                   value={inputData.email}
                   invalid={validations.email}
+                  required = {true}
                 />
                 <FormFeedback>Enter a valid email address</FormFeedback>
               </FormGroup>
@@ -187,6 +189,7 @@ const AddNewClient = () => {
                   value={inputData.name}
                   onChange={onChange}
                   invalid={validations.name}
+                  required = {true}
                 />
                 <FormFeedback>Enter a valid name</FormFeedback>
               </FormGroup>
@@ -200,6 +203,7 @@ const AddNewClient = () => {
                   value={inputData.address}
                   onChange={onChange}
                   invalid={validations.address}
+                  required = {true}
                 />
                 <FormFeedback>Enter a valid address</FormFeedback>
               </FormGroup>
@@ -214,6 +218,7 @@ const AddNewClient = () => {
                   value={inputData.contactNumber}
                   onChange={onChange}
                   invalid={validations.contactNumber}
+                  required = {true}
                 />
                 <FormFeedback>Enter a valid contact number</FormFeedback>
               </FormGroup>

@@ -149,6 +149,7 @@ const AddNewBranch = () => {
                   value={inputData.district}
                   onChange={onChange}
                   invalid={validations.district}
+                  required = {true}
                 />
                 <FormFeedback>Enter a valid district</FormFeedback>
               </FormGroup>
@@ -162,6 +163,7 @@ const AddNewBranch = () => {
                   onChange={onChange}
                   value={inputData.address}
                   invalid = {validations.address}
+                  required = {true}
                 />
                 <FormFeedback>Enter a valid address</FormFeedback>
               </FormGroup>
@@ -174,6 +176,7 @@ const AddNewBranch = () => {
                   type="text"
                   value={inputData.mapLocation}
                   onChange={onChange}
+                  required = {true}
                 />
               </FormGroup>
               <FormGroup>
@@ -186,6 +189,7 @@ const AddNewBranch = () => {
                   value={inputData.contactNumber}
                   onChange={onChange}
                   invalid={validations.contactNumber}
+                  required = {true}
                 />
                 <FormFeedback>Enter a valid contact number</FormFeedback>
               </FormGroup>
