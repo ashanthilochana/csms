@@ -1,6 +1,6 @@
 function validator() {
     function validateNIC(nic) {
-      const regex = /^[0-9]*V?$/;
+      const regex = /^[0-9]+[vV]?$/;
       return regex.test(nic);
     }
   

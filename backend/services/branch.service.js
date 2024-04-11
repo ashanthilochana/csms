@@ -30,7 +30,7 @@ BranchService.checkBranchExistStatus = async (district) => {
 // Add a new branch
 BranchService.addBranch = async (district, address, mapLocation, contactNumber) => {
     let query = `
-    INSERT INTO branch(district, address, contact_number)
+    INSERT INTO branch(district, address, contactNumber)
     VALUE(?, ?, ?)
     `;
 

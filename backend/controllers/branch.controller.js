@@ -4,6 +4,7 @@ import BranchService from "../services/branch.service.js";
 
 let BranchController = {};
 
+
 // Add a new branch
 BranchController.addBranch = async (req, res) => {
   try {

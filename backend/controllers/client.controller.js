@@ -36,6 +36,20 @@ ClientController.getAllClients = async (req, res) => {
     {
         res.status(500).send({error : "Internal Server Error"});
     }
+};
+
+ClientController.getAllClientNICs = async (req, res) => {
+    try{
+        let data = await ClientService.getAllClientsWithoutJoins();
+        let modifiedData = data.map((client) => {
+            return client.nic;
+        })
+        res.status(200).send(modifiedData);
+    }
+    catch(e)
+    {
+        res.status(500).send({error : "Internal Server Error"});
+    }
 }
 
 export default ClientController;

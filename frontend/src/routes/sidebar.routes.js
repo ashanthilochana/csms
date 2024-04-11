@@ -57,7 +57,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a New Branch",
-          href: "#",
+          href: BranchManagerRoutes.addBranch,
           icon: "bi bi-house-add",
         },
         {
@@ -73,7 +73,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a New Trasport Agent",
-          href: "#",
+          href: BranchManagerRoutes.addTransportAgent,
           icon: "bi bi-person-add",
         },
         {
@@ -89,7 +89,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a Delivery Person",
-          href: "#",
+          href: BranchManagerRoutes.addDeliveryPerson,
           icon: "bi bi-person-add",
         },
         {
@@ -105,7 +105,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a New Route",
-          href: "#",
+          href: BranchManagerRoutes.addRoute,
           icon: "bi bi-sign-intersection",
         },
         {
@@ -121,7 +121,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a New Ticket",
-          href: "#",
+          href: BranchManagerRoutes.addTicket,
           icon: "bi bi-envelope-plus",
         },
         {
@@ -137,7 +137,7 @@ SidebarRoutes.branchManagerRoutes = [
       subItems: [
         {
           title: "Add a Feedback",
-          href: "#",
+          href: BranchManagerRoutes.addFeedback,
           icon: "bi bi-star",
         },
         {

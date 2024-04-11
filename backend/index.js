@@ -18,6 +18,12 @@ import { router as authRoutes } from "./routes/auth.routes.js";
 import { router as clientRouter } from "./routes/client.routes.js";
 import { router as branchRouter } from "./routes/branch.routes.js";
 import {router as orderRouter} from "./routes/order.routes.js";
+import {router as routeRouter} from "./routes/route.routes.js"
+import {router as transportRouter} from "./routes/transport.routes.js"
+import {router as deliveryRouter} from "./routes/delivery.routes.js"
+import {router as ticketRouter} from "./routes/ticket.routes.js"
+import {router as feedbackRouter} from "./routes/feedback.routes.js"
+
 
 // Do not edit anything below - (Ashan Thilochana)
 
@@ -36,6 +42,11 @@ app.use(userRouter);
 app.use(clientRouter);
 app.use(branchRouter);
 app.use(orderRouter);
+app.use(routeRouter);
+app.use(transportRouter);
+app.use(deliveryRouter);
+app.use(ticketRouter);
+app.use(feedbackRouter);
 
 // Setup port listner
 app.listen(PORT, () => {

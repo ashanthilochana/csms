@@ -21,8 +21,8 @@ OrderService.addOrder = async(
     address) => {
 
     let query = `
-    INSERT INTO orders(weight, registeredDate, receivedDate, deliveryDate, paymentDate, receiverName, receiverAddress, receiverContactNumber, packageTypeId, senderNic, statusId, sendingBranchId, receivingBranchId) 
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO orders(weight, registeredDate, paymentDate, receiverName, receiverAddress, receiverContactNumber, packageTypeId, senderNic, statusId, sendingBranchId, receivingBranchId, specialNote) 
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     try {
@@ -30,15 +30,16 @@ OrderService.addOrder = async(
             weight,
             sendingDate,
             paymentDate,
+            receiver,
+            address,
+            contactNumber,
             packageTypes,
+            sender,
+            orderStatus,
             sendingBranch,
             receivingBranch,
             specialNotes,
-            orderStatus,
-            sender,
-            receiver,
-            contactNumber,
-            address ]);
+            ]);
     }
     catch (e) {
         console.error(e);
@@ -68,11 +69,21 @@ OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
 
 /////////////////////////////////////// Get all received orders to received order tables by branchId ////////////////////////////////////////////////
 
-OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
-    let query = `
-    
-    `;
 
+OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
+    let query = `select o.orderId as order_id, 
+    o.registeredDate as orderDate, 
+    c.fullName as sender, 
+    b.district as destinationBranch, 
+    os.status 
+    from orders o
+    join client c
+    on o.senderNic = c.nic
+    join branch b
+    on o.receivingBranchId = b.branchId
+    join orderstatus os
+    on o.statusId = os.statusId
+    where o.sendingBranchId = ?`;
     try{
         let [rows] = await pool.query(query, [sendingBranchId]);
         return rows;
@@ -144,5 +155,34 @@ OrderService.getAllPackageTypes = async () => {
         throw e;
     }
 };
+
+
+/////////////////////////////////////// Get all order status ////////////////////////////////////////////////
+
+OrderService.getAllOrderStatus = async () => {
+    let query = `
+    SELECT * FROM orderstatus
+    `;
+
+    try{
+        let [rows] = await pool.query(query);
+        return rows;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+OrderService.getOrderFee = async (packageWeight, packageTypeId) => {
+    let query = `CALL getCourierFee(?,?)`;
+    try {
+        let [rows] = await pool.query(query, [packageWeight, packageTypeId]);
+        return rows[0][0].totalFee;   
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
 
 export default OrderService;
