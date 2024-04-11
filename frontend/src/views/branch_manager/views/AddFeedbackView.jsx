@@ -66,7 +66,7 @@ const AddNewTicket = () => {
     // Validation data map
     const [validations, setValidations] = useState({
         rating: false,
-        message: true,
+        message: false,
     });
 
     // onChange Form validation
@@ -177,6 +177,7 @@ const AddNewTicket = () => {
                                     type="select"
                                     value={inputData.rating}
                                     onChange={onChange}
+                                    required = {true}
                                 >
                                     <option value={1}> 1 </option>
                                     <option value={2}> 2 </option>
@@ -197,6 +198,7 @@ const AddNewTicket = () => {
                                     value={inputData.message}
                                     onChange={onChange}
                                     invalid = {validations.message}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a feedback message body</FormFeedback>
                             </FormGroup>

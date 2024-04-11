@@ -171,6 +171,7 @@ const AddTransportAgent = () => {
                                     value={inputData.nic}
                                     onChange={onChange}
                                     invalid={validations.nic}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid NIC number</FormFeedback>
                             </FormGroup>
@@ -184,6 +185,7 @@ const AddTransportAgent = () => {
                                     onChange={onChange}
                                     value={inputData.email}
                                     invalid={validations.email}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid email address</FormFeedback>
                             </FormGroup>
@@ -197,6 +199,7 @@ const AddTransportAgent = () => {
                                     value={inputData.name}
                                     onChange={onChange}
                                     invalid={validations.name}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid name</FormFeedback>
                             </FormGroup>
@@ -210,6 +213,7 @@ const AddTransportAgent = () => {
                                     value={inputData.vehicleNumber}
                                     onChange={onChange}
                                     invalid = {validations.vehicleNumber}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid vehicle number  </FormFeedback>
                             </FormGroup>
@@ -222,6 +226,7 @@ const AddTransportAgent = () => {
                                     type="select"
                                     onChange={onChange}
                                     value={inputData.routeId}
+                                    required = {true}
                                 >
                                     {routes.map((route) => {
                                         return (

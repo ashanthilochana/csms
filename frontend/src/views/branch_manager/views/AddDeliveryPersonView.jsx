@@ -55,7 +55,6 @@ const AddDeliveryPerson = () => {
                 setBranches(response.data);
             }
         }
-
         fetchAllBranches();
     }, []);
 
@@ -127,7 +126,6 @@ const AddDeliveryPerson = () => {
         return true;
     };
 
-
     // onSubmit
     const onSubmit = async (e) => {
 
@@ -190,11 +188,12 @@ const AddDeliveryPerson = () => {
                                 <Input
                                     id="nic"
                                     name="nic"
-                                    placeholder="Enter transport agent NIC"
+                                    placeholder="Enter delivery person's NIC"
                                     type="text"
                                     value={inputData.nic}
                                     onChange={onChange}
                                     invalid={validations.nic}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid NIC number</FormFeedback>
                             </FormGroup>
@@ -203,11 +202,12 @@ const AddDeliveryPerson = () => {
                                 <Input
                                     id="email"
                                     name="email"
-                                    placeholder="Enter customer email"
+                                    placeholder="Enter email address"
                                     type="email"
                                     onChange={onChange}
                                     value={inputData.email}
                                     invalid={validations.email}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid email address</FormFeedback>
                             </FormGroup>
@@ -221,6 +221,7 @@ const AddDeliveryPerson = () => {
                                     value={inputData.fullName}
                                     onChange={onChange}
                                     invalid={validations.fullName}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid name</FormFeedback>
                             </FormGroup>
@@ -229,11 +230,12 @@ const AddDeliveryPerson = () => {
                                 <Input
                                     id="address"
                                     name="address"
-                                    placeholder="Enter delivery person home addresss"
+                                    placeholder="Enter delivery person's home addresss"
                                     type="text"
                                     value={inputData.address}
                                     onChange={onChange}
                                     invalid={validations.address}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid name</FormFeedback>
                             </FormGroup>
@@ -242,11 +244,12 @@ const AddDeliveryPerson = () => {
                                 <Input
                                     id="contactNumber"
                                     name="contactNumber"
-                                    placeholder="Enter delivery person's contact number"
+                                    placeholder="Enter contact number"
                                     type="number"
                                     value={inputData.contactNumber}
                                     onChange={onChange}
                                     invalid={validations.contactNumber}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid name</FormFeedback>
                             </FormGroup>
@@ -255,11 +258,11 @@ const AddDeliveryPerson = () => {
                                 <Input
                                     id="vehicleNumber"
                                     name="vehicleNumber"
-                                    placeholder="Enter transport agent's vehicle number"
+                                    placeholder="Enter vehicle number"
                                     type="text"
                                     value={inputData.vehicleNumber}
-                                    onChange={onChange}
-                                />
+                                    onChange={onChange}            
+                                    required = {true}                    />
                             </FormGroup>
 
                             <FormGroup>
@@ -270,6 +273,7 @@ const AddDeliveryPerson = () => {
                                     type="select"
                                     onChange={onChange}
                                     value={inputData.branchId}
+                                    required = {true}
                                 >
                                     {branches.map((branch) => {
                                         return (

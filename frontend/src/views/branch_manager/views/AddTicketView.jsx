@@ -98,7 +98,7 @@ const AddNewTicket = () => {
     // Validation data map
     const [validations, setValidations] = useState({
         nic: false,
-        message: true,
+        message: false,
     });
 
     // onChange Form validation
@@ -201,8 +201,8 @@ const AddNewTicket = () => {
                                     type="text"
                                     value={inputData.nic}
                                     onChange={onChange}
-                                    disabled={true}
-                                />
+                                    disabled={true}     
+                                    required = {true}                           />
                             </FormGroup>
 
                             <FormGroup>
@@ -213,6 +213,7 @@ const AddNewTicket = () => {
                                     type="select"
                                     onChange={onChange}
                                     value={inputData.branchId}
+                                    required = {true}
                                 >
                                     {branches.map((branch) => {
                                         return (
@@ -235,6 +236,7 @@ const AddNewTicket = () => {
                                     type="select"
                                     onChange={onChange}
                                     value={inputData.reasonId}
+                                    required = {true}
                                 >
                                     {reasons.map((reason) => {
                                         return (
@@ -259,11 +261,9 @@ const AddNewTicket = () => {
                                     value={inputData.message}
                                     onChange={onChange}
                                     invalid = {validations.message}
-                                />
+                                    required = {true}                              />
                                 <FormFeedback>Enter a ticket message body   </FormFeedback>
                             </FormGroup>
-
-
 
                             <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Open The Ticket</Button>
                             <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
