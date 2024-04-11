@@ -69,6 +69,7 @@ const AddNewOrder = () => {
                   invalid={validations.weight}
                   onChange={onChange}
                   value={userInput.weight}
+                  required = {true}
                 />
                 <FormFeedback>Invalid weight</FormFeedback>
               </FormGroup>
@@ -81,6 +82,7 @@ const AddNewOrder = () => {
                   type="date"
                   onChange={onChange}
                   value={userInput.sendingDate}
+                  required = {true}
                 // value={formattedSendingDate}
                 />
               </FormGroup>
@@ -94,6 +96,7 @@ const AddNewOrder = () => {
                   // value={formattedSendingDate}
                   onChange={onChange}
                   value={userInput.paymentDate}
+                  required = {true}
                 />
               </FormGroup>
               <FormGroup>
@@ -104,6 +107,7 @@ const AddNewOrder = () => {
                   type="select"
                   onChange={onChange}
                   value={userInput.packageTypes}
+                  required = {true}
                 >
                   {packageTypes.map((packageType) => {
                     return (
@@ -126,6 +130,7 @@ const AddNewOrder = () => {
                   onChange={onChange}
                   value={userInput.sendingBranch}
                   disabled = {true}
+                  required = {true}
                 >
                   {branches.map((branch) => {
                     return (
@@ -148,6 +153,7 @@ const AddNewOrder = () => {
                   type="select"
                   onChange={onChange}
                   value={userInput.receivingBranch}
+                  required = {true}
                 >
                   {branches.map((branch) => {
                     return (
@@ -181,6 +187,7 @@ const AddNewOrder = () => {
                   type="select"
                   onChange={onChange}
                   value={userInput.orderStatus}
+                  required = {true}
                 >
                   {orderStatus.map((orderStat) => {
                     return (
@@ -210,6 +217,7 @@ const AddNewOrder = () => {
                   value={selectedSenderNIC}
                   onChange={handleSenderChange}
                   options={clientNICs}
+                  required = {true}
                 />
               </FormGroup>
               <legend className="mt-2">Receiver</legend>
@@ -223,6 +231,7 @@ const AddNewOrder = () => {
                   invalid={validations.receiver}
                   onChange={onChange}
                   value={userInput.receiver}
+                  required = {true}
                 />
                 <FormFeedback>Invalid name</FormFeedback>
               </FormGroup>
@@ -236,6 +245,7 @@ const AddNewOrder = () => {
                   invalid={validations.contactNumber}
                   onChange={onChange}
                   value={userInput.contactNumber}
+                  required = {true}
                 />
                 <FormFeedback>Invalid contact number</FormFeedback>
               </FormGroup>
@@ -248,6 +258,7 @@ const AddNewOrder = () => {
                   type="textarea"
                   onChange={onChange}
                   value={userInput.address}
+                  required = {true}
                 />
               </FormGroup>
               <legend className="mt-2">

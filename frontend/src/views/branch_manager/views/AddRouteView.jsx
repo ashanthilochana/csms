@@ -162,6 +162,7 @@ const AddTransportAgent = () => {
                                     value={inputData.routeName}
                                     onChange={onChange}
                                     invalid={validations.routeName}
+                                    required = {true}
                                 />
                                 <FormFeedback>Enter a valid route name</FormFeedback>
                             </FormGroup>
@@ -174,6 +175,7 @@ const AddTransportAgent = () => {
                                     type="select"
                                     onChange={onChange}
                                     value={inputData.fBranchId}
+                                    required = {true}
                                 >
                                     {branches.map((branch) => {
                                         return (
@@ -195,6 +197,7 @@ const AddTransportAgent = () => {
                                     type="select"
                                     onChange={onChange}
                                     value={inputData.sBranchId}
+                                    required = {true}
                                 >
                                     {branches.map((branch) => {
                                         return (

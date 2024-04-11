@@ -5,7 +5,7 @@ import { verifyAuthentication } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 router.route("/api/add-order").post(
-    // verifyAuthentication,
+    verifyAuthentication,
     OrderController.addOrder
 );
 
