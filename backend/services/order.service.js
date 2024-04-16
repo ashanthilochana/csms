@@ -4,7 +4,8 @@ import { pool } from "../database/database.js";
 
 let OrderService = {};
 
-// Add a new order
+/////////////////////////////////////// Add a new order ////////////////////////////////////////////////
+
 OrderService.addOrder = async(
     weight,
     sendingDate,
@@ -20,8 +21,8 @@ OrderService.addOrder = async(
     address) => {
 
     let query = `
-    INSERT INTO orders(weight, registeredDate, receivedDate, deliveryDate, paymentDate, receiverName, receiverAddress, receiverContactNumber, packageTypeId, senderNic, statusId, sendingBranchId, receivingBranchId) 
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO orders(weight, registeredDate, paymentDate, receiverName, receiverAddress, receiverContactNumber, packageTypeId, senderNic, statusId, sendingBranchId, receivingBranchId, specialNote) 
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     try {
@@ -29,15 +30,16 @@ OrderService.addOrder = async(
             weight,
             sendingDate,
             paymentDate,
+            receiver,
+            address,
+            contactNumber,
             packageTypes,
+            sender,
+            orderStatus,
             sendingBranch,
             receivingBranch,
             specialNotes,
-            orderStatus,
-            sender,
-            receiver,
-            contactNumber,
-            address ]);
+            ]);
     }
     catch (e) {
         console.error(e);
@@ -46,7 +48,8 @@ OrderService.addOrder = async(
 
 };
 
-// Get all latest order to all order tables by branchId
+/////////////////////////////////////// Get latest order by branch by branch ID  ////////////////////////////////////////////////
+
 OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
     let query = `
     SELECT o.orderId, o.registeredDate, c.fullName, o.receivingBranchId, os.status
@@ -64,12 +67,23 @@ OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
     }
 };
 
-// Get all received orders to received order tables by branchId
-OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
-    let query = `
-    
-    `;
+/////////////////////////////////////// Get all received orders to received order tables by branchId ////////////////////////////////////////////////
 
+
+OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
+    let query = `select o.orderId as order_id, 
+    o.registeredDate as orderDate, 
+    c.fullName as sender, 
+    b.district as destinationBranch, 
+    os.status 
+    from orders o
+    join client c
+    on o.senderNic = c.nic
+    join branch b
+    on o.receivingBranchId = b.branchId
+    join orderstatus os
+    on o.statusId = os.statusId
+    where o.sendingBranchId = ?`;
     try{
         let [rows] = await pool.query(query, [sendingBranchId]);
         return rows;
@@ -79,7 +93,8 @@ OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
     }
 };
 
-// Get an order details by OrderId
+/////////////////////////////////////// Get an order details by OrderId ////////////////////////////////////////////////
+
 OrderService.getSingleOrderDetails = async(orderId) => {
     let query = `
     SELECT o.orderId, o.weight, o.registeredDate, o.receivedDate, o.deliveryDate, o.paymentDate, o.receiverName, o.receiverAddress, o.receiverContactNumber, pt.packageType, c.nic AS senderNic, c.fullName AS senderName, os.status, bs.district AS sendingBranch, br.district AS receivingBranch
@@ -96,7 +111,8 @@ OrderService.getSingleOrderDetails = async(orderId) => {
     }
 }
 
-// Delete a order by orderID
+/////////////////////////////////////// Delete an order by orderID ////////////////////////////////////////////////
+
 OrderService.deleteOrder = async(orderId) => {
     let query1 = `
     DELETE FROM orderdelivery
@@ -123,5 +139,50 @@ OrderService.deleteOrder = async(orderId) => {
     }
 };
 
+/////////////////////////////////////// Get all packge types ////////////////////////////////////////////////
+
+OrderService.getAllPackageTypes = async () => {
+    let query = `
+    SELECT * FROM packagetype
+    `;
+
+    try{
+        let [rows] = await pool.query(query);
+        return rows;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+
+/////////////////////////////////////// Get all order status ////////////////////////////////////////////////
+
+OrderService.getAllOrderStatus = async () => {
+    let query = `
+    SELECT * FROM orderstatus
+    `;
+
+    try{
+        let [rows] = await pool.query(query);
+        return rows;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+OrderService.getOrderFee = async (packageWeight, packageTypeId) => {
+    let query = `CALL getCourierFee(?,?)`;
+    try {
+        let [rows] = await pool.query(query, [packageWeight, packageTypeId]);
+        return rows[0][0].totalFee;   
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
 
 export default OrderService;

@@ -15,13 +15,12 @@ import {
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useCookie from "../../../hooks/useCookies";
 import BranchManagerController from "../controllers/branch_manager.controller";
 import { BranchManagerRoutes } from "../../../routes/all_user.routes";
 import validator from "../../../validation/validation.js";
 
 
-const AddNewClient = () => {
+const AddNewBranch = () => {
 
   // Alert
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -30,7 +29,6 @@ const AddNewClient = () => {
   const [showErrorDialog, setShowErrorDialog] = useState(false);
   const hideErrorDialog = () => setShowErrorDialog(false);
 
-  // Validation regexs
   let {
     validateNIC,
     validateEmail,
@@ -43,22 +41,17 @@ const AddNewClient = () => {
   // Create object for use navigator
   const navigate = useNavigate();
 
-  const [getCookie, setCookie] = useCookie();
-
   // Map variable
   const [inputData, setInputData] = useState({
-    nic: "",
-    email: "",
-    name: "",
+    district: "",
     address: "",
+    mapLocation: "",
     contactNumber: "",
   })
 
   // Validation data map
   const [validations, setValidations] = useState({
-    nic: false,
-    email: false,
-    name: false,
+    district: false,
     address: false,
     contactNumber: false,
   });
@@ -66,11 +59,7 @@ const AddNewClient = () => {
   // onChange Form validation
   const validateField = (name, value) => {
     switch (name) {
-      case 'nic':
-        return (!value == "");
-      case 'email':
-        return (validateEmail(value));
-      case 'name':
+      case 'district':
         return (validateName(value));
       case 'address':
         return (!value == "");
@@ -114,11 +103,10 @@ const AddNewClient = () => {
 
     e.preventDefault();
 
-    const { nic, email, name, address, contactNumber } = inputData;
-    let branchId = getCookie('user-branch-id');
+    const { district, address, mapLocation, contactNumber } = inputData;
 
     try {
-      const res = await BranchManagerController.addClient(nic, email, name, address, contactNumber, branchId);
+      const res = await BranchManagerController.addBranch(district, address, mapLocation, contactNumber);
 
       // Error handling
       if (res.error) {
@@ -141,79 +129,62 @@ const AddNewClient = () => {
 
   return (
     <Form>
-      <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Client Added Successfully!</Alert>
+      <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Branch Added Successfully!</Alert>
       <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> Something Went Wrong! </Alert>
       <Row className="justify-content-center">
         <Col className="col-md-8">
           <Card>
             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-              <i className="bi bi-person-add me-2"> </i>
-              Add a New Client
+              <i className="bi bi-house-add me-2"> </i>
+              Add a New Branch
             </CardTitle>
             <CardBody>
               <FormGroup>
-                <Label for="customerNic">Client NIC </Label>
+                <Label for="district">District</Label>
                 <Input
-                  id="customerNic"
-                  name="nic"
-                  placeholder="Enter client nic"
+                  id="district"
+                  name="district"
+                  placeholder="Enter branch district"
                   type="text"
-                  value={inputData.nic}
+                  value={inputData.district}
                   onChange={onChange}
-                  invalid={validations.nic}
+                  invalid={validations.district}
                   required = {true}
                 />
-                <FormFeedback>Enter a valid NIC number</FormFeedback>
+                <FormFeedback>Enter a valid district</FormFeedback>
               </FormGroup>
               <FormGroup>
-                <Label for="customerEmail">E-mail</Label>
+                <Label for="address">Address</Label>
                 <Input
-                  id="customerEmail"
-                  name="email"
-                  placeholder="Enter email address"
-                  type="email"
-                  onChange={onChange}
-                  value={inputData.email}
-                  invalid={validations.email}
-                  required = {true}
-                />
-                <FormFeedback>Enter a valid email address</FormFeedback>
-              </FormGroup>
-              <FormGroup>
-                <Label for="customerName">Full Name</Label>
-                <Input
-                  id="customerName"
-                  name="name"
-                  placeholder="Enter full name"
-                  type="text"
-                  value={inputData.name}
-                  onChange={onChange}
-                  invalid={validations.name}
-                  required = {true}
-                />
-                <FormFeedback>Enter a valid name</FormFeedback>
-              </FormGroup>
-              <FormGroup>
-                <Label for="customerAddress">Address</Label>
-                <Input
-                  id="customerAddress"
+                  id="address"
                   name="address"
-                  placeholder="Enter Address"
-                  type="textarea"
-                  value={inputData.address}
+                  placeholder="Enter branch address"
+                  type="text"
                   onChange={onChange}
-                  invalid={validations.address}
+                  value={inputData.address}
+                  invalid = {validations.address}
                   required = {true}
                 />
                 <FormFeedback>Enter a valid address</FormFeedback>
               </FormGroup>
-
               <FormGroup>
-                <Label for="customerContactNo">Contact Number</Label>
+                <Label for="mapLocation">Map Location</Label>
                 <Input
-                  id="customerContactNo"
+                  id="mapLocation"
+                  name="mapLocation"
+                  placeholder="Enter the branch map location URL"
+                  type="text"
+                  value={inputData.mapLocation}
+                  onChange={onChange}
+                  required = {true}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="contactNumber">Contact Number</Label>
+                <Input
+                  id="contactNumber"
                   name="contactNumber"
-                  placeholder="Enter contact number"
+                  placeholder="Enter branch contact number"
                   type="number"
                   value={inputData.contactNumber}
                   onChange={onChange}
@@ -223,9 +194,7 @@ const AddNewClient = () => {
                 <FormFeedback>Enter a valid contact number</FormFeedback>
               </FormGroup>
 
-
-
-              <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Client</Button>
+              <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Branch</Button>
               <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
 
             </CardBody>
@@ -237,5 +206,5 @@ const AddNewClient = () => {
 };
 
 
-export default AddNewClient;
+export default AddNewBranch;
 

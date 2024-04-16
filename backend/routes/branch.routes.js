@@ -4,9 +4,19 @@ import { verifyAuthentication } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.route("/api/branch-id-by-nic").post(
-    verifyAuthentication,
-    BranchController.getBranchIdByBranchManagerNIC
-)
+router.route("/api/add-branch").post(
+  verifyAuthentication,
+  BranchController.addBranch
+);
 
-export {router};
+router.route("/api/branch-id-by-nic").post(
+  verifyAuthentication,
+  BranchController.getBranchIdByBranchManagerNIC
+);
+
+router.route("/api/branches").get(
+  verifyAuthentication,
+  BranchController.getAllBranches
+);
+
+export { router };
