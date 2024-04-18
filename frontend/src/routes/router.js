@@ -47,6 +47,9 @@ const AddTicketView = lazy(() =>
 const AddFeedbackView = lazy(() =>
   import("../views/branch_manager/views/AddFeedbackView.jsx")
 );
+const TrackOrder = lazy(() =>
+  import("../views/branch_manager/views/TrackOrderView.jsx")
+);
 
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
@@ -137,6 +140,11 @@ const ThemeRoutes = [
             path: "/branch-manager/add-new-order",
             exact: true,
             element: <AddOrderView />,
+          },
+          {
+            path: "/branch-manager/track-order",
+            exact: true,
+            element: <TrackOrder />,
           },
           {
             path: "/branch-manager/add-new-client",

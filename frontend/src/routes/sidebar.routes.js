@@ -30,7 +30,7 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "Track Orders",
-          href: "#",
+          href: BranchManagerRoutes.trackOrder,
           icon: "bi bi-geo-alt",
         },
       ],
