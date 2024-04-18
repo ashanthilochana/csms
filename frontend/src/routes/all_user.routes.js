@@ -16,6 +16,7 @@ BranchManagerRoutes.addDeliveryPerson = "/branch-manager/add-delivery-person";
 BranchManagerRoutes.addRoute = "/branch-manager/add-route";
 BranchManagerRoutes.addTicket = "/branch-manager/add-ticket";
 BranchManagerRoutes.addFeedback = "/branch-manager/add-feedback";
+BranchManagerRoutes.trackOrder = "/branch-manager/track-order";
 
 // Export high level variables
 export {BranchManagerRoutes};
