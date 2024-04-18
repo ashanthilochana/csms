@@ -38,10 +38,10 @@ const ViewOrderTable = () => {
     <div>
       <Card>
         <CardBody>
-          {/* <CardTitle tag="h5">Latest Orders</CardTitle>
+          <CardTitle tag="h5">Latest Orders</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             Overview of new orders
-          </CardSubtitle> */}
+          </CardSubtitle>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>

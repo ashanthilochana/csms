@@ -69,7 +69,7 @@ const ViewReceivedOrderTable = () => {
                   <td>{tdata.address}</td>
                   <td>{tdata.contactNumber}</td>
                   <td className="d-flex justify-content-center">
-                    <Button  className="btn me-2" outline color="secondary" size="sm">Edit</Button>
+                    {/* <Button  className="btn me-2" outline color="secondary" size="sm">Edit</Button> */}
                     <Button  className="btn me-2" color="primary" size="sm">View</Button>
                     <Button  className="btn" color="success" size="sm">Assign</Button>
                   </td>          
