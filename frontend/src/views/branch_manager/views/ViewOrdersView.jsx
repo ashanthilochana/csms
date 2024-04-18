@@ -1,60 +1,65 @@
-import { Row, Col, Table, Card, CardTitle, CardBody, CardSubtitle, Form, FormGroup, Input, FormFeedback, Container, Breadcrumb, BreadcrumbItem } from "reactstrap";
+import {
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  FormFeedback,
+  Container,
+  Breadcrumb,
+  BreadcrumbItem,
+  Button
+} from "reactstrap";
+
 import ViewOrderTable from "../components/ViewOrdersTable";
 
 const ViewOrders = () => {
   return (
     <Container>
 
-      {/* Breadcrumbs */}
-      <Breadcrumb>
-        <BreadcrumbItem>
-          <a href="#">
-            Home
-          </a>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <a href="#">
-            Order Manamagement
-          </a>
-        </BreadcrumbItem>
-        <BreadcrumbItem active>
-          View Latest Orders
-        </BreadcrumbItem>
-      </Breadcrumb>
-
-      <Card>
-        <Row>
-          <Col lg="8">
-            <CardBody className="align-items-center">
-              <CardTitle tag="h5">Latest Orders</CardTitle>
-              <CardSubtitle className="mb-2 text-muted" tag="h6">
-                Overview of new orders
-              </CardSubtitle>
-            </CardBody>
+      {/* Breadcrumb and search bar */}
+      <Form>
+        <Row className="d-flex">
+          <Col lg="8" className="align-content-center">
+            {/* Breadcrumbs */}
+            <Breadcrumb>
+              <BreadcrumbItem>
+                <a href="#">
+                  Home
+                </a>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <a href="#">
+                  Order Manamagement
+                </a>
+              </BreadcrumbItem>
+              <BreadcrumbItem active>
+                View Latest Orders
+              </BreadcrumbItem>
+            </Breadcrumb>
           </Col>
-          <Col lg="4">
-            <CardBody>
-              <Row>
-                <Form>
-                  <FormGroup>
-                    <Input
-                      id="district"
-                      name="district"
-                      placeholder="Enter branch district"
-                      type="text"
-                    // value={inputData.district}
-                    // onChange={onChange}
-                    // invalid={validations.district}
-                    // required = {true}
-                    />
-                    <FormFeedback>Enter a valid district</FormFeedback>
-                  </FormGroup>
-                </Form>
-              </Row>
-            </CardBody>
+          <Col lg="3">
+            <FormGroup>
+              <Input
+                className="pt-2 pb-2"
+                id="district"
+                name="district"
+                placeholder="Search Orders..."
+                type="text"
+              // value={inputData.district}
+              // onChange={onChange}
+              // invalid={validations.district}
+              // required = {true}
+              />
+              <FormFeedback>Enter a valid district</FormFeedback>
+            </FormGroup>
+          </Col>
+          <Col lg="1">
+            <Button style={{"margin-top" : "3px"}} color="primary">Search</Button>
           </Col>
         </Row>
-      </Card>
+      </Form>
+
       <Row>
         <Col lg="12">
           <ViewOrderTable />

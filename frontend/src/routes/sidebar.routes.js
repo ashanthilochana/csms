@@ -147,47 +147,47 @@ SidebarRoutes.branchManagerRoutes = [
         },
       ],
     },
-    // {
-    //   title: "Components",
-    //   icon: "bi bi-layers",
-    //   subItems: [
-    //     {
-    //       title: "Badges",
-    //       href: "/branch-manager/badges",
-    //       icon: "bi bi-patch-check",
-    //     },
-    //     {
-    //       title: "Buttons",
-    //       href: "/branch-manager/buttons",
-    //       icon: "bi bi-hdd-stack",
-    //     },
-    //     {
-    //       title: "Cards",
-    //       href: "/branch-manager/cards",
-    //       icon: "bi bi-card-text",
-    //     },
-    //     {
-    //       title: "Grid",
-    //       href: "/branch-manager/grid",
-    //       icon: "bi bi-columns",
-    //     },
-    //     {
-    //       title: "Table",
-    //       href: "/branch-manager/table",
-    //       icon: "bi bi-layout-split",
-    //     },
-    //     {
-    //       title: "Forms",
-    //       href: "/branch-manager/forms",
-    //       icon: "bi bi-textarea-resize",
-    //     },
-    //     {
-    //       title: "Breadcrumbs",
-    //       href: "/branch-manager/breadcrumbs",
-    //       icon: "bi bi-link",
-    //     },
-    //   ],
-    // },
+    {
+      title: "Components",
+      icon: "bi bi-layers",
+      subItems: [
+        {
+          title: "Badges",
+          href: "/branch-manager/badges",
+          icon: "bi bi-patch-check",
+        },
+        {
+          title: "Buttons",
+          href: "/branch-manager/buttons",
+          icon: "bi bi-hdd-stack",
+        },
+        {
+          title: "Cards",
+          href: "/branch-manager/cards",
+          icon: "bi bi-card-text",
+        },
+        {
+          title: "Grid",
+          href: "/branch-manager/grid",
+          icon: "bi bi-columns",
+        },
+        {
+          title: "Table",
+          href: "/branch-manager/table",
+          icon: "bi bi-layout-split",
+        },
+        {
+          title: "Forms",
+          href: "/branch-manager/forms",
+          icon: "bi bi-textarea-resize",
+        },
+        {
+          title: "Breadcrumbs",
+          href: "/branch-manager/breadcrumbs",
+          icon: "bi bi-link",
+        },
+      ],
+    },
   ];
   
 
