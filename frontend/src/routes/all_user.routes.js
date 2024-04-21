@@ -1,6 +1,7 @@
 
 // Branch manger routes define as a variable
 let BranchManagerRoutes = {};
+let DeliveryPersonRoutes = {};
 
 // Declare Branch Manager routes
 BranchManagerRoutes.main = "/branch-manager";
@@ -19,6 +20,11 @@ BranchManagerRoutes.addTicket = "/branch-manager/add-ticket";
 BranchManagerRoutes.addFeedback = "/branch-manager/add-feedback";
 BranchManagerRoutes.trackOrder = "/branch-manager/track-order";
 
+// Declare Delivery Person routes
+DeliveryPersonRoutes.main = "/delivery-person";
+DeliveryPersonRoutes.dashboard = "/delivery-person/dashboard";
+DeliveryPersonRoutes.viewMyOrders = "/delivery-person/view-my-orders";
+
 
 // Export high level variables
-export {BranchManagerRoutes};
+export {BranchManagerRoutes, DeliveryPersonRoutes};

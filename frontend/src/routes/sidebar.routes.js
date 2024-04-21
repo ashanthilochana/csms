@@ -1,4 +1,5 @@
 import { BranchManagerRoutes } from "./all_user.routes.js";
+import { DeliveryPersonRoutes } from "./all_user.routes.js";
 
 let SidebarRoutes = {};
 
@@ -185,6 +186,25 @@ SidebarRoutes.branchManagerRoutes = [
           title: "Breadcrumbs",
           href: "/branch-manager/breadcrumbs",
           icon: "bi bi-link",
+        },
+      ],
+    },
+  ];
+
+  SidebarRoutes.deliveryPersonRoutes = [
+    {
+      title: "Dashboard",
+      href: DeliveryPersonRoutes.dashboard,
+      icon: "bi bi-speedometer2",
+    },
+    {
+      title: "Delivery Manamgement",
+      icon: "bi bi-box",
+      subItems: [
+        {
+          title: "View My Orders",
+          href: DeliveryPersonRoutes.viewMyOrders,
+          icon: "bi bi-plus",
         },
       ],
     },

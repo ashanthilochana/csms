@@ -52,6 +52,13 @@ const TrackOrder = lazy(() =>
   import("../views/branch_manager/views/TrackOrderView.jsx")
 );
 
+// Import views - Delivery Person
+const DeliveryPersonDashboard = lazy(() =>
+  import("../views/delivery_person/views/ViewDashboardView.jsx")
+);
+const ViewDeliveryPersonOrder = lazy(() =>
+  import("../views/delivery_person/views/ViewOrderDetailsView.jsx")
+);
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -207,6 +214,35 @@ const ThemeRoutes = [
           { path: "/branch-manager/table", exact: true, element: <Tables /> },
           { path: "/branch-manager/forms", exact: true, element: <Forms /> },
           { path: "/branch-manager/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+        ],
+      },
+    ],
+  },
+  ///////////////////////////////////////// Delivery Person Routers /////////////////////////////////////////////////
+  {
+    path: "/delivery-person",
+    element: <ProtectedRoute allowedUsers={["4"]}></ProtectedRoute>,
+    children: [
+      {
+        path: "/delivery-person/",
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.deliveryPersonRoutes} /> // Change side bar router here - Ashan
+        ),
+        children: [
+          {
+            path: "/delivery-person/",
+            element: <Navigate to="/delivery-person/dashboard" />,
+          },
+          {
+            path: "/delivery-person/dashboard",
+            exact: true,
+            element: <DeliveryPersonDashboard />,
+          },
+          {
+            path: "/delivery-person/view-my-orders",
+            exact: true,
+            element: <ViewDeliveryPersonOrder />,
+          },
         ],
       },
     ],
