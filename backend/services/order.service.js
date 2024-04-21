@@ -73,7 +73,8 @@ OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
 OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
     let query = `select o.orderId as order_id, 
     o.registeredDate as orderDate, 
-    c.fullName as sender, 
+    c.fullName as sender,
+    o.receiverName as receiver, 
     b.district as destinationBranch, 
     os.status 
     from orders o
