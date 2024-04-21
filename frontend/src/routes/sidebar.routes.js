@@ -94,7 +94,7 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "All Delivery Persons",
-          href: "#",
+          href: BranchManagerRoutes.allDeliveryPersons,
           icon: "bi bi-person",
         },
       ],
