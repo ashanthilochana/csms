@@ -23,6 +23,11 @@ export default function useLogin() {
                 navigate('/branch-manager/');
                 break;
 
+            case 4:
+                //This should be branch managers
+                navigate('/delivery-person/');
+                break;
+
             default:
                 // If no roll id navigate to login page [NOT WORKING ❌]
                 navigate('/login');
