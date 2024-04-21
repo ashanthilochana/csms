@@ -84,22 +84,23 @@ DeliveryPersonService.updateDeliveryPerson = async (
     address,
     contactNumber,
     vehicleNumber,
-    branchId
+    
 ) => {
     let query = `
         UPDATE deliveryperson
-        SET email = ?, fullName = ?, address = ?, contactNumber = ?, vehicleNumber = ?, branchId = ?
+        SET email = ?, fullName = ?, address = ?, contactNumber = ?, vehicleNumber = ?
         WHERE nic = ?
         `;
 
     try {
+        console.log(nic)
         const [rows] = await pool.query(query, [
             email,
             fullName,
             address,
             contactNumber,
             vehicleNumber,
-            branchId,
+            
             nic
         ]);
     } catch (e) {

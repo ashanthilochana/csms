@@ -48,7 +48,7 @@ DeliverPersonController.updateDeliveryPerson = async (req, res) => {
             address,
             contactNumber,
             vehicleNumber,
-            branchId
+            
         } = req.body;
 
         await DeliveryPersonService.updateDeliveryPerson(
@@ -58,7 +58,7 @@ DeliverPersonController.updateDeliveryPerson = async (req, res) => {
             address,
             contactNumber,
             vehicleNumber,
-            branchId
+            
         );
 
         res.status(200).send({ message: "Delivery person updated successfully" });
