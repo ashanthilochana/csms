@@ -25,6 +25,5 @@ DeliveryPersonRoutes.main = "/delivery-person";
 DeliveryPersonRoutes.dashboard = "/delivery-person/dashboard";
 DeliveryPersonRoutes.viewMyOrders = "/delivery-person/view-my-orders";
 
-
 // Export high level variables
 export {BranchManagerRoutes, DeliveryPersonRoutes};
