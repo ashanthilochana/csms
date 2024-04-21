@@ -11,6 +11,22 @@ SidebarRoutes.branchManagerRoutes = [
       icon: "bi bi-speedometer2",
     },
     {
+      title: "Client Management",
+      icon: "bi bi-person",
+      subItems: [
+        {
+          title: "Add a New Client",
+          href: BranchManagerRoutes.addClient,
+          icon: "bi bi-person-add",
+        },
+        {
+          title: "All Clients",
+          href: BranchManagerRoutes.viewClients,
+          icon: "bi bi-person",
+        },
+      ],
+    },
+    {
       title: "Order Management",
       icon: "bi bi-box",
       subItems: [
@@ -33,22 +49,6 @@ SidebarRoutes.branchManagerRoutes = [
           title: "Track Orders",
           href: BranchManagerRoutes.trackOrder,
           icon: "bi bi-geo-alt",
-        },
-      ],
-    },
-    {
-      title: "Client Management",
-      icon: "bi bi-person",
-      subItems: [
-        {
-          title: "Add a New Client",
-          href: BranchManagerRoutes.addClient,
-          icon: "bi bi-person-add",
-        },
-        {
-          title: "All Clients",
-          href: BranchManagerRoutes.viewClients,
-          icon: "bi bi-person",
         },
       ],
     },

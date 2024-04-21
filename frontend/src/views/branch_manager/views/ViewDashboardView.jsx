@@ -5,7 +5,7 @@ import DashboardTopCards from "../components/DashboardTopCards";
 import DashboardSalesChart from "../components/DashboardSalesChart";
 import react, { useEffect, useState } from "react";
 import useCookie from "../../../hooks/useCookies";
-import BranchManagerController from "../controllers/branch_manager.controller";
+import BranchManagerController from "../controllers/user.controller";
 
 const Dashboard = () => {
 

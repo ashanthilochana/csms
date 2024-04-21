@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, FormGroup, Form, FormFeedback } from "reactstrap";
-import BranchManagerService from "../services/branch_manager.service";
+import BranchManagerService from "../services/user.service";
 
 const ViewDeliverPersonsList = () => {
   const [deliveryPersons, setDeliveryPersons] = useState([]);

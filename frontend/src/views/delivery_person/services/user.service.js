@@ -1,10 +1,10 @@
 import AxiosController from "../../../controllers/axios.controller.js";
 
-let BranchManagerService = {};
+let UserService = {};
 
 /////////////////////////////////////// Add a client ////////////////////////////////////////////////
 
-BranchManagerService.addClient = async (reqBody) => {
+UserService.addClient = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
       "/api/add-client",
@@ -39,7 +39,7 @@ BranchManagerService.addClient = async (reqBody) => {
 
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
-BranchManagerService.addOrder = async (reqBody) => {
+UserService.addOrder = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
       "/api/add-order",
@@ -74,7 +74,7 @@ BranchManagerService.addOrder = async (reqBody) => {
 
 /////////////////////////////////////// Get branch ID by branch manger NIC ////////////////////////////////////////////////
 
-BranchManagerService.getBranchIdByBranchManagerNIC = async (reqBody) => {
+UserService.getBranchIdByBranchManagerNIC = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
       "/api/branch-id-by-nic",
@@ -93,7 +93,7 @@ BranchManagerService.getBranchIdByBranchManagerNIC = async (reqBody) => {
 
 /////////////////////////////////////// Get all branches ////////////////////////////////////////////////
 
-BranchManagerService.getAllBranches = async () => {
+UserService.getAllBranches = async () => {
   try {
     let response = await AxiosController.instance.get("/api/branches");
     if (response.error) {
@@ -111,7 +111,7 @@ BranchManagerService.getAllBranches = async () => {
 
 /////////////////////////////////////// Get all package typess ////////////////////////////////////////////////
 
-BranchManagerService.getAllPackageTypes = async () => {
+UserService.getAllPackageTypes = async () => {
   try {
     let response = await AxiosController.instance.get("/api/packagetypes");
     if (response.error) {
@@ -129,7 +129,7 @@ BranchManagerService.getAllPackageTypes = async () => {
 
 /////////////////////////////////////// Get all order status ////////////////////////////////////////////////
 
-BranchManagerService.getAllOrderStatus = async () => {
+UserService.getAllOrderStatus = async () => {
   try {
     let response = await AxiosController.instance.get("/api/orderstatus");
     if (response.error) {
@@ -146,7 +146,7 @@ BranchManagerService.getAllOrderStatus = async () => {
 };
 
 /////////////////////////////////////// Add a branch ////////////////////////////////////////////////
-BranchManagerService.addBranch = async (reqBody) => {
+UserService.addBranch = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post("/api/add-branch", reqBody); // Call backend contorller and pass data which received to front end controller
     
@@ -179,7 +179,7 @@ BranchManagerService.addBranch = async (reqBody) => {
 
 /////////////////////////////////////// Get all routes ////////////////////////////////////////////////
 
-BranchManagerService.getAllRoutes = async () => {
+UserService.getAllRoutes = async () => {
   try {
     let response = await AxiosController.instance.get("/api/routes");
     if (response.error) {
@@ -198,7 +198,7 @@ BranchManagerService.getAllRoutes = async () => {
 /////////////////////////////////////// Add a transport agent ////////////////////////////////////////////////
 
 
-BranchManagerService.addTransportAgent = async (reqBody) => {
+UserService.addTransportAgent = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
       "/api/add-transport-agent",
@@ -233,7 +233,7 @@ BranchManagerService.addTransportAgent = async (reqBody) => {
 
 /////////////////////////////////////// Add a delivery person ////////////////////////////////////////////////
 
-BranchManagerService.addDeliveryPerson = async (reqBody) => {
+UserService.addDeliveryPerson = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
       "/api/add-delivery-person",
@@ -266,7 +266,7 @@ BranchManagerService.addDeliveryPerson = async (reqBody) => {
   }
 };
 
-BranchManagerService.getDeliveryPersonById = async (id) => {
+UserService.getDeliveryPersonById = async (id) => {
   try {
     let response = await AxiosController.instance.get(`/api/delivery-person/${id}`);
     if (response.error) {
@@ -282,7 +282,7 @@ BranchManagerService.getDeliveryPersonById = async (id) => {
   }
 };
 
-BranchManagerService.getAllDeliveryPersons = async () => {
+UserService.getAllDeliveryPersons = async () => {
   try {
     let response = await AxiosController.instance.get("/api/get-all-delivery-persons");
     if (response.error) {
@@ -299,7 +299,7 @@ BranchManagerService.getAllDeliveryPersons = async () => {
 };
 
 
-BranchManagerService.updateDeliveryPerson = async (id, reqBody) => {
+UserService.updateDeliveryPerson = async (id, reqBody) => {
   try {
     let response = await AxiosController.instance.put(`/api/update-delivery-person/${id}`, reqBody);
     if (response.data.error) {
@@ -314,7 +314,7 @@ BranchManagerService.updateDeliveryPerson = async (id, reqBody) => {
   }
 };
 
-BranchManagerService.deleteDeliveryPerson = async (id) => {
+UserService.deleteDeliveryPerson = async (id) => {
   try {
     let response = await AxiosController.instance.delete(`/api/delete-delivery-person/${id}`);
     if (response.data.error) {
@@ -333,7 +333,7 @@ BranchManagerService.deleteDeliveryPerson = async (id) => {
 /////////////////////////////////////// Get all orders by branch id ////////////////////////////////////////////////
 
 
-BranchManagerService.getAllOrdersByBranchId = async (reqBody) => {
+UserService.getAllOrdersByBranchId = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post("/api/orders-by-branch", reqBody);
     if (response.error) {
@@ -350,7 +350,7 @@ BranchManagerService.getAllOrdersByBranchId = async (reqBody) => {
 }
 
 /////////////////////////////////////// Add a route ////////////////////////////////////////////////
-BranchManagerService.addRoute = async (reqBody) => {
+UserService.addRoute = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
       "/api/add-route",
@@ -385,7 +385,7 @@ BranchManagerService.addRoute = async (reqBody) => {
 
 /////////////////////////////////////// Get all ticket reasons ////////////////////////////////////////////////
 
-BranchManagerService.getAllReasons = async () => {
+UserService.getAllReasons = async () => {
   try {
     let response = await AxiosController.instance.get("/api/reasons");
     if (response.error) {
@@ -403,7 +403,7 @@ BranchManagerService.getAllReasons = async () => {
 
 /////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
 
-BranchManagerService.addTicket = async (reqBody) => {
+UserService.addTicket = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
       "/api/add-ticket",
@@ -438,7 +438,7 @@ BranchManagerService.addTicket = async (reqBody) => {
 
 /////////////////////////////////////// Add a feedback ////////////////////////////////////////////////
 
-BranchManagerService.addFeedback = async (reqBody) => {
+UserService.addFeedback = async (reqBody) => {
   try {
     let response = await AxiosController.instance.post(
       "/api/add-feedback",
@@ -471,7 +471,7 @@ BranchManagerService.addFeedback = async (reqBody) => {
   }
 };
 
-BranchManagerService.getAllClientNICs = async () => {
+UserService.getAllClientNICs = async () => {
   try {
     let response = await AxiosController.instance.get("/api/clients/nic");
     if (response.error) {
@@ -487,7 +487,7 @@ BranchManagerService.getAllClientNICs = async () => {
   }
 };
 
-BranchManagerService.getCourierFee = async (reqBody) => {
+UserService.getCourierFee = async (reqBody) => {
   try{
       let response = await AxiosController.instance.post("/api/courier-fee", reqBody);
       if(response.data.error)
@@ -505,4 +505,4 @@ BranchManagerService.getCourierFee = async (reqBody) => {
   }
 }
 
-export default BranchManagerService;
+export default UserService;
