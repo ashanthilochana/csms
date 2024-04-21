@@ -10,48 +10,23 @@ import SidebarRoutes from "./sidebar.routes.js";
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
-// Import Views ----- Branch Manager
-const BranchManagerDashboard = lazy(() =>
-  import("../views/branch_manager/views/ViewDashboardView.jsx")
-);
-const ViewOrders = lazy(() =>
-  import("../views/branch_manager/views/ViewOrdersView.jsx")
-);
-const AddOrderView = lazy(() =>
-  import("../views/branch_manager/views/AddOrderView.jsx")
-);
-const AddClientView = lazy(() =>
-  import("../views/branch_manager/views/AddClientView.jsx")
-);
-const ViewClients = lazy(() =>
-  import("../views/branch_manager/views/ViewClientsView.jsx")
-);
-const ViewReceivedOrders = lazy(() =>
-  import("../views/branch_manager/views/ViewReceivedOrdersView.jsx")
-);
-const AddBranchView = lazy(() =>
-  import("../views/branch_manager/views/AddBranchView.jsx")
-);
-const AddTransportAgentView = lazy(() =>
-  import("../views/branch_manager/views/AddTrasportAgentView.jsx")
-);
-const AddDeliveryPerson = lazy(() =>
-  import("../views/branch_manager/views/AddDeliveryPersonView.jsx")
-);
-const AddRouteView = lazy(() =>
-  import("../views/branch_manager/views/AddRouteView.jsx")
-);
-const AddTicketView = lazy(() =>
-  import("../views/branch_manager/views/AddTicketView.jsx")
-);
-const AddFeedbackView = lazy(() =>
-  import("../views/branch_manager/views/AddFeedbackView.jsx")
-);
-const TrackOrder = lazy(() =>
-  import("../views/branch_manager/views/TrackOrderView.jsx")
-);
+// Import Views -Branch Manager
+const BranchManagerDashboard = lazy(() => import("../views/branch_manager/views/ViewDashboardView.jsx"));
+const ViewOrders = lazy(() => import("../views/branch_manager/views/ViewOrdersView.jsx"));
+const AddOrderView = lazy(() => import("../views/branch_manager/views/AddOrderView.jsx"));
+const AddClientView = lazy(() => import("../views/branch_manager/views/AddClientView.jsx"));
+const ViewClients = lazy(() => import("../views/branch_manager/views/ViewClientsView.jsx"));
+const ViewReceivedOrders = lazy(() => import("../views/branch_manager/views/ViewReceivedOrdersView.jsx"));
+const AddBranchView = lazy(() => import("../views/branch_manager/views/AddBranchView.jsx"));
+const AddTransportAgentView = lazy(() => import("../views/branch_manager/views/AddTrasportAgentView.jsx"));
+const AddDeliveryPerson = lazy(() => import("../views/branch_manager/views/AddDeliveryPersonView.jsx"));
+const AddRouteView = lazy(() => import("../views/branch_manager/views/AddRouteView.jsx"));
+const AddTicketView = lazy(() => import("../views/branch_manager/views/AddTicketView.jsx"));
+const AddFeedbackView = lazy(() => import("../views/branch_manager/views/AddFeedbackView.jsx"));
+const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderView.jsx"));
 
 
+// Import views - Common
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
 const Alerts = lazy(() => import("../views/ui/Alerts.js"));

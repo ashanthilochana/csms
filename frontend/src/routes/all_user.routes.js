@@ -18,5 +18,8 @@ BranchManagerRoutes.addTicket = "/branch-manager/add-ticket";
 BranchManagerRoutes.addFeedback = "/branch-manager/add-feedback";
 BranchManagerRoutes.trackOrder = "/branch-manager/track-order";
 
+// Declare Manager routes
+// ManagerRoutes.main = "/manager";
+
 // Export high level variables
 export {BranchManagerRoutes};
