@@ -6,6 +6,7 @@ import LoginView from "../views/common/views/LoginView.jsx";
 
 // Import sidebar routers
 import SidebarRoutes from "./sidebar.routes.js";
+import ViewDeliverPersonsList from "../views/branch_manager/views/ViewDeliverPersonsList.jsx";
 
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -170,6 +171,11 @@ const ThemeRoutes = [
             path: "/branch-manager/add-delivery-person",
             exact: true,
             element: <AddDeliveryPerson />,
+          },
+          {
+            path: "/branch-manager/all-delivery-persons",
+            exact: true,
+            element: <ViewDeliverPersonsList />,
           },
           {
             path: "/branch-manager/add-route",
