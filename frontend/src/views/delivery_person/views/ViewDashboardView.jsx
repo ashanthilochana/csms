@@ -6,7 +6,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      {/***Top Cards***/}
+      {/***Top Cards**/}
       <Row>
         <Col sm="6" lg="3">
           <DashboardTopCards
@@ -53,7 +53,7 @@ const Dashboard = () => {
       </Row>
       {/***Blog Cards***/}
       {/* <Row>
-        {BlogData.map((blg, index) => (
+        {BlogData.map((blg, index) => ()
           <Col sm="6" lg="6" xl="3" key={index}>
             <Blog
               image={blg.image}
