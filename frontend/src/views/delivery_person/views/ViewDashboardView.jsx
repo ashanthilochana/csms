@@ -1,5 +1,5 @@
 import { Col, Row } from "reactstrap";
-import DashboardOrdersTable from "../components/DashboardOrdersTable";
+import DashboardOrdersTable from "../components/DashboardOrderTable";
 import DashboardTopCards from "../components/DashboardTopCards";
 
 const Dashboard = () => {
