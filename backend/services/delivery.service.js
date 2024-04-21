@@ -61,4 +61,67 @@ DeliveryPersonService.addDeliveryPerson = async (
     }
 };
 
+// Get all delivery persons
+DeliveryPersonService.getAllDeliveryPersons = async () => {
+    let query = `
+        SELECT * FROM deliveryperson
+        `;
+
+    try {
+        const [rows] = await pool.query(query);
+        return rows;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+// Update a delivery person
+DeliveryPersonService.updateDeliveryPerson = async (
+    nic,
+    email,
+    fullName,
+    address,
+    contactNumber,
+    vehicleNumber,
+    branchId
+) => {
+    let query = `
+        UPDATE deliveryperson
+        SET email = ?, fullName = ?, address = ?, contactNumber = ?, vehicleNumber = ?, branchId = ?
+        WHERE nic = ?
+        `;
+
+    try {
+        const [rows] = await pool.query(query, [
+            email,
+            fullName,
+            address,
+            contactNumber,
+            vehicleNumber,
+            branchId,
+            nic
+        ]);
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+// Delete a delivery person
+DeliveryPersonService.deleteDeliveryPerson = async (nic) => {
+    let query = `
+        DELETE FROM deliveryperson
+        WHERE nic = ?
+        `;
+
+    try {
+        const [rows] = await pool.query(query, [nic]);
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+
 export default DeliveryPersonService;

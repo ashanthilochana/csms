@@ -1,11 +1,9 @@
-
 import DeliveryPersonService from "../services/delivery.service.js";
 
 let DeliverPersonController = {};
 
 // Add a new delivery person
 DeliverPersonController.addDeliveryPerson = async (req, res) => {
-
     try {
         const {
             nic,
@@ -14,7 +12,8 @@ DeliverPersonController.addDeliveryPerson = async (req, res) => {
             address,
             contactNumber,
             vehicleNumber,
-            branchId } = req.body;
+            branchId
+        } = req.body;
 
         let userExists = await DeliveryPersonService.checkUserExistStatus(nic);
 
@@ -30,10 +29,65 @@ DeliverPersonController.addDeliveryPerson = async (req, res) => {
             );
 
             res.status(201).send({ message: "Delivery person added successfully" });
+        } else {
+            res.status(422).send({ error: "Delivery person already exists!" });
         }
-        else {
-            res.status(422).send({ error: "Delivery person already Exists!" })
-        }
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+};
+
+// Update an existing delivery person
+DeliverPersonController.updateDeliveryPerson = async (req, res) => {
+    try {
+        const {
+            nic,
+            email,
+            fullName,
+            address,
+            contactNumber,
+            vehicleNumber,
+            branchId
+        } = req.body;
+
+        await DeliveryPersonService.updateDeliveryPerson(
+            nic,
+            email,
+            fullName,
+            address,
+            contactNumber,
+            vehicleNumber,
+            branchId
+        );
+
+        res.status(200).send({ message: "Delivery person updated successfully" });
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+};
+
+// Delete a delivery person
+DeliverPersonController.deleteDeliveryPerson = async (req, res) => {
+    try {
+        const { nic } = req.body;
+
+        await DeliveryPersonService.deleteDeliveryPerson(nic);
+
+        res.status(200).send({ message: "Delivery person deleted successfully" });
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+};
+
+// Get all delivery persons
+DeliverPersonController.getAllDeliveryPersons = async (req, res) => {
+    try {
+        const deliveryPersons = await DeliveryPersonService.getAllDeliveryPersons();
+
+        res.status(200).send(deliveryPersons);
     } catch (e) {
         console.error(e);
         res.status(500).send({ error: "Internal Server Error" });
