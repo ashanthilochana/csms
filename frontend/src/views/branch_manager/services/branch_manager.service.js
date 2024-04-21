@@ -266,6 +266,70 @@ BranchManagerService.addDeliveryPerson = async (reqBody) => {
   }
 };
 
+BranchManagerService.getDeliveryPersonById = async (id) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/delivery-person/${id}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+BranchManagerService.getAllDeliveryPersons = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/get-all-delivery-persons");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
+BranchManagerService.updateDeliveryPerson = async (id, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-delivery-person/${id}`, reqBody);
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      // Check for different status codes if needed
+      return { message: "Delivery Person Updated Successfully" };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+BranchManagerService.deleteDeliveryPerson = async (id) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-delivery-person/${id}`);
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      // Check for different status codes if needed
+      return { message: "Delivery Person Deleted Successfully" };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
 /////////////////////////////////////// Get all orders by branch id ////////////////////////////////////////////////
 
 

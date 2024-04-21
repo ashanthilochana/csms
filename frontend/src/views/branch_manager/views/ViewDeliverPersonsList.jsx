@@ -1,108 +1,101 @@
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, ButtonGroup } from "reactstrap";
-import user from "../../../assets/images/users/user.jpg";
-
-const tableData = [
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import BranchManagerService from "../services/branch_manager.service";
 
 const ViewDeliverPersonsList = () => {
+  const [deliveryPersons, setDeliveryPersons] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [selectedPerson, setSelectedPerson] = useState(null);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  const deleteDeliveryPerson = async () => {
+    try {
+      await BranchManagerService.deleteDeliveryPerson(selectedPerson.nic);
+      setDeliveryPersons(deliveryPersons.filter(person => person.id !== selectedPerson.id));
+      toggleModal();
+    } catch (error) {
+      console.error("Error deleting delivery person:", error);
+    }
+  };
+
+  const confirmDelete = (person) => {
+    setSelectedPerson(person);
+    toggleModal();
+  };
+
+  useEffect(() => {
+    const fetchDeliveryPersons = async () => {
+      try {
+        const response = await BranchManagerService.getAllDeliveryPersons();
+        setDeliveryPersons(response.data);
+      } catch (error) {
+        console.error("Error fetching delivery persons:", error);
+      }
+    };
+
+    fetchDeliveryPersons();
+  }, []);
+
   return (
     <div>
       <Card>
         <CardBody>
           <CardTitle tag="h5">Delivery Person List</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Delivery persons belongs to the branch
+            Delivery persons
           </CardSubtitle>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
+                <th>#</th>
                 <th>Name</th>
+                <th>Email</th>
                 <th>NIC</th>
-
                 <th>Address</th>
                 <th>Contact Number</th>
-                <th>Branch</th>
+                
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {tableData.map((tdata, index) => (
-                <tr key={index} className="border-top">
+              {deliveryPersons.map((person, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{person.fullName}</td>
+                  <td>{person.email}</td>
+                  <td>{person.nic}</td>
+                  <td>{person.address}</td>
+                  <td>{person.contactNumber}</td>
+                  
                   <td>
-                    <div className="d-flex align-items-center p-2">
-                      <img
-                        src={tdata.avatar}
-                        className="rounded-circle"
-                        alt="avatar"
-                        width="45"
-                        height="45"
-                      />
-                      <div className="ms-3">
-                        <h6 className="mb-0">{tdata.name}</h6>
-                        <span className="text-muted">{tdata.email}</span>
-                      </div>
-                    </div>
+                    <Button className="me-2" outline color="secondary" size="sm">
+                      Edit
+                    </Button>
+                    <Button color="danger" size="sm" onClick={() => confirmDelete(person)}>
+                      Delete
+                    </Button>
                   </td>
-                  <td>{tdata.nic}</td>
-                  <td>{tdata.address}</td>
-                  <td>{tdata.contact}</td>
-                  <td>{tdata.branch}</td>  
-                  <td>
-                    <Button  className="btn me-2" outline color="secondary" size="sm">Edit</Button>
-                    <Button  className="btn" color="danger" size="sm">Delete</Button>
-                  </td>             
                 </tr>
               ))}
             </tbody>
           </Table>
         </CardBody>
       </Card>
+
+      <Modal isOpen={modal} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>Confirm Delete</ModalHeader>
+        <ModalBody>
+          Are you sure you want to delete {selectedPerson && selectedPerson.fullName}?
+        </ModalBody>
+        <ModalFooter>
+          <Button color="danger" onClick={deleteDeliveryPerson}>Delete</Button>{' '}
+          <Button color="secondary" onClick={toggleModal}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 };
