@@ -14,10 +14,14 @@ const ViewDeliverPersonsList = () => {
   const deleteDeliveryPerson = async () => {
     try {
       await BranchManagerService.deleteDeliveryPerson(selectedPerson.nic);
-      setDeliveryPersons(deliveryPersons.filter(person => person.id !== selectedPerson.id));
-      toggleModal();
+      await fetchDeliveryPersons();
+  
     } catch (error) {
       console.error("Error deleting delivery person:", error);
+      alert('Cannot delete delivery person with active orders');
+   
+    }finally{
+      toggleModal();
     }
   };
 
@@ -26,15 +30,17 @@ const ViewDeliverPersonsList = () => {
     toggleModal();
   };
 
+  const fetchDeliveryPersons = async () => {
+    try {
+      const response = await BranchManagerService.getAllDeliveryPersons();
+      setDeliveryPersons(response.data);
+    } catch (error) {
+      console.error("Error fetching delivery persons:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchDeliveryPersons = async () => {
-      try {
-        const response = await BranchManagerService.getAllDeliveryPersons();
-        setDeliveryPersons(response.data);
-      } catch (error) {
-        console.error("Error fetching delivery persons:", error);
-      }
-    };
+   
 
     fetchDeliveryPersons();
   }, []);

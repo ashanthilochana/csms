@@ -71,14 +71,17 @@ DeliverPersonController.updateDeliveryPerson = async (req, res) => {
 // Delete a delivery person
 DeliverPersonController.deleteDeliveryPerson = async (req, res) => {
     try {
-        const { nic } = req.body;
+        let { nic } = req.body ;
+        if(!nic){
+          nic=  req.params.nic
+        }
 
         await DeliveryPersonService.deleteDeliveryPerson(nic);
 
         res.status(200).send({ message: "Delivery person deleted successfully" });
     } catch (e) {
         console.error(e);
-        res.status(500).send({ error: "Internal Server Error" });
+        res.status(500).send({ error: e });
     }
 };
 
