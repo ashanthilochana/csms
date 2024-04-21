@@ -6,51 +6,29 @@ import LoginView from "../views/common/views/LoginView.jsx";
 
 // Import sidebar routers
 import SidebarRoutes from "./sidebar.routes.js";
+import ViewDeliverPersonsList from "../views/branch_manager/views/ViewDeliverPersonsList.jsx";
 
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
 // Import Views ----- Branch Manager
-const BranchManagerDashboard = lazy(() =>
-  import("../views/branch_manager/views/ViewDashboardView.jsx")
-);
-const ViewOrders = lazy(() =>
-  import("../views/branch_manager/views/ViewOrdersView.jsx")
-);
-const AddOrderView = lazy(() =>
-  import("../views/branch_manager/views/AddOrderView.jsx")
-);
-const AddClientView = lazy(() =>
-  import("../views/branch_manager/views/AddClientView.jsx")
-);
-const ViewClients = lazy(() =>
-  import("../views/branch_manager/views/ViewClientsView.jsx")
-);
-const ViewReceivedOrders = lazy(() =>
-  import("../views/branch_manager/views/ViewReceivedOrdersView.jsx")
-);
-const AddBranchView = lazy(() =>
-  import("../views/branch_manager/views/AddBranchView.jsx")
-);
-const AddTransportAgentView = lazy(() =>
-  import("../views/branch_manager/views/AddTrasportAgentView.jsx")
-);
-const AddDeliveryPerson = lazy(() =>
-  import("../views/branch_manager/views/AddDeliveryPersonView.jsx")
-);
-const AddRouteView = lazy(() =>
-  import("../views/branch_manager/views/AddRouteView.jsx")
-);
-const AddTicketView = lazy(() =>
-  import("../views/branch_manager/views/AddTicketView.jsx")
-);
-const AddFeedbackView = lazy(() =>
-  import("../views/branch_manager/views/AddFeedbackView.jsx")
-);
-const TrackOrder = lazy(() =>
-  import("../views/branch_manager/views/TrackOrderView.jsx")
-);
+const BranchManagerDashboard = lazy(() => import("../views/branch_manager/views/ViewDashboardView.jsx"));
+const ViewOrders = lazy(() => import("../views/branch_manager/views/ViewOrdersView.jsx"));
+const AddOrderView = lazy(() => import("../views/branch_manager/views/AddOrderView.jsx"));
+const AddClientView = lazy(() => import("../views/branch_manager/views/AddClientView.jsx"));
+const ViewClients = lazy(() => import("../views/branch_manager/views/ViewClientsView.jsx"));
+const ViewReceivedOrders = lazy(() => import("../views/branch_manager/views/ViewReceivedOrdersView.jsx"));
+const AddBranchView = lazy(() => import("../views/branch_manager/views/AddBranchView.jsx"));
+const AddTransportAgentView = lazy(() => import("../views/branch_manager/views/AddTrasportAgentView.jsx"));
+const AddDeliveryPerson = lazy(() => import("../views/branch_manager/views/AddDeliveryPersonView.jsx"));
+const AddRouteView = lazy(() => import("../views/branch_manager/views/AddRouteView.jsx"));
+const AddTicketView = lazy(() => import("../views/branch_manager/views/AddTicketView.jsx"));
+const AddFeedbackView = lazy(() => import("../views/branch_manager/views/AddFeedbackView.jsx"));
+const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderView.jsx"));
 
+// Import views - Delivery Person
+const DeliveryPersonDashboard = lazy(() => import("../views/delivery_person/views/ViewDashboardView.jsx"));
+const ViewDeliveryPersonOrder = lazy(() => import("../views/delivery_person/views/ViewOrderDetailsView.jsx"));
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -172,6 +150,11 @@ const ThemeRoutes = [
             element: <AddDeliveryPerson />,
           },
           {
+            path: "/branch-manager/all-delivery-persons",
+            exact: true,
+            element: <ViewDeliverPersonsList />,
+          },
+          {
             path: "/branch-manager/add-route",
             exact: true,
             element: <AddRouteView />,
@@ -201,6 +184,35 @@ const ThemeRoutes = [
           { path: "/branch-manager/table", exact: true, element: <Tables /> },
           { path: "/branch-manager/forms", exact: true, element: <Forms /> },
           { path: "/branch-manager/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+        ],
+      },
+    ],
+  },
+  ///////////////////////////////////////// Delivery Person Routers /////////////////////////////////////////////////
+  {
+    path: "/delivery-person",
+    element: <ProtectedRoute allowedUsers={["4"]}></ProtectedRoute>,
+    children: [
+      {
+        path: "/delivery-person/",
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.deliveryPersonRoutes} /> // Change side bar router here - Ashan
+        ),
+        children: [
+          {
+            path: "/delivery-person/",
+            element: <Navigate to="/delivery-person/dashboard" />,
+          },
+          {
+            path: "/delivery-person/dashboard",
+            exact: true,
+            element: <DeliveryPersonDashboard />,
+          },
+          {
+            path: "/delivery-person/view-my-orders",
+            exact: true,
+            element: <ViewDeliveryPersonOrder />,
+          },
         ],
       },
     ],

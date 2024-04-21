@@ -61,4 +61,79 @@ DeliveryPersonService.addDeliveryPerson = async (
     }
 };
 
+// Get all delivery persons
+DeliveryPersonService.getAllDeliveryPersons = async () => {
+    let query = `
+        SELECT * FROM deliveryperson
+        `;
+
+    try {
+        const [rows] = await pool.query(query);
+        return rows;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+// Update a delivery person
+DeliveryPersonService.updateDeliveryPerson = async (
+    nic,
+    email,
+    fullName,
+    address,
+    contactNumber,
+    vehicleNumber,
+    
+) => {
+    let query = `
+        UPDATE deliveryperson
+        SET email = ?, fullName = ?, address = ?, contactNumber = ?, vehicleNumber = ?
+        WHERE nic = ?
+        `;
+
+    try {
+        console.log(nic)
+        const [rows] = await pool.query(query, [
+            email,
+            fullName,
+            address,
+            contactNumber,
+            vehicleNumber,
+            
+            nic
+        ]);
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+// Delete a delivery person
+DeliveryPersonService.deleteDeliveryPerson = async (nic) => {
+    let queryCheck = `
+        SELECT * FROM orders
+        WHERE senderNic  = ?
+        `;
+    let queryDelete = `
+        DELETE FROM deliveryperson
+        WHERE nic = ?
+        `;
+
+    try {
+        const [rows] = await pool.query(queryCheck, [nic]);
+        if (rows.length > 0) {
+            // If there are related records, handle it here
+            throw new Error('Cannot delete delivery person with active orders');
+        } else {
+            await pool.query(queryDelete, [nic]);
+        }
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+
+
 export default DeliveryPersonService;

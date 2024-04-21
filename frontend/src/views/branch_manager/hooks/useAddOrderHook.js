@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { BranchManagerRoutes } from "../../../routes/all_user.routes";
 import useCookie from "../../../hooks/useCookies.js";
 import validator from "../../../validation/validation.js";
-import BranchManagerController from "../controllers/branch_manager.controller.js";
+import BranchManagerController from "../controllers/user.controller.js";
 
 // Get current date and format it as yyyy-mm-dd
 import { format } from "date-fns";

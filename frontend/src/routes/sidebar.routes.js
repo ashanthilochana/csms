@@ -1,4 +1,5 @@
 import { BranchManagerRoutes } from "./all_user.routes.js";
+import { DeliveryPersonRoutes } from "./all_user.routes.js";
 
 let SidebarRoutes = {};
 
@@ -8,6 +9,22 @@ SidebarRoutes.branchManagerRoutes = [
       title: "Dashboard",
       href: BranchManagerRoutes.dashboard,
       icon: "bi bi-speedometer2",
+    },
+    {
+      title: "Client Management",
+      icon: "bi bi-person",
+      subItems: [
+        {
+          title: "Add a New Client",
+          href: BranchManagerRoutes.addClient,
+          icon: "bi bi-person-add",
+        },
+        {
+          title: "All Clients",
+          href: BranchManagerRoutes.viewClients,
+          icon: "bi bi-person",
+        },
+      ],
     },
     {
       title: "Order Management",
@@ -32,22 +49,6 @@ SidebarRoutes.branchManagerRoutes = [
           title: "Track Orders",
           href: BranchManagerRoutes.trackOrder,
           icon: "bi bi-geo-alt",
-        },
-      ],
-    },
-    {
-      title: "Client Management",
-      icon: "bi bi-person",
-      subItems: [
-        {
-          title: "Add a New Client",
-          href: BranchManagerRoutes.addClient,
-          icon: "bi bi-person-add",
-        },
-        {
-          title: "All Clients",
-          href: BranchManagerRoutes.viewClients,
-          icon: "bi bi-person",
         },
       ],
     },
@@ -94,7 +95,7 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "All Delivery Persons",
-          href: "#",
+          href: BranchManagerRoutes.allDeliveryPersons,
           icon: "bi bi-person",
         },
       ],
@@ -185,6 +186,25 @@ SidebarRoutes.branchManagerRoutes = [
           title: "Breadcrumbs",
           href: "/branch-manager/breadcrumbs",
           icon: "bi bi-link",
+        },
+      ],
+    },
+  ];
+
+  SidebarRoutes.deliveryPersonRoutes = [
+    {
+      title: "Dashboard",
+      href: DeliveryPersonRoutes.dashboard,
+      icon: "bi bi-speedometer2",
+    },
+    {
+      title: "Delivery Manamgement",
+      icon: "bi bi-box",
+      subItems: [
+        {
+          title: "View My Orders",
+          href: DeliveryPersonRoutes.viewMyOrders,
+          icon: "bi bi-plus",
         },
       ],
     },
