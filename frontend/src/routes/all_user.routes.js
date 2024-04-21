@@ -35,6 +35,7 @@ ManagerRoutes.dashboard = "/manager/dashboard";
 // Declare Transport Agent routes
 TransportAgentRoutes.main = "/transport-agent";
 TransportAgentRoutes.dashboard = "/transport-agent/dashboard";
+TransportAgentRoutes.viewMyOrders = "/transport-agent/view-my-orders";
 
 // Declare Client routes
 ClientRoutes.main = "/client";

@@ -1,11 +1,11 @@
-import BranchManagerService from "../services/branch_manager.service.js";
+import UserService from "../services/user.service.js";
 import validator from "../../../validation/validation.js";
 
-let BranchManagerController = {};
+let UserController = {};
 
 /////////////////////////////////////// Add a new client ////////////////////////////////////////////////
 
-BranchManagerController.addClient = async (
+UserController.addClient = async (
   nic,
   email,
   name,
@@ -25,7 +25,7 @@ BranchManagerController.addClient = async (
   };
 
   try {
-    let response = await BranchManagerService.addClient(reqBody);
+    let response = await UserService.addClient(reqBody);
     if (response.error) {
       return { error: response.error };
     }
@@ -37,7 +37,7 @@ BranchManagerController.addClient = async (
 
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
-BranchManagerController.addOrder = async (
+UserController.addOrder = async (
   weight,
   sendingDate,
   paymentDate,
@@ -68,7 +68,7 @@ BranchManagerController.addOrder = async (
   };
 
   try {
-    let response = await BranchManagerService.addOrder(reqBody);
+    let response = await UserService.addOrder(reqBody);
     if (response.error) {
       return { error: response.error };
     }
@@ -81,9 +81,9 @@ BranchManagerController.addOrder = async (
 
 /////////////////////////////////////// Get Branch ID by Branch Manager NIC ////////////////////////////////////////////////
 
-BranchManagerController.getBranchIdByBranchManagerNIC = async (nic) => {
+UserController.getBranchIdByBranchManagerNIC = async (nic) => {
   try {
-    let data = await BranchManagerService.getBranchIdByBranchManagerNIC({
+    let data = await UserService.getBranchIdByBranchManagerNIC({
       nic: nic,
     });
     if (data.error) {
@@ -100,9 +100,9 @@ BranchManagerController.getBranchIdByBranchManagerNIC = async (nic) => {
 
 /////////////////////////////////////// Get All Branches ////////////////////////////////////////////////
 
-BranchManagerController.getAllBranches = async () => {
+UserController.getAllBranches = async () => {
   try {
-    let response = await BranchManagerService.getAllBranches();
+    let response = await UserService.getAllBranches();
 
     if (response.error) {
       return { error: response.error };
@@ -118,9 +118,9 @@ BranchManagerController.getAllBranches = async () => {
 
 /////////////////////////////////////// Get All Package Types ////////////////////////////////////////////////
 
-BranchManagerController.getAllPackageTypes = async () => {
+UserController.getAllPackageTypes = async () => {
   try {
-    let response = await BranchManagerService.getAllPackageTypes();
+    let response = await UserService.getAllPackageTypes();
 
     if (response.error) {
       return { error: response.error };
@@ -136,9 +136,9 @@ BranchManagerController.getAllPackageTypes = async () => {
 
 /////////////////////////////////////// Get All Package Types ////////////////////////////////////////////////
 
-BranchManagerController.getAllOrderStatus = async () => {
+UserController.getAllOrderStatus = async () => {
   try {
-    let response = await BranchManagerService.getAllOrderStatus();
+    let response = await UserService.getAllOrderStatus();
 
     if (response.error) {
       return { error: response.error };
@@ -153,7 +153,7 @@ BranchManagerController.getAllOrderStatus = async () => {
 
 /////////////////////////////////////// Add a branch ////////////////////////////////////////////////
 
-BranchManagerController.addBranch = async (district, address, mapLocation, contactNumber) => {
+UserController.addBranch = async (district, address, mapLocation, contactNumber) => {
 
   let reqBody = {
     district,
@@ -163,7 +163,7 @@ BranchManagerController.addBranch = async (district, address, mapLocation, conta
   };
 
   try {
-    let response = await BranchManagerService.addBranch(reqBody);
+    let response = await UserService.addBranch(reqBody);
     if (response.error) {
       return { error: response.error };
     }
@@ -175,9 +175,9 @@ BranchManagerController.addBranch = async (district, address, mapLocation, conta
 
 /////////////////////////////////////// Get all routes ////////////////////////////////////////////////
 
-BranchManagerController.getAllRoutes = async () => {
+UserController.getAllRoutes = async () => {
   try {
-    let response = await BranchManagerService.getAllRoutes();
+    let response = await UserService.getAllRoutes();
 
     if (response.error) {
       return { error: response.error };
@@ -192,7 +192,7 @@ BranchManagerController.getAllRoutes = async () => {
 
 /////////////////////////////////////// Add Transport Agent ////////////////////////////////////////////////
 
-BranchManagerController.addTransportAgent = async (nic, email, name, vehicleNumber, routeId) => {
+UserController.addTransportAgent = async (nic, email, name, vehicleNumber, routeId) => {
 
   let reqBody = {
     nic,
@@ -203,7 +203,7 @@ BranchManagerController.addTransportAgent = async (nic, email, name, vehicleNumb
   };
 
   try {
-    let response = await BranchManagerService.addTransportAgent(reqBody);
+    let response = await UserService.addTransportAgent(reqBody);
     if (response.error) {
       return { error: response.error };
     }
@@ -215,7 +215,7 @@ BranchManagerController.addTransportAgent = async (nic, email, name, vehicleNumb
 
 /////////////////////////////////////// Add a delivery person ////////////////////////////////////////////////
 
-BranchManagerController.addDeliveryPerson = async (nic, email, fullName, address, contactNumber, vehicleNumber, branchId) => {
+UserController.addDeliveryPerson = async (nic, email, fullName, address, contactNumber, vehicleNumber, branchId) => {
 
   let reqBody = {
     nic,
@@ -228,7 +228,7 @@ BranchManagerController.addDeliveryPerson = async (nic, email, fullName, address
   };
 
   try {
-    let response = await BranchManagerService.addDeliveryPerson(reqBody);
+    let response = await UserService.addDeliveryPerson(reqBody);
     if (response.error) {
       return { error: response.error };
     }
@@ -241,9 +241,9 @@ BranchManagerController.addDeliveryPerson = async (nic, email, fullName, address
 
 /////////////////////////////////////// Get all orders by order ID ////////////////////////////////////////////////
 
-BranchManagerController.getAllOrdersByBranchId = async (branchId) => {
+UserController.getAllOrdersByBranchId = async (branchId) => {
   try {
-    let response = await BranchManagerService.getAllOrdersByBranchId({ branchId: branchId })
+    let response = await UserService.getAllOrdersByBranchId({ branchId: branchId })
 
     if (response.error) {
       return { error: response.error };
@@ -257,7 +257,7 @@ BranchManagerController.getAllOrdersByBranchId = async (branchId) => {
 
 /////////////////////////////////////// Add a route ////////////////////////////////////////////////
 
-BranchManagerController.addRoute = async (routeName, fBranchId, sBranchId) => {
+UserController.addRoute = async (routeName, fBranchId, sBranchId) => {
 
   let reqBody = {
     routeName,
@@ -266,7 +266,7 @@ BranchManagerController.addRoute = async (routeName, fBranchId, sBranchId) => {
   };
 
   try {
-    let response = await BranchManagerService.addRoute(reqBody);
+    let response = await UserService.addRoute(reqBody);
     if (response.error) {
       return { error: response.error };
     }
@@ -278,9 +278,9 @@ BranchManagerController.addRoute = async (routeName, fBranchId, sBranchId) => {
 
 /////////////////////////////////////// Get all ticket reasons ////////////////////////////////////////////////
 
-BranchManagerController.getAllReasons = async () => {
+UserController.getAllReasons = async () => {
   try {
-    let response = await BranchManagerService.getAllReasons();
+    let response = await UserService.getAllReasons();
 
     if (response.error) {
       return { error: response.error };
@@ -295,7 +295,7 @@ BranchManagerController.getAllReasons = async () => {
 
 /////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
 
-BranchManagerController.addTicket = async (
+UserController.addTicket = async (
   nic,
   branchId,
   reasonId,
@@ -311,7 +311,7 @@ BranchManagerController.addTicket = async (
   };
 
   try {
-    let response = await BranchManagerService.addTicket(reqBody);
+    let response = await UserService.addTicket(reqBody);
     if (response.error) {
       return { error: response.error };
     }
@@ -323,7 +323,7 @@ BranchManagerController.addTicket = async (
 
 /////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
 
-BranchManagerController.addFeedback = async (
+UserController.addFeedback = async (
   nic,
   rating,
   message
@@ -336,7 +336,7 @@ BranchManagerController.addFeedback = async (
   };
 
   try {
-    let response = await BranchManagerService.addFeedback(reqBody);
+    let response = await UserService.addFeedback(reqBody);
     if (response.error) {
       return { error: response.error };
     }
@@ -347,9 +347,9 @@ BranchManagerController.addFeedback = async (
 };
 
 
-BranchManagerController.getAllClientNICs = async () => {
+UserController.getAllClientNICs = async () => {
   try {
-    let response = await BranchManagerService.getAllClientNICs();
+    let response = await UserService.getAllClientNICs();
 
     if (response.error) {
       return { error: response.error };
@@ -364,12 +364,12 @@ BranchManagerController.getAllClientNICs = async () => {
   }
 };
 
-BranchManagerController.getCourierFee = async (
+UserController.getCourierFee = async (
   packageWeight,
   packageTypeId
 ) => {
   try {
-    let response = await BranchManagerService.getCourierFee({
+    let response = await UserService.getCourierFee({
       packageWeight,
       packageTypeId,
     });
@@ -383,4 +383,4 @@ BranchManagerController.getCourierFee = async (
   }
 };
 
-export default BranchManagerController;
+export default UserController;

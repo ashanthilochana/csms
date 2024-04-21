@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 
 import React, { useState, useEffect } from "react";
-import BranchManagerController from "../controllers/branch_manager.controller";
+import UserController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
 
 const ViewOrderTable = () => {
@@ -19,7 +19,7 @@ const ViewOrderTable = () => {
   useEffect(() => {
     async function getOrders() {
       let branchId = getCookie("user-branch-id");
-      let data = await BranchManagerController.getAllOrdersByBranchId(branchId);
+      let data = await UserController.getAllOrdersByBranchId(branchId);
       setOrders(data);
     }
 
