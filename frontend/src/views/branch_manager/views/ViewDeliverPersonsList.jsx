@@ -6,6 +6,7 @@ const ViewDeliverPersonsList = () => {
   const [deliveryPersons, setDeliveryPersons] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState(null);
+
   const [formData, setFormData] = useState({
     nic: "",
     email: "",
@@ -15,6 +16,7 @@ const ViewDeliverPersonsList = () => {
     vehicleNumber: "",
     branchId: "1",
   });
+
   const [validations, setValidations] = useState({
     nic: false,
     email: false,
@@ -89,14 +91,14 @@ const ViewDeliverPersonsList = () => {
       setSelectedPerson()
       toggleModal()
     }
-  }
+  };
 
 
 
   const deleteDeliveryPerson = async () => {
     try {
         await BranchManagerService.deleteDeliveryPerson(selectedPerson.nic);
-        await fetchDeliveryPersons()
+        await fetchDeliveryPersons();
         toggleModal();
     } catch (error) {
         console.error("Error deleting delivery person:", error);
@@ -264,7 +266,6 @@ const ViewDeliverPersonsList = () => {
               />
               <FormFeedback>Enter a valid vehicle number</FormFeedback>
             </FormGroup>
-
           </Form>
         </ModalBody>
         <ModalFooter>
@@ -272,7 +273,7 @@ const ViewDeliverPersonsList = () => {
             Update
           </Button>{" "}
           <Button color="danger" onClick={() => {
-deleteDeliveryPerson(selectedPerson.nic)
+            deleteDeliveryPerson(selectedPerson.nic)
           }}>
             Delete
           </Button>
