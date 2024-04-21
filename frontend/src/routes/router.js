@@ -32,7 +32,8 @@ const DeliveryPersonDashboard = lazy(() => import("../views/delivery_person/view
 const ViewDeliveryPersonOrder = lazy(() => import("../views/delivery_person/views/ViewOrderDetailsView.jsx"));
 
 // Import Views - Transport Agent
-// const TransportAgentDashboard = lazy(() => import("../views/transport_agent/views/ViewMyOrdersView.jsx"))
+const TransportAgentDashboard = lazy(() => import("../views/transport_agent/views/ViewDashboardView.jsx"))
+const TrasnportAgentViewMyOrders = lazy(() => import("../views/transport_agent/views/ViewOrderDetailsView.jsx"))
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -230,30 +231,35 @@ const ThemeRoutes = [
     ],
   },
 
-  ///////////////////////////////////////// Transport Agent Routers /////////////////////////////////////////////////
-  // {
-  //   path: "/transport-agent",
-  //   element: <ProtectedRoute allowedUsers={["5"]}></ProtectedRoute>,
-  //   children: [
-  //     {
-  //       path: "/transport-agent/", 
-  //       element: (
-  //         <FullLayout sidebarNavigation={SidebarRoutes.transportAgentRoutes} /> // Change side bar router here - Ashan
-  //       ),
-  //       children: [
-  //         {
-  //           path: "/transport-agent/",
-  //           element: <Navigate to="/transport-agent/dashboard" />,
-  //         },
-  //         {
-  //           path: "/transport-agent/dashboard",
-  //           exact: true,
-  //           element: <DeliveryPersonDashboard />,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  /////////////////////////////////////// Transport Agent Routers /////////////////////////////////////////////////
+  {
+    path: "/transport-agent",
+    element: <ProtectedRoute allowedUsers={["5"]}></ProtectedRoute>,
+    children: [
+      {
+        path: "/transport-agent/", 
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.transportAgentRoutes} /> // Change side bar router here - Ashan
+        ),
+        children: [
+          {
+            path: "/transport-agent/",
+            element: <Navigate to="/transport-agent/dashboard" />,
+          },
+          {
+            path: "/transport-agent/dashboard",
+            exact: true,
+            element: <TransportAgentDashboard />,
+          },
+          {
+            path: "/transport-agent/view-my-orders",
+            exact: true,
+            element: <TrasnportAgentViewMyOrders />,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default ThemeRoutes;

@@ -214,7 +214,7 @@ SidebarRoutes.transportAgentRoutes = [
   {
     title: "Show Deliveries",
     icon: "bi bi-box",
-    href: "#",
+    href: TransportAgentRoutes.viewMyOrders,
   },
   {
     title: "View My Route",

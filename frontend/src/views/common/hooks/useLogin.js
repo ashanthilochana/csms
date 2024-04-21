@@ -11,30 +11,35 @@ export default function useLogin() {
 
   // Auto navigation when roleID set
   useEffect(() => {
-    function redirect(){
-        switch (roleId) {
+    function redirect() {
+      switch (roleId) {
 
-            case 1:
-              // This should be admin (manager)
-              navigate('/admin');
+        case 1:
+          // This should be admin (manager)
+          navigate('/admin');
 
-            case 2:
-                //This should be branch managers
-                navigate('/branch-manager/');
-                break;
+        case 2:
+          //This should be branch managers
+          navigate('/branch-manager/');
+          break;
 
-            case 4:
-                //This should be branch managers
-                navigate('/delivery-person/');
-                break;
+        case 4:
+          //This should be branch managers
+          navigate('/delivery-person/');
+          break;
 
-            default:
-                // If no roll id navigate to login page [NOT WORKING ❌]
-                navigate('/login');
-                break;
-        }
+        case 5:
+          //This should be branch managers
+          navigate('/transport-agent/');
+          break;
+
+        default:
+          // If no roll id navigate to login page [NOT WORKING ❌]
+          navigate('/login');
+          break;
       }
-      redirect();
+    }
+    redirect();
   }, [roleId])
 
   // Create a function to update role ID and return
