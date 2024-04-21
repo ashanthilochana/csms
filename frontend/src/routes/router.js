@@ -11,6 +11,7 @@ import ViewDeliverPersonsList from "../views/branch_manager/views/ViewDeliverPer
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
+
 // Import Views ----- Branch Manager
 const BranchManagerDashboard = lazy(() => import("../views/branch_manager/views/ViewDashboardView.jsx"));
 const ViewOrders = lazy(() => import("../views/branch_manager/views/ViewOrdersView.jsx"));
