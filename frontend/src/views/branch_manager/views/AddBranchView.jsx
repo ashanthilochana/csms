@@ -15,7 +15,7 @@ import {
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BranchManagerController from "../controllers/branch_manager.controller";
+import BranchManagerController from "../controllers/user.controller.js";
 import { BranchManagerRoutes } from "../../../routes/all_user.routes";
 import validator from "../../../validation/validation.js";
 

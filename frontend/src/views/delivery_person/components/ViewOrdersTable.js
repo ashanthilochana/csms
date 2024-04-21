@@ -9,8 +9,8 @@ import {
 } from "reactstrap";
 
 import React, { useState, useEffect } from "react";
-import useCookie from "../../../hooks/useCookies.js";
 import UserController from "../controllers/user.controller.js";
+import useCookie from "../../../hooks/useCookies.js";
 
 const ViewOrderTable = () => {
   let [getCookie, setCookie] = useCookie();
