@@ -7,10 +7,16 @@ import LoginView from "../views/common/views/LoginView.jsx";
 // Import sidebar routers
 import SidebarRoutes from "./sidebar.routes.js";
 import ViewDeliverPersonsList from "../views/branch_manager/views/ViewDeliverPersonsList.jsx";
+import { element } from "prop-types";
 
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
+// Import Views ---- Manger
+const ManagerDashboard = lazy(() => import("../views/company_manager/views/ViewDashboardView.jsx"));
+const AddBranchView = lazy(() => import("../views/company_manager/views/AddBranchView.jsx"));
+const AddTransportAgentView = lazy(() => import("../views/company_manager/views/AddTrasportAgentView.jsx"));
+const AddRouteView = lazy(() => import("../views/company_manager/views/AddRouteView.jsx"));
 
 // Import Views ----- Branch Manager
 const BranchManagerDashboard = lazy(() => import("../views/branch_manager/views/ViewDashboardView.jsx"));
@@ -19,10 +25,7 @@ const AddOrderView = lazy(() => import("../views/branch_manager/views/AddOrderVi
 const AddClientView = lazy(() => import("../views/branch_manager/views/AddClientView.jsx"));
 const ViewClients = lazy(() => import("../views/branch_manager/views/ViewClientsView.jsx"));
 const ViewReceivedOrders = lazy(() => import("../views/branch_manager/views/ViewReceivedOrdersView.jsx"));
-const AddBranchView = lazy(() => import("../views/branch_manager/views/AddBranchView.jsx"));
-const AddTransportAgentView = lazy(() => import("../views/branch_manager/views/AddTrasportAgentView.jsx"));
 const AddDeliveryPerson = lazy(() => import("../views/branch_manager/views/AddDeliveryPersonView.jsx"));
-const AddRouteView = lazy(() => import("../views/branch_manager/views/AddRouteView.jsx"));
 const AddTicketView = lazy(() => import("../views/branch_manager/views/AddTicketView.jsx"));
 const AddFeedbackView = lazy(() => import("../views/branch_manager/views/AddFeedbackView.jsx"));
 const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderView.jsx"));
@@ -68,31 +71,45 @@ const ThemeRoutes = [
   },
 
 
-  ///////////////////////////////////////// Admin Routers /////////////////////////////////////////////////
+  ///////////////////////////////////////// Manager Routers /////////////////////////////////////////////////
   {
-    path: "/admin",
+    path: "/manager",
     element: <ProtectedRoute allowedUsers={["1"]}></ProtectedRoute>,
     children: [
       {
-        path: "/admin/",
+        path: "/manager/",
         element: (
-          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} /> // Change side bar router here - Ashan
+          <FullLayout sidebarNavigation={SidebarRoutes.managerRoutes} /> // Change side bar router here - Ashan
         ),
         children: [
           {
-            path: "/admin/",
-            element: <Navigate to="/admin/dashboard" />,
+            path: "/manager/",
+            element: <Navigate to="/manager/dashboard" />,
           },
           {
-            path: "/admin/dashboard",
+            path: "/manager/dashboard",
             exact: true,
-            element: <BranchManagerDashboard />,
+            element: <ManagerDashboard />,
+          },
+          {
+            path: "/manager/add-branch",
+            exact: true,
+            element: <AddBranchView />,
+          },
+          {
+            path: "/manager/add-transport-agent",
+            exact: true,
+            element: <AddTransportAgentView />,
+          },
+          {
+            path: "/manager/add-route",
+            exact: true,
+            element: <AddRouteView />,
           },
         ],
       },
     ],
   },
-
 
   ///////////////////////////////////////// Branch Manager Routers /////////////////////////////////////////////////
   {
@@ -145,16 +162,6 @@ const ThemeRoutes = [
             element: <ViewClients />,
           },
           {
-            path: "/branch-manager/add-branch",
-            exact: true,
-            element: <AddBranchView />,
-          },
-          {
-            path: "/branch-manager/add-transport-agent",
-            exact: true,
-            element: <AddTransportAgentView />,
-          },
-          {
             path: "/branch-manager/add-delivery-person",
             exact: true,
             element: <AddDeliveryPerson />,
@@ -163,11 +170,6 @@ const ThemeRoutes = [
             path: "/branch-manager/all-delivery-persons",
             exact: true,
             element: <ViewDeliverPersonsList />,
-          },
-          {
-            path: "/branch-manager/add-route",
-            exact: true,
-            element: <AddRouteView />,
           },
           {
             path: "/branch-manager/add-ticket",

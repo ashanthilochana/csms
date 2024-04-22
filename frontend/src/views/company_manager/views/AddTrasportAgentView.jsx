@@ -15,16 +15,16 @@ import {
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BranchManagerRoutes } from "../../../routes/all_user.routes";
+import { ManagerRoutes } from "../../../routes/all_user.routes.js";
 import validator from "../../../validation/validation.js";
 import DropdownOption from "../../../components/common/DropdownOption.jsx";
-import BranchManagerController from "../controllers/user.controller.js";
+import UserController from "../controllers/user.controller.js";
 
 const AddTransportAgent = () => {
 
     // Alert
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-    const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(BranchManagerRoutes.dashboard); }
+    const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(ManagerRoutes.dashboard); }
 
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const hideErrorDialog = () => setShowErrorDialog(false);
@@ -47,7 +47,7 @@ const AddTransportAgent = () => {
     useEffect(() => {
         //Fetch all routes to fill dropdown
         async function fetchAllRoutes() {
-            let response = await BranchManagerController.getAllRoutes();
+            let response = await UserController.getAllRoutes();
             if (response.error) {
                 alert(response.error);
             }
@@ -128,7 +128,7 @@ const AddTransportAgent = () => {
         const { nic, email, name, vehicleNumber, routeId } = inputData;
 
         try {
-            const res = await BranchManagerController.addTransportAgent(nic, email, name, vehicleNumber, routeId);
+            const res = await UserController.addTransportAgent(nic, email, name, vehicleNumber, routeId);
 
             // Error handling
             if (res.error) {
