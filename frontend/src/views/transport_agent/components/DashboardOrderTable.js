@@ -18,7 +18,7 @@ const tableData = [
   {
     order_id: "0003",
     destination_branch: "Kandy",
-    status: "Picked Up",
+    status: "received",
     weeks: "35",
     budget: "95K",
   },
@@ -31,15 +31,16 @@ const DashboardOrdersTable = () => {
         <CardBody>
           <CardTitle tag="h5">Latest Orders</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Overview of delivery process
+            Overview of new orders
           </CardSubtitle>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Delivery Date</th>
-                <th>Delivery Status</th>
+                <th>Destination Branch</th>
+
+                <th>Order Status</th>
                 <th className="text-center">Action</th>
               </tr>
             </thead>
@@ -63,7 +64,7 @@ const DashboardOrdersTable = () => {
                     ) : tdata.status === "received" ? ( 
                       <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-info text-white d-inline-block">Received</span>
                     ) : (
-                      <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">Picked up</span>
+                      <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">No Status</span>
                     )}
                   </td>
                   <td className="d-flex justify-content-center">
