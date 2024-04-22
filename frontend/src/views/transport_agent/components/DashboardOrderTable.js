@@ -3,25 +3,27 @@ import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, ButtonGroup } f
 const tableData = [
   {
     order_id: "0001",
-    destination_branch: "Polonnaruwa",
-    status: "delivered",
-    weeks: "35",
-    budget: "95K",
+    receiver: "Ashan Thilochana",
+    address: "No,122 malabe, Colombo",
+    contactNo: "07267874746",
+  
   },
+
   {
     order_id: "0002",
-    destination_branch: "Colombo",
-    status: "on going",
-    weeks: "35",
-    budget: "95K",
+    receiver: "Pabasara Rajapaksha",
+    address: "No.56, Galewala",
+    contactNo: "07267267443",
+  
   },
   {
     order_id: "0003",
-    destination_branch: "Kandy",
-    status: "received",
-    weeks: "35",
-    budget: "95K",
+    receiver: "Kaushani hettiarachchi",
+    address: "No.56, kadana ,ja-ela",
+    contactNo: "07855625477",
+  
   },
+ 
 ];
 
 const DashboardOrdersTable = () => {
@@ -31,17 +33,17 @@ const DashboardOrdersTable = () => {
         <CardBody>
           <CardTitle tag="h5">Latest Orders</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Overview of new orders
+            Overview of delivery process
           </CardSubtitle>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Destination Branch</th>
-
-                <th>Order Status</th>
-                <th className="text-center">Action</th>
+                <th>Receiver Name</th>
+                <th>Receiver Address</th>
+                <th>Receiver Contact Number</th>
+              
               </tr>
             </thead>
 
@@ -55,22 +57,9 @@ const DashboardOrdersTable = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{tdata.destination_branch}</td>
-                  <td>
-                    {tdata.status === "delivered" ? (
-                      <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-success text-white d-inline-block">Delivered</span>
-                    ) : tdata.status === "on going" ? ( 
-                      <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-warning text-white d-inline-block">On Going</span>
-                    ) : tdata.status === "received" ? ( 
-                      <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-info text-white d-inline-block">Received</span>
-                    ) : (
-                      <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">No Status</span>
-                    )}
-                  </td>
-                  <td className="d-flex justify-content-center">
-                    <Button  className="btn me-2" outline color="secondary" size="sm">Edit</Button>
-                    <Button  className="btn" color="primary" size="sm">View</Button>
-                  </td>          
+                  <td>{tdata.receiver}</td>
+                  <td>{tdata.address}</td>
+                  <td>{tdata.contactNo}</td>        
                 </tr>
               ))}
             </tbody>

@@ -152,7 +152,7 @@ SidebarRoutes.branchManagerRoutes = [
     {
       title: "Show Deliveries",
       icon: "bi bi-box",
-      href: "#"
+      href: DeliveryPersonRoutes.viewMyOrders,
     },
   ];
   
