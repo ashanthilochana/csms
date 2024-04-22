@@ -15,8 +15,8 @@ import {
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BranchManagerController from "../controllers/user.controller.js";
-import { BranchManagerRoutes } from "../../../routes/all_user.routes";
+import UserController from "../controllers/user.controller.js";
+import { ManagerRoutes } from "../../../routes/all_user.routes.js";
 import validator from "../../../validation/validation.js";
 
 
@@ -24,7 +24,7 @@ const AddNewBranch = () => {
 
   // Alert
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-  const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(BranchManagerRoutes.dashboard); }
+  const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(ManagerRoutes.dashboard); }
 
   const [showErrorDialog, setShowErrorDialog] = useState(false);
   const hideErrorDialog = () => setShowErrorDialog(false);
@@ -106,7 +106,7 @@ const AddNewBranch = () => {
     const { district, address, mapLocation, contactNumber } = inputData;
 
     try {
-      const res = await BranchManagerController.addBranch(district, address, mapLocation, contactNumber);
+      const res = await UserController.addBranch(district, address, mapLocation, contactNumber);
 
       // Error handling
       if (res.error) {

@@ -16,7 +16,8 @@ export default function useLogin() {
 
         case 1:
           // This should be admin (manager)
-          navigate('/admin');
+          navigate('/manager/');
+          break;
 
         case 2:
           //This should be branch managers
@@ -32,7 +33,7 @@ export default function useLogin() {
           //This should be branch managers
           navigate('/transport-agent/');
           break;
-
+          
         default:
           // If no roll id navigate to login page [NOT WORKING ❌]
           navigate('/login');
