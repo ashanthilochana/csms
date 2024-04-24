@@ -170,9 +170,9 @@ SidebarRoutes.transportAgentRoutes = [
   },
   {
     title: "View My Route",
-    icon: "bi-bi-box",
-    href: "#",
-  },
+    icon: "bi bi-box",
+    href: TransportAgentRoutes.viewMyRoute,
+  }
 ];
 
 // Manager

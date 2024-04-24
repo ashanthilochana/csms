@@ -59,4 +59,23 @@ TransportAgentService.addTransportAgent = async (
     }
 };
 
+
+//Get all transport agents
+
+TransportAgentService.getAllTransportAgents = async() => {
+    let query = `
+    SELECT t.nic, t.email, t.fullName, t.vehicleNumber, r.routeName 
+    FROM transportAgent t, route r
+    WHERE t.routeId = r.routeId
+    `;
+
+    try{
+        const [rows] = await pool.query(query);
+        return rows;
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+};
+
 export default TransportAgentService;

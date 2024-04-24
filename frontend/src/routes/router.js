@@ -37,6 +37,7 @@ const ViewDeliveryPersonOrder = lazy(() => import("../views/delivery_person/view
 // Import Views - Transport Agent
 const TransportAgentDashboard = lazy(() => import("../views/transport_agent/views/ViewDashboardView.jsx"))
 const TrasnportAgentViewMyOrders = lazy(() => import("../views/transport_agent/views/ViewOrderDetailsView.jsx"))
+const TrasportAgentMyRoute = lazy(() => import("../views/transport_agent/views/ViewMyRouteView.jsx"))
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -257,6 +258,11 @@ const ThemeRoutes = [
             path: "/transport-agent/view-my-orders",
             exact: true,
             element: <TrasnportAgentViewMyOrders />,
+          },
+          {
+            path: "/transport-agent/view-my-route",
+            exact: true,
+            element: <TrasportAgentMyRoute />,
           },
         ],
       },
