@@ -109,6 +109,8 @@ UserService.getAllBranches = async () => {
   }
 };
 
+
+
 /////////////////////////////////////// Get all package typess ////////////////////////////////////////////////
 
 UserService.getAllPackageTypes = async () => {
@@ -229,6 +231,27 @@ UserService.addTransportAgent = async (reqBody) => {
     console.error(e);
     throw e;
   }
+};
+
+
+/////////////////////////////////////// Get all TransportAgent ////////////////////////////////////////////////
+UserService.getAllTransportAgents = async()=>{
+  try{
+    let response = await AxiosController.instance.get("/api/transport-agent");
+
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+
+  }catch(e){
+    console.error(e);
+    throw e;
+  }
+
 };
 
 /////////////////////////////////////// Add a delivery person ////////////////////////////////////////////////

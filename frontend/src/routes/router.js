@@ -8,14 +8,17 @@ import LoginView from "../views/common/views/LoginView.jsx";
 import SidebarRoutes from "./sidebar.routes.js";
 import ViewDeliverPersonsList from "../views/branch_manager/views/ViewDeliverPersonsList.jsx";
 import { element } from "prop-types";
+import ViewBranches from "../views/company_manager/views/ViewBranchesView.jsx";
 
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
-// Import Views ---- Manger
+// Import Views ---- Manager
 const ManagerDashboard = lazy(() => import("../views/company_manager/views/ViewDashboardView.jsx"));
 const AddBranchView = lazy(() => import("../views/company_manager/views/AddBranchView.jsx"));
+const ViewBranchView = lazy(() => import("../views/company_manager/views/ViewBranchesView.jsx"));
 const AddTransportAgentView = lazy(() => import("../views/company_manager/views/AddTrasportAgentView.jsx"));
+const ViewTransportAgentView = lazy(() => import("../views/company_manager/views/ViewTransportAgentView.jsx"));
 const AddRouteView = lazy(() => import("../views/company_manager/views/AddRouteView.jsx"));
 
 // Import Views ----- Branch Manager
@@ -99,15 +102,26 @@ const ThemeRoutes = [
             element: <AddBranchView />,
           },
           {
+            path: "/manager/view-branch",
+            exact: true,
+            element: <ViewBranchView/>,
+          },
+          {
             path: "/manager/add-transport-agent",
             exact: true,
             element: <AddTransportAgentView />,
+          },
+          {
+            path: "/manager/view-transport-agent",
+            exact: true,
+            element: <ViewTransportAgentView />,
           },
           {
             path: "/manager/add-route",
             exact: true,
             element: <AddRouteView />,
           },
+
         ],
       },
     ],
