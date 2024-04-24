@@ -42,6 +42,9 @@ const TransportAgentDashboard = lazy(() => import("../views/transport_agent/view
 const TrasnportAgentViewMyOrders = lazy(() => import("../views/transport_agent/views/ViewOrderDetailsView.jsx"))
 const TrasportAgentMyRoute = lazy(() => import("../views/transport_agent/views/ViewMyRouteView.jsx"))
 
+// Import Views - Clients
+const ClientDashboard = lazy(() => import("../views/customer/views/ViewDashboardView.jsx"));
+
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
 const Alerts = lazy(() => import("../views/ui/Alerts.js"));
@@ -277,6 +280,31 @@ const ThemeRoutes = [
             path: "/transport-agent/view-my-route",
             exact: true,
             element: <TrasportAgentMyRoute />,
+          },
+        ],
+      },
+    ],
+  },
+
+  /////////////////////////////////////// Client Routers /////////////////////////////////////////////////
+  {
+    path: "/client",
+    element: <ProtectedRoute allowedUsers={["6"]}></ProtectedRoute>,
+    children: [
+      {
+        path: "/client/", 
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.transportAgentRoutes} /> // Change side bar router here - Ashan
+        ),
+        children: [
+          {
+            path: "/client/",
+            element: <Navigate to="/client/dashboard" />,
+          },
+          {
+            path: "/client/dashboard",
+            exact: true,
+            element: <ClientDashboard />,
           },
         ],
       },
