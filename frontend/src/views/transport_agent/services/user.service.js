@@ -37,26 +37,6 @@ UserService.addClient = async (reqBody) => {
   }
 };
 
-/////////////////////////////////////// Get all clients ////////////////////////////////////////////////
-UserService.getAllClients = async()=>{
-  try{
-    let response = await AxiosController.instance.get("/api/clients");
-
-    if (response.error) {
-      return { error: response.error };
-    } else if (response.data.error) {
-      return { error: response.data.error };
-    } else {
-      return { data: response.data };
-    }
-
-  }catch(e){
-    console.error(e);
-    throw e;
-  }
-
-};
-
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
 UserService.addOrder = async (reqBody) => {
@@ -152,7 +132,6 @@ UserService.getAllPackageTypes = async () => {
 UserService.getAllOrderStatus = async () => {
   try {
     let response = await AxiosController.instance.get("/api/orderstatus");
-    
     if (response.error) {
       return { error: response.error };
     } else if (response.data.error) {
@@ -160,7 +139,6 @@ UserService.getAllOrderStatus = async () => {
     } else {
       return { data: response.data };
     }
-
   } catch (e) {
     console.error(e);
     throw e;

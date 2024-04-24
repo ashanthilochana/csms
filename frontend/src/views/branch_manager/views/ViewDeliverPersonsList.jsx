@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, FormGroup, Form, FormFeedback } from "reactstrap";
-import BranchManagerService from "../services/user.service";
+import UserService from "../services/user.service";
 
 const ViewDeliverPersonsList = () => {
   const [deliveryPersons, setDeliveryPersons] = useState([]);
@@ -37,7 +37,7 @@ const ViewDeliverPersonsList = () => {
 
   const fetchDeliveryPersons = async () => {
     try {
-      const response = await BranchManagerService.getAllDeliveryPersons();
+      const response = await UserService.getAllDeliveryPersons();
       setDeliveryPersons(response.data);
     } catch (error) {
       console.error("Error fetching delivery persons:", error);
@@ -83,7 +83,7 @@ const ViewDeliverPersonsList = () => {
 
   const updateDeliveryPerson = async () => {
     try {
-      await BranchManagerService.updateDeliveryPerson(selectedPerson.nic, formData);
+      await UserService.updateDeliveryPerson(selectedPerson.nic, formData);
       await fetchDeliveryPersons()
     } catch (error) {
 
@@ -97,7 +97,7 @@ const ViewDeliverPersonsList = () => {
 
   const deleteDeliveryPerson = async () => {
     try {
-        await BranchManagerService.deleteDeliveryPerson(selectedPerson.nic);
+        await UserService.deleteDeliveryPerson(selectedPerson.nic);
         await fetchDeliveryPersons();
         toggleModal();
     } catch (error) {

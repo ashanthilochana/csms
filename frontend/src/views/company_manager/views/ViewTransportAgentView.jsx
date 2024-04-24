@@ -1,24 +1,24 @@
 import {
     Row,
     Col,
+    Container,
     Form,
+    Breadcrumb,
+    BreadcrumbItem,
     FormGroup,
     Input,
     FormFeedback,
-    Container,
-    Breadcrumb,
-    BreadcrumbItem,
     Button
   } from "reactstrap";
   
-  import ViewOrderTable from "../components/ViewOrdersTable";
+  import ViewTransportAgentTable from "../components/ViewTransportAgentTable";
   
-  const ViewOrderDetailsView = () => {
+  const ViewTransportAgent = () => {
     return (
       <Container>
   
-        {/* Breadcrumb and search bar */}
-        <Form>
+      {/* Breadcrumb and search bar */}
+      <Form>
           <Row className="d-flex">
             <Col lg="8" className="align-content-center">
               {/* Breadcrumbs */}
@@ -30,22 +30,21 @@ import {
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <a href="#">
-                    Delivery Manamagement
+                    Order Manamagement
                   </a>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
-                  View Orders Details
+                  View All Clients
                 </BreadcrumbItem>
               </Breadcrumb>
             </Col>
             <Col lg="3">
-
               <FormGroup>
                 <Input
                   className="pt-2 pb-2"
                   id="district"
                   name="district"
-                  placeholder="Search Orders..."
+                  placeholder="Search Clients..."
                   type="text"
                 // value={inputData.district}
                 // onChange={onChange}
@@ -61,15 +60,16 @@ import {
           </Row>
         </Form>
   
-        <Row>
-          <Col lg="12">
-            <ViewOrderTable />
-          </Col>
-        </Row>
-      </Container>
+      <Row>
   
+        <Col lg="12">
+          <ViewTransportAgentTable />
+        </Col>
+   
+      </Row>
+      </Container>
     );
   };
   
-  export default ViewOrderDetailsView;
+  export default ViewTransportAgent;
   

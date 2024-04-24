@@ -1,9 +1,12 @@
 import { Col, Row } from "reactstrap";
-import DashboardOrdersTable from "../components/DashboardOrderTable";
+import DashboardFeeds from "../components/DashboardFeeds";
+import DashboardOrdersTable from "../components/DashboardOrdersTable";
 import DashboardTopCards from "../components/DashboardTopCards";
-import { useState } from 'react';
+import DashboardSalesChart from "../components/DashboardSalesChart";
+import react, { useEffect, useState } from "react";
 
 const Dashboard = () => {
+
 
   let [summaryData, setSummaryData] = useState({
     availableOrders: "400",
@@ -12,10 +15,9 @@ const Dashboard = () => {
     feedbacks: "15"
   });
 
-
   return (
     <div>
-      {/***Top Cards**/}
+      {/***Top Cards***/}
       <Row>
         <Col sm="6" lg="3">
           <DashboardTopCards
@@ -54,9 +56,12 @@ const Dashboard = () => {
           />
         </Col>
       </Row>
-      {/***Table ***/}
+      {/***Sales & Feed***/}
       <Row>
-        <Col lg="12">
+        <Col lg="4">
+          <DashboardFeeds />
+        </Col>
+        <Col lg="8">
           <DashboardOrdersTable />
         </Col>
       </Row>

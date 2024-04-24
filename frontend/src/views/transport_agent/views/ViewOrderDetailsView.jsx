@@ -30,16 +30,15 @@ import {
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <a href="#">
-                    Delivery Manamagement
+                    Order Manamagement
                   </a>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
-                  View Orders Details
+                  View Latest Orders
                 </BreadcrumbItem>
               </Breadcrumb>
             </Col>
             <Col lg="3">
-
               <FormGroup>
                 <Input
                   className="pt-2 pb-2"

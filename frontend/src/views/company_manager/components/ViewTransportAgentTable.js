@@ -6,28 +6,27 @@ import UserController from "../controllers/user.controller";
 // const tableData = [
 //   {
 //     avatar: user,
-//     name: "Hanna Gover",
+//     nic: "Hanna Gover",
 //     email: "hgover@gmail.com",
-//     nic: "200134701128",
-//     address: "No.114, Malabe, Colombo",
-//     contact: "0782334435",
-//     branch: "Colombo",
+//     name: "200134701128",
+//     vehicleNumber: "No.114, Malabe, Colombo",
+//     contactNumber:0754764544
 //   },
 // ];
 
-const ViewClientsTable = () => {
+const ViewTransportAgentTable = () => {
 
-  let [clients, setClients] = useState([]);
+  let [TransportAgents, setTransportAgents] = useState([]);
 
   useEffect(() => {
     
-    async function getClients() {
+    async function getTransportAgents() {
       try {
-        let response = await UserController.getAllClients();
+        let response = await UserController.getAllTransportAgents();
         if (response.error) {
           console.error("Error fetching clients:", response.error);
         } else {
-          setClients(response.data);
+          setTransportAgents(response.data);
         }
       } catch (error) {
         console.error("Error fetching clients:", error);
@@ -35,7 +34,7 @@ const ViewClientsTable = () => {
     };
     
 
-    getClients();
+    getTransportAgents();
 
   }, []);
   
@@ -44,25 +43,24 @@ const ViewClientsTable = () => {
     <div>
       <Card>
         <CardBody>
-          <CardTitle tag="h5">Client List</CardTitle>
+          <CardTitle tag="h5">TransportAgent List</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
-            Clients belongs to the branch
+          TransportAgent belongs to the branch
           </CardSubtitle>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
                 
-                <th>Name</th>
+                <th>Full Name</th>
+                <th>E-mail</th>
                 <th>NIC</th>
-                <th>Address</th>
-                <th>Contact Number</th>
-                <th>Branch</th>
+                <th>VehicleNumber</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {clients.map((tdata, index) => (
+              {TransportAgents.map((tdata, index) => (
                 <tr key={index} className="border-top">
                   <td>
                     <div className="d-flex align-items-center p-2">
@@ -74,15 +72,16 @@ const ViewClientsTable = () => {
                         height="45"
                       />
                       <div className="ms-3">
-                        <h6 className="mb-0">{tdata.name}</h6>
-                        <span className="text-muted">{tdata.email}</span>
+                        <h6 className="mb-0">{tdata.fullName}</h6>
+                        
                       </div>
                     </div>
                   </td>
+                  <td>{tdata.email}</td>
                   <td>{tdata.nic}</td>
-                  <td>{tdata.address}</td>
-                  <td>{tdata.contactNumber}</td>
-                  <td>{tdata.district}</td>  
+                  <td>{tdata.vehicleNumber}</td>
+                  
+                  
                   <td>
                     <Button  className="btn me-2" outline color="secondary" size="sm">Edit</Button>
                     <Button  className="btn" color="danger" size="sm">Delete</Button>
@@ -97,4 +96,4 @@ const ViewClientsTable = () => {
   );
 };
 
-export default ViewClientsTable;
+export default ViewTransportAgentTable;

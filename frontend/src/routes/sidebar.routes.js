@@ -1,9 +1,8 @@
-import { BranchManagerRoutes } from "./all_user.routes.js";
-import { DeliveryPersonRoutes } from "./all_user.routes.js";
+import { BranchManagerRoutes, DeliveryPersonRoutes, TransportAgentRoutes, ManagerRoutes, ClientRoutes} from "./all_user.routes.js";
 
 let SidebarRoutes = {};
 
-// Branch Manager sideBar navigation menu
+// Branch Manager
 SidebarRoutes.branchManagerRoutes = [
     {
       title: "Dashboard",
@@ -53,38 +52,6 @@ SidebarRoutes.branchManagerRoutes = [
       ],
     },
     {
-      title: "Branch Management",
-      icon: "bi bi-house",
-      subItems: [
-        {
-          title: "Add a New Branch",
-          href: BranchManagerRoutes.addBranch,
-          icon: "bi bi-house-add",
-        },
-        {
-          title: "All Branches",
-          href: "#",
-          icon: "bi bi-house-check",
-        },
-      ],
-    },
-    {
-      title: "Trasport Management ",
-      icon: "bi bi-truck",
-      subItems: [
-        {
-          title: "Add a New Trasport Agent",
-          href: BranchManagerRoutes.addTransportAgent,
-          icon: "bi bi-person-add",
-        },
-        {
-          title: "All Transport Agents",
-          href: "#",
-          icon: "bi bi-person",
-        },
-      ],
-    },
-    {
       title: "Delivery Management ",
       icon: "bi bi-airplane",
       subItems: [
@@ -95,24 +62,8 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "All Delivery Persons",
-          href: BranchManagerRoutes.allDeliveryPersons,
+          href: BranchManagerRoutes.viewDeliveryPersons,
           icon: "bi bi-person",
-        },
-      ],
-    },
-    {
-      title: "Route Management ",
-      icon: "bi bi-sign-turn-right",
-      subItems: [
-        {
-          title: "Add a New Route",
-          href: BranchManagerRoutes.addRoute,
-          icon: "bi bi-sign-intersection",
-        },
-        {
-          title: "All Routes",
-          href: "#",
-          icon: "bi bi-sign-intersection-y",
         },
       ],
     },
@@ -191,6 +142,7 @@ SidebarRoutes.branchManagerRoutes = [
     },
   ];
 
+// Delivery Person
   SidebarRoutes.deliveryPersonRoutes = [
     {
       title: "Dashboard",
@@ -198,17 +150,159 @@ SidebarRoutes.branchManagerRoutes = [
       icon: "bi bi-speedometer2",
     },
     {
-      title: "Delivery Manamgement",
+      title: "Show Deliveries",
       icon: "bi bi-box",
-      subItems: [
-        {
-          title: "View My Orders",
-          href: DeliveryPersonRoutes.viewMyOrders,
-          icon: "bi bi-plus",
-        },
-      ],
+      href: DeliveryPersonRoutes.viewMyOrders,
     },
   ];
   
+// Transport Agent
+SidebarRoutes.transportAgentRoutes = [
+  {
+    title: "Dashboard",
+    href: TransportAgentRoutes.dashboard,
+    icon: "bi bi-speedometer2",
+  },
+  {
+    title: "Show Deliveries",
+    icon: "bi bi-box",
+    href: TransportAgentRoutes.viewMyOrders,
+  },
+  {
+    title: "View My Route",
+    icon: "bi bi-box",
+    href: TransportAgentRoutes.viewMyRoute,
+  }
+];
+
+// Manager
+SidebarRoutes.managerRoutes = [
+  {
+    title: "Dashboard",
+    href: ManagerRoutes.dashboard,
+    icon: "bi bi-speedometer2",
+  },
+  {
+    title: "Branch Mangement",
+    icon: "bi bi-box",
+    subItems: [
+      {
+        title: "Add a Branch",
+        icon: "bi bi-box",
+        href: ManagerRoutes.addBranch,
+      },
+      {
+        title: "View Branches",
+        icon: "bi bi-box",
+        href: ManagerRoutes.viewBranches,
+      }
+    ],
+  },
+  {
+    title: "Transport Management",
+    icon: "bi bi-box",
+    subItems: [
+      {
+        title: "Add a Transport Agent",
+        icon: "bi bi-box",
+        href: ManagerRoutes.addTransportAgent 
+      },
+      {
+        title: "View Transport Agents",
+        icon: "bi bi-box",
+        href: ManagerRoutes.viewTransportAgents
+      }
+    ]
+  },
+  {
+    title: "Route Management",
+    icon: "bi bi-box",
+    subItems: [
+      {
+        title: "Add a Route",
+        icon: "bi bi-box",
+        href: ManagerRoutes.addRoute
+      },
+      {
+        title: "View Routes",
+        icon: "bi bi-box",
+        href: "#"
+      }
+    ]
+  }
+];
+
+// Client
+SidebarRoutes.clientRoutes = [
+  {
+    title: "Dashboard",
+    href: ClientRoutes.dashboard,
+    icon: "bi bi-speedometer2",
+  },
+  {
+    title: "Order Management",
+    icon: "bi bi-box",
+    subItems: [
+      {
+        title: "View My Orders",
+        href: "#",
+        icon: "bi bi-box",
+      },
+      {
+        title: "Track Order",
+        href: "#",
+        icon: "bi bi-box",
+      },
+    ],
+  },
+  {
+    title: "Profile Management",
+    icon: "bi bi-person",
+    subItems: [
+      {
+        title: "View Account",
+        icon: "bi bi-person",
+        href: "#",
+      },
+      {
+        title: "Change Password",
+        icon: "bi bi-person",
+        href: "#",
+      },
+    ],
+  },
+  {
+    title: "Customer Support",
+    icon: "bi bi-person",
+    subItems: [
+      {
+        title: "New Ticket",
+        icon: "bi bi-ticket",
+        href: "#",
+      },
+      {
+        title: "View My Tickets",
+        icon: "bi bi-ticket",
+        href: "#",
+      },
+    ],
+  },
+  {
+    title: "Feedback",
+    icon: "bi bi-star",
+    subItems: [
+      {
+        title: "Provide Feedback",
+        icon: "bi bi-person",
+        href: "#",
+      },
+      {
+        title: "View My Feedbacks",
+        icon: "bi bi-person",
+        href: "#",
+      }
+    ],
+  },
+];
 
 export default SidebarRoutes;

@@ -3,6 +3,7 @@ import validator from "../../../validation/validation.js";
 
 let UserController = {};
 
+
 /////////////////////////////////////// Add a new client ////////////////////////////////////////////////
 
 UserController.addClient = async (
@@ -34,25 +35,6 @@ UserController.addClient = async (
     return { error: e };
   }
 };
-
-/////////////////////////////////////// Get all clients ////////////////////////////////////////////////
-
-UserController.getAllClients = async () => {
-   try{
-    let response = await UserService.getAllClients();
-
-    if (response.error) {
-      return { error: response.error };
-    }
-    else {
-      return { data: response.data };
-    }
-    
-   } catch(e){
-    return { error: e};
-   }
-};
-
 
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
@@ -232,6 +214,25 @@ UserController.addTransportAgent = async (nic, email, name, vehicleNumber, route
   }
 };
 
+
+/////////////////////////////////////// Get all TransportAgent ////////////////////////////////////////////////
+
+UserController.getAllTransportAgents = async () => {
+  try{
+   let response = await UserService.getAllTransportAgents();
+
+   if (response.error) {
+     return { error: response.error };
+   }
+   else {
+     return { data: response.data };
+   }
+   
+  } catch(e){
+   return { error: e};
+  }
+};
+
 /////////////////////////////////////// Add a delivery person ////////////////////////////////////////////////
 
 UserController.addDeliveryPerson = async (nic, email, fullName, address, contactNumber, vehicleNumber, branchId) => {
@@ -260,142 +261,14 @@ UserController.addDeliveryPerson = async (nic, email, fullName, address, contact
 
 /////////////////////////////////////// Get all orders by order ID ////////////////////////////////////////////////
 
-UserController.getAllOrdersByBranchId = async (branchId) => {
+UserController.getLatestOrdersByClientNic = async (nic) => {
   try {
-    let response = await UserService.getAllOrdersByBranchId({ branchId: branchId })
+    let response = await UserService.getLatestOrdersByClientNic({ nic: nic })
 
     if (response.error) {
       return { error: response.error };
     } else {
-      return response;
-    }
-  } catch (e) {
-    return { error: e };
-  }
-}
-
-/////////////////////////////////////// Add a route ////////////////////////////////////////////////
-
-UserController.addRoute = async (routeName, fBranchId, sBranchId) => {
-
-  let reqBody = {
-    routeName,
-    fBranchId,
-    sBranchId
-  };
-
-  try {
-    let response = await UserService.addRoute(reqBody);
-    if (response.error) {
-      return { error: response.error };
-    }
-    return { message: "Route Added Successfully" };
-  } catch (e) {
-    return { error: e };
-  }
-};
-
-/////////////////////////////////////// Get all ticket reasons ////////////////////////////////////////////////
-
-UserController.getAllReasons = async () => {
-  try {
-    let response = await UserService.getAllReasons();
-
-    if (response.error) {
-      return { error: response.error };
-    }
-    else {
-      return { data: response.data };
-    }
-  } catch (e) {
-    return { error: e };
-  }
-}
-
-/////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
-
-UserController.addTicket = async (
-  nic,
-  branchId,
-  reasonId,
-  message,
-  responseStatusId) => {
-
-  let reqBody = {
-    nic,
-    branchId,
-    reasonId,
-    message,
-    responseStatusId
-  };
-
-  try {
-    let response = await UserService.addTicket(reqBody);
-    if (response.error) {
-      return { error: response.error };
-    }
-    return { message: "Ticket Added Successfully" };
-  } catch (e) {
-    return { error: e };
-  }
-};
-
-/////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
-
-UserController.addFeedback = async (
-  nic,
-  rating,
-  message
-) => {
-
-  let reqBody = {
-    nic,
-    rating,
-    message
-  };
-
-  try {
-    let response = await UserService.addFeedback(reqBody);
-    if (response.error) {
-      return { error: response.error };
-    }
-    return { message: "Feedback Added Successfully" };
-  } catch (e) {
-    return { error: e };
-  }
-};
-
-
-UserController.getAllClientNICs = async () => {
-  try {
-    let response = await UserService.getAllClientNICs();
-
-    if (response.error) {
-      return { error: response.error };
-    } else {
-      let modifiedData = response.data.map((nic) => {
-        return { value: nic, label: nic };
-      });
-      return { data: modifiedData };
-    }
-  } catch (e) {
-    return { error: e };
-  }
-};
-
-UserController.getCourierFee = async (
-  packageWeight,
-  packageTypeId
-) => {
-  try {
-    let response = await UserService.getCourierFee({
-      packageWeight,
-      packageTypeId,
-    });
-    if (response.error) {
-      return { error: response.error };
-    } else {
-      return response;
+      return {data: response.data};
     }
   } catch (e) {
     return { error: e };

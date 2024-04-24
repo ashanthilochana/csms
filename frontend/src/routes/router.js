@@ -7,10 +7,19 @@ import LoginView from "../views/common/views/LoginView.jsx";
 // Import sidebar routers
 import SidebarRoutes from "./sidebar.routes.js";
 import ViewDeliverPersonsList from "../views/branch_manager/views/ViewDeliverPersonsList.jsx";
+import { element } from "prop-types";
+import ViewBranches from "../views/company_manager/views/ViewBranchesView.jsx";
 
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
+// Import Views ---- Manager
+const ManagerDashboard = lazy(() => import("../views/company_manager/views/ViewDashboardView.jsx"));
+const AddBranchView = lazy(() => import("../views/company_manager/views/AddBranchView.jsx"));
+const ViewBranchView = lazy(() => import("../views/company_manager/views/ViewBranchesView.jsx"));
+const AddTransportAgentView = lazy(() => import("../views/company_manager/views/AddTrasportAgentView.jsx"));
+const ViewTransportAgentView = lazy(() => import("../views/company_manager/views/ViewTransportAgentView.jsx"));
+const AddRouteView = lazy(() => import("../views/company_manager/views/AddRouteView.jsx"));
 
 // Import Views ----- Branch Manager
 const BranchManagerDashboard = lazy(() => import("../views/branch_manager/views/ViewDashboardView.jsx"));
@@ -19,10 +28,7 @@ const AddOrderView = lazy(() => import("../views/branch_manager/views/AddOrderVi
 const AddClientView = lazy(() => import("../views/branch_manager/views/AddClientView.jsx"));
 const ViewClients = lazy(() => import("../views/branch_manager/views/ViewClientsView.jsx"));
 const ViewReceivedOrders = lazy(() => import("../views/branch_manager/views/ViewReceivedOrdersView.jsx"));
-const AddBranchView = lazy(() => import("../views/branch_manager/views/AddBranchView.jsx"));
-const AddTransportAgentView = lazy(() => import("../views/branch_manager/views/AddTrasportAgentView.jsx"));
 const AddDeliveryPerson = lazy(() => import("../views/branch_manager/views/AddDeliveryPersonView.jsx"));
-const AddRouteView = lazy(() => import("../views/branch_manager/views/AddRouteView.jsx"));
 const AddTicketView = lazy(() => import("../views/branch_manager/views/AddTicketView.jsx"));
 const AddFeedbackView = lazy(() => import("../views/branch_manager/views/AddFeedbackView.jsx"));
 const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderView.jsx"));
@@ -31,7 +37,14 @@ const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderVi
 const DeliveryPersonDashboard = lazy(() => import("../views/delivery_person/views/ViewDashboardView.jsx"));
 const ViewDeliveryPersonOrder = lazy(() => import("../views/delivery_person/views/ViewOrderDetailsView.jsx"));
 
-// Import views - Common
+// Import Views - Transport Agent
+const TransportAgentDashboard = lazy(() => import("../views/transport_agent/views/ViewDashboardView.jsx"))
+const TrasnportAgentViewMyOrders = lazy(() => import("../views/transport_agent/views/ViewOrderDetailsView.jsx"))
+const TrasportAgentMyRoute = lazy(() => import("../views/transport_agent/views/ViewMyRouteView.jsx"))
+
+// Import Views - Clients
+const ClientDashboard = lazy(() => import("../views/customer/views/ViewDashboardView.jsx"));
+
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
 const Alerts = lazy(() => import("../views/ui/Alerts.js"));
@@ -46,6 +59,8 @@ const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs.js"));
 /*****Routes******/
 
 const ThemeRoutes = [
+
+
   ///////////////////////////////////////// Common Routers /////////////////////////////////////////////////
   {
     path : "/",
@@ -62,30 +77,59 @@ const ThemeRoutes = [
     element: <UnauthorizedView></UnauthorizedView>,
     children: [],
   },
-  ///////////////////////////////////////// Admin Routers /////////////////////////////////////////////////
+
+
+  ///////////////////////////////////////// Manager Routers /////////////////////////////////////////////////
   {
-    path: "/admin",
+    path: "/manager",
     element: <ProtectedRoute allowedUsers={["1"]}></ProtectedRoute>,
     children: [
       {
-        path: "/admin/",
+        path: "/manager/",
         element: (
-          <FullLayout sidebarNavigation={SidebarRoutes.branchManagerRoutes} /> // Change side bar router here - Ashan
+          <FullLayout sidebarNavigation={SidebarRoutes.managerRoutes} /> // Change side bar router here - Ashan
         ),
         children: [
           {
-            path: "/admin/",
-            element: <Navigate to="/admin/dashboard" />,
+            path: "/manager/",
+            element: <Navigate to="/manager/dashboard" />,
           },
           {
-            path: "/admin/dashboard",
+            path: "/manager/dashboard",
             exact: true,
-            element: <BranchManagerDashboard />,
+            element: <ManagerDashboard />,
           },
+          {
+            path: "/manager/add-branch",
+            exact: true,
+            element: <AddBranchView />,
+          },
+          {
+            path: "/manager/view-branch",
+            exact: true,
+            element: <ViewBranchView/>,
+          },
+          {
+            path: "/manager/add-transport-agent",
+            exact: true,
+            element: <AddTransportAgentView />,
+          },
+          {
+            path: "/manager/view-transport-agent",
+            exact: true,
+            element: <ViewTransportAgentView />,
+          },
+          {
+            path: "/manager/add-route",
+            exact: true,
+            element: <AddRouteView />,
+          },
+
         ],
       },
     ],
   },
+
   ///////////////////////////////////////// Branch Manager Routers /////////////////////////////////////////////////
   {
     path: "/branch-manager",
@@ -137,16 +181,6 @@ const ThemeRoutes = [
             element: <ViewClients />,
           },
           {
-            path: "/branch-manager/add-branch",
-            exact: true,
-            element: <AddBranchView />,
-          },
-          {
-            path: "/branch-manager/add-transport-agent",
-            exact: true,
-            element: <AddTransportAgentView />,
-          },
-          {
             path: "/branch-manager/add-delivery-person",
             exact: true,
             element: <AddDeliveryPerson />,
@@ -155,11 +189,6 @@ const ThemeRoutes = [
             path: "/branch-manager/all-delivery-persons",
             exact: true,
             element: <ViewDeliverPersonsList />,
-          },
-          {
-            path: "/branch-manager/add-route",
-            exact: true,
-            element: <AddRouteView />,
           },
           {
             path: "/branch-manager/add-ticket",
@@ -190,6 +219,8 @@ const ThemeRoutes = [
       },
     ],
   },
+
+
   ///////////////////////////////////////// Delivery Person Routers /////////////////////////////////////////////////
   {
     path: "/delivery-person",
@@ -214,6 +245,66 @@ const ThemeRoutes = [
             path: "/delivery-person/view-my-orders",
             exact: true,
             element: <ViewDeliveryPersonOrder />,
+          },
+        ],
+      },
+    ],
+  },
+
+  /////////////////////////////////////// Transport Agent Routers /////////////////////////////////////////////////
+  {
+    path: "/transport-agent",
+    element: <ProtectedRoute allowedUsers={["5"]}></ProtectedRoute>,
+    children: [
+      {
+        path: "/transport-agent/", 
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.transportAgentRoutes} /> // Change side bar router here - Ashan
+        ),
+        children: [
+          {
+            path: "/transport-agent/",
+            element: <Navigate to="/transport-agent/dashboard" />,
+          },
+          {
+            path: "/transport-agent/dashboard",
+            exact: true,
+            element: <TransportAgentDashboard />,
+          },
+          {
+            path: "/transport-agent/view-my-orders",
+            exact: true,
+            element: <TrasnportAgentViewMyOrders />,
+          },
+          {
+            path: "/transport-agent/view-my-route",
+            exact: true,
+            element: <TrasportAgentMyRoute />,
+          },
+        ],
+      },
+    ],
+  },
+
+  /////////////////////////////////////// Client Routers /////////////////////////////////////////////////
+  {
+    path: "/client",
+    element: <ProtectedRoute allowedUsers={["6"]}></ProtectedRoute>,
+    children: [
+      {
+        path: "/client/", 
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.transportAgentRoutes} /> // Change side bar router here - Ashan
+        ),
+        children: [
+          {
+            path: "/client/",
+            element: <Navigate to="/client/dashboard" />,
+          },
+          {
+            path: "/client/dashboard",
+            exact: true,
+            element: <ClientDashboard />,
           },
         ],
       },

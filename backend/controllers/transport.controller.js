@@ -48,4 +48,16 @@ TransportAgentController.addTransportAgent = async (req, res) => {
 //     }
 // };
 
+//Get all transport agents
+TransportAgentController.getAllTransportAgents = async (req, res) => {
+    try{
+        let data = await TransportAgentService.getAllTransportAgents();
+        res.status(200).send(data);
+    }
+    catch(e)
+    {
+        res.status(500).send({error : "Internal Server Error"});
+    }
+};
+
 export default TransportAgentController;
