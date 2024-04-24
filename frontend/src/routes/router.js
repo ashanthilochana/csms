@@ -12,7 +12,7 @@ import { element } from "prop-types";
 // Layouts
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
-// Import Views ---- Manger
+// Import Views ---- Manager
 const ManagerDashboard = lazy(() => import("../views/company_manager/views/ViewDashboardView.jsx"));
 const AddBranchView = lazy(() => import("../views/company_manager/views/AddBranchView.jsx"));
 const AddTransportAgentView = lazy(() => import("../views/company_manager/views/AddTrasportAgentView.jsx"));
@@ -37,6 +37,9 @@ const ViewDeliveryPersonOrder = lazy(() => import("../views/delivery_person/view
 // Import Views - Transport Agent
 const TransportAgentDashboard = lazy(() => import("../views/transport_agent/views/ViewDashboardView.jsx"))
 const TrasnportAgentViewMyOrders = lazy(() => import("../views/transport_agent/views/ViewOrderDetailsView.jsx"))
+
+// Import Views - Clients
+const ClientDashboard = lazy(() => import("../views/customer/views/ViewDashboardView.jsx"));
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -257,6 +260,31 @@ const ThemeRoutes = [
             path: "/transport-agent/view-my-orders",
             exact: true,
             element: <TrasnportAgentViewMyOrders />,
+          },
+        ],
+      },
+    ],
+  },
+
+  /////////////////////////////////////// Client Routers /////////////////////////////////////////////////
+  {
+    path: "/client",
+    element: <ProtectedRoute allowedUsers={["6"]}></ProtectedRoute>,
+    children: [
+      {
+        path: "/client/", 
+        element: (
+          <FullLayout sidebarNavigation={SidebarRoutes.transportAgentRoutes} /> // Change side bar router here - Ashan
+        ),
+        children: [
+          {
+            path: "/client/",
+            element: <Navigate to="/client/dashboard" />,
+          },
+          {
+            path: "/client/dashboard",
+            exact: true,
+            element: <ClientDashboard />,
           },
         ],
       },

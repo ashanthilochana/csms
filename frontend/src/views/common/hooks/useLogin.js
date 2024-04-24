@@ -25,15 +25,20 @@ export default function useLogin() {
           break;
 
         case 4:
-          //This should be branch managers
+          //This should be delivery person
           navigate('/delivery-person/');
           break;
 
         case 5:
-          //This should be branch managers
+          //This should be transport agent
           navigate('/transport-agent/');
           break;
-          
+
+        case 6:
+          //This should be client
+          navigate('/client/');
+          break;
+
         default:
           // If no roll id navigate to login page [NOT WORKING ❌]
           navigate('/login');
