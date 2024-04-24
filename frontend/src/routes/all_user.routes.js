@@ -14,11 +14,8 @@ BranchManagerRoutes.viewOrders = "/branch-manager/view-orders";
 BranchManagerRoutes.viewReceivedOrders = "/branch-manager/view-received-orders";
 BranchManagerRoutes.addClient = "/branch-manager/add-new-client";
 BranchManagerRoutes.viewClients = "/branch-manager/view-clients";
-BranchManagerRoutes.addBranch = "/branch-manager/add-branch";
-BranchManagerRoutes.addTransportAgent = "/branch-manager/add-transport-agent";
 BranchManagerRoutes.addDeliveryPerson = "/branch-manager/add-delivery-person";
-BranchManagerRoutes.allDeliveryPersons = "/branch-manager/all-delivery-persons"
-BranchManagerRoutes.addRoute = "/branch-manager/add-route";
+BranchManagerRoutes.viewDeliveryPersons = "/branch-manager/all-delivery-persons"
 BranchManagerRoutes.addTicket = "/branch-manager/add-ticket";
 BranchManagerRoutes.addFeedback = "/branch-manager/add-feedback";
 BranchManagerRoutes.trackOrder = "/branch-manager/track-order";
@@ -31,6 +28,12 @@ DeliveryPersonRoutes.viewMyOrders = "/delivery-person/view-my-orders";
 // Declare Manager routes
 ManagerRoutes.main = "/manager";
 ManagerRoutes.dashboard = "/manager/dashboard";
+ManagerRoutes.addBranch = "/manager/add-branch";
+ManagerRoutes.viewBranches = "/manager/view-branches";
+ManagerRoutes.addTransportAgent = "/manager/add-transport-agent";
+ManagerRoutes.viewTransportAgents = "/manager/view-transport-agent";
+ManagerRoutes.addRoute = "/manager/add-route";
+
 
 // Declare Transport Agent routes
 TransportAgentRoutes.main = "/transport-agent";

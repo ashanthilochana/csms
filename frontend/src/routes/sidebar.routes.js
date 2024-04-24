@@ -52,38 +52,6 @@ SidebarRoutes.branchManagerRoutes = [
       ],
     },
     {
-      title: "Branch Management",
-      icon: "bi bi-house",
-      subItems: [
-        {
-          title: "Add a New Branch",
-          href: BranchManagerRoutes.addBranch,
-          icon: "bi bi-house-add",
-        },
-        {
-          title: "All Branches",
-          href: "#",
-          icon: "bi bi-house-check",
-        },
-      ],
-    },
-    {
-      title: "Trasport Management ",
-      icon: "bi bi-truck",
-      subItems: [
-        {
-          title: "Add a New Trasport Agent",
-          href: BranchManagerRoutes.addTransportAgent,
-          icon: "bi bi-person-add",
-        },
-        {
-          title: "All Transport Agents",
-          href: "#",
-          icon: "bi bi-person",
-        },
-      ],
-    },
-    {
       title: "Delivery Management ",
       icon: "bi bi-airplane",
       subItems: [
@@ -94,24 +62,8 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "All Delivery Persons",
-          href: BranchManagerRoutes.allDeliveryPersons,
+          href: BranchManagerRoutes.viewDeliveryPersons,
           icon: "bi bi-person",
-        },
-      ],
-    },
-    {
-      title: "Route Management ",
-      icon: "bi bi-sign-turn-right",
-      subItems: [
-        {
-          title: "Add a New Route",
-          href: BranchManagerRoutes.addRoute,
-          icon: "bi bi-sign-intersection",
-        },
-        {
-          title: "All Routes",
-          href: "#",
-          icon: "bi bi-sign-intersection-y",
         },
       ],
     },
@@ -231,15 +183,53 @@ SidebarRoutes.managerRoutes = [
     icon: "bi bi-speedometer2",
   },
   {
-    title: "Show Deliveries",
+    title: "Branch Mangement",
     icon: "bi bi-box",
-    href: "#",
+    subItems: [
+      {
+        title: "Add a Branch",
+        icon: "bi bi-box",
+        href: ManagerRoutes.addBranch,
+      },
+      {
+        title: "View Branches",
+        icon: "bi bi-box",
+        href: ManagerRoutes.viewBranches,
+      }
+    ],
   },
   {
-    title: "View My Route",
-    icon: "bi-bi-box",
-    href: "#",
+    title: "Transport Management",
+    icon: "bi bi-box",
+    subItems: [
+      {
+        title: "Add a Transport Agent",
+        icon: "bi bi-box",
+        href: ManagerRoutes.addTransportAgent 
+      },
+      {
+        title: "View Transport Agents",
+        icon: "bi bi-box",
+        href: ManagerRoutes.viewTransportAgents
+      }
+    ]
   },
+  {
+    title: "Route Management",
+    icon: "bi bi-box",
+    subItems: [
+      {
+        title: "Add a Route",
+        icon: "bi bi-box",
+        href: ManagerRoutes.addRoute
+      },
+      {
+        title: "View Routes",
+        icon: "bi bi-box",
+        href: "#"
+      }
+    ]
+  }
 ];
 
 // Client
