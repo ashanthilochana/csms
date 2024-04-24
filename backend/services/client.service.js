@@ -70,7 +70,7 @@ ClientService.getAllClients = async() => {
     `;
 
     try{
-        cost [rows] = await pool.query(query);
+        const [rows] = await pool.query(query);
         return rows;
     } catch(e) {
         console.error(e);
@@ -87,7 +87,7 @@ ClientService.getAllClients = async(branchId) => {
     `;
 
     try{
-        cost [rows] = await pool.query(query, [branchId]);
+        const [rows] = await pool.query(query, [branchId]);
         return rows;
     } catch(e) {
         console.error(e);

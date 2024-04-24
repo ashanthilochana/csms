@@ -9,4 +9,9 @@ router.route("/api/add-transport-agent").post(
     TransportAgentController.addTransportAgent
 )
 
+router.route("/api/transport-agent").get(
+    // verifyAuthentication,
+    TransportAgentController.getAllTransportAgents
+)
+
 export {router};
