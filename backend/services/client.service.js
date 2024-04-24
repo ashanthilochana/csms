@@ -79,7 +79,7 @@ ClientService.getAllClients = async() => {
 };
 
 // Get all client belong to the branch by branchId
-ClientService.getAllClients = async(branchId) => {
+ClientService.getAllClientsByBranchId = async(branchId) => {
     let query = `
     SELECT c.nic, c.fullName, c.email, c.address, c.contactNumber, b.district
     FROM client c, branch b

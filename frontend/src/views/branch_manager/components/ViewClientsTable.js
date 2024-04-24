@@ -1,55 +1,45 @@
 import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, ButtonGroup } from "reactstrap";
 import user from "../../../assets/images/users/user.jpg";
+import React , { useEffect, useState } from "react";
+import UserController from "../controllers/user.controller";
 
-const tableData = [
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-  {
-    avatar: user,
-    name: "Hanna Gover",
-    email: "hgover@gmail.com",
-    nic: "200134701128",
-    address: "No.114, Malabe, Colombo",
-    contact: "0782334435",
-    branch: "Colombo",
-  },
-];
+// const tableData = [
+//   {
+//     avatar: user,
+//     name: "Hanna Gover",
+//     email: "hgover@gmail.com",
+//     nic: "200134701128",
+//     address: "No.114, Malabe, Colombo",
+//     contact: "0782334435",
+//     branch: "Colombo",
+//   },
+// ];
 
 const ViewClientsTable = () => {
+
+  let [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    
+    async function getClients() {
+      try {
+        let response = await UserController.getAllClients();
+        if (response.error) {
+          console.error("Error fetching clients:", response.error);
+        } else {
+          setClients(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching clients:", error);
+      }
+    };
+    
+
+    getClients();
+
+  }, []);
+  
+
   return (
     <div>
       <Card>
@@ -72,12 +62,12 @@ const ViewClientsTable = () => {
               </tr>
             </thead>
             <tbody>
-              {tableData.map((tdata, index) => (
+              {clients.map((tdata, index) => (
                 <tr key={index} className="border-top">
                   <td>
                     <div className="d-flex align-items-center p-2">
                       <img
-                        src={tdata.avatar}
+                        src={user}
                         className="rounded-circle"
                         alt="avatar"
                         width="45"
@@ -91,8 +81,8 @@ const ViewClientsTable = () => {
                   </td>
                   <td>{tdata.nic}</td>
                   <td>{tdata.address}</td>
-                  <td>{tdata.contact}</td>
-                  <td>{tdata.branch}</td>  
+                  <td>{tdata.contactNumber}</td>
+                  <td>{tdata.district}</td>  
                   <td>
                     <Button  className="btn me-2" outline color="secondary" size="sm">Edit</Button>
                     <Button  className="btn" color="danger" size="sm">Delete</Button>

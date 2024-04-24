@@ -35,6 +35,25 @@ UserController.addClient = async (
   }
 };
 
+/////////////////////////////////////// Get all clients ////////////////////////////////////////////////
+
+UserController.getAllClients = async () => {
+   try{
+    let response = await UserService.getAllClients();
+
+    if (response.error) {
+      return { error: response.error };
+    }
+    else {
+      return { data: response.data };
+    }
+    
+   } catch(e){
+    return { error: e};
+   }
+};
+
+
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
 UserController.addOrder = async (
