@@ -213,6 +213,25 @@ UserController.addTransportAgent = async (nic, email, name, vehicleNumber, route
   }
 };
 
+
+/////////////////////////////////////// Get all TransportAgent ////////////////////////////////////////////////
+
+UserController.getAllTransportAgents = async () => {
+  try{
+   let response = await UserService.getAllTransportAgents();
+
+   if (response.error) {
+     return { error: response.error };
+   }
+   else {
+     return { data: response.data };
+   }
+   
+  } catch(e){
+   return { error: e};
+  }
+};
+
 /////////////////////////////////////// Add a delivery person ////////////////////////////////////////////////
 
 UserController.addDeliveryPerson = async (nic, email, fullName, address, contactNumber, vehicleNumber, branchId) => {
