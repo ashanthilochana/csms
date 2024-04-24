@@ -29,7 +29,7 @@ DeliveryPersonRoutes.viewMyOrders = "/delivery-person/view-my-orders";
 ManagerRoutes.main = "/manager";
 ManagerRoutes.dashboard = "/manager/dashboard";
 ManagerRoutes.addBranch = "/manager/add-branch";
-ManagerRoutes.viewBranches = "/manager/view-branches";
+ManagerRoutes.viewBranches = "/manager/view-branch";
 ManagerRoutes.addTransportAgent = "/manager/add-transport-agent";
 ManagerRoutes.viewTransportAgents = "/manager/view-transport-agent";
 ManagerRoutes.addRoute = "/manager/add-route";
@@ -39,6 +39,7 @@ ManagerRoutes.addRoute = "/manager/add-route";
 TransportAgentRoutes.main = "/transport-agent";
 TransportAgentRoutes.dashboard = "/transport-agent/dashboard";
 TransportAgentRoutes.viewMyOrders = "/transport-agent/view-my-orders";
+TransportAgentRoutes.viewMyRoute = "/transport-agent/view-my-route";
 
 // Declare Client routes
 ClientRoutes.main = "/client";

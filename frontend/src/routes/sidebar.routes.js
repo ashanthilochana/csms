@@ -152,7 +152,7 @@ SidebarRoutes.branchManagerRoutes = [
     {
       title: "Show Deliveries",
       icon: "bi bi-box",
-      href: "#"
+      href: DeliveryPersonRoutes.viewMyOrders,
     },
   ];
   
@@ -170,9 +170,9 @@ SidebarRoutes.transportAgentRoutes = [
   },
   {
     title: "View My Route",
-    icon: "bi-bi-box",
-    href: "#",
-  },
+    icon: "bi bi-box",
+    href: TransportAgentRoutes.viewMyRoute,
+  }
 ];
 
 // Manager

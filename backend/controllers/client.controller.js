@@ -18,7 +18,7 @@ ClientController.addClient = async (req, res) => {
             res.status(201).send({ message: "User added successfully" });
         }
         else {
-            res.status(422).send({ error: "User Already Exists!" })
+            res.status(422).send({ error: "User Already Exists!" });
         }
     } catch (e) {
         console.error(e);
@@ -38,6 +38,7 @@ ClientController.getAllClients = async (req, res) => {
     }
 };
 
+// Get all clients NICs for dropdown search
 ClientController.getAllClientNICs = async (req, res) => {
     try{
         let data = await ClientService.getAllClientsWithoutJoins();

@@ -14,10 +14,9 @@ router.route("/api/clients").get(
     ClientController.getAllClients
 );
 
-router
-  .route("/api/clients/nic")
-  .get(
+router.route("/api/clients/nic").get(
     verifyAuthentication, 
-    ClientController.getAllClientNICs);
+    ClientController.getAllClientNICs
+);
 
 export {router};
