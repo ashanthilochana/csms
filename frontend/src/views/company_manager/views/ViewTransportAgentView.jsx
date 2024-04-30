@@ -30,11 +30,11 @@ import {
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <a href="#">
-                    Order Manamagement
+                    TransportAgent Manamagement
                   </a>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
-                  View All Clients
+                  View All TransportAgent
                 </BreadcrumbItem>
               </Breadcrumb>
             </Col>

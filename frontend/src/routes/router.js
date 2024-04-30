@@ -20,6 +20,7 @@ const ViewBranchView = lazy(() => import("../views/company_manager/views/ViewBra
 const AddTransportAgentView = lazy(() => import("../views/company_manager/views/AddTrasportAgentView.jsx"));
 const ViewTransportAgentView = lazy(() => import("../views/company_manager/views/ViewTransportAgentView.jsx"));
 const AddRouteView = lazy(() => import("../views/company_manager/views/AddRouteView.jsx"));
+const ViewRoutesView = lazy(() => import("../views/company_manager/views/ViewRoutesView.jsx"));
 
 // Import Views ----- Branch Manager
 const BranchManagerDashboard = lazy(() => import("../views/branch_manager/views/ViewDashboardView.jsx"));
@@ -120,6 +121,11 @@ const ThemeRoutes = [
             path: "/manager/add-route",
             exact: true,
             element: <AddRouteView />,
+          },
+          {
+            path: "/manager/view-route",
+            exact: true,
+            element: <ViewRoutesView/>,
           },
 
         ],

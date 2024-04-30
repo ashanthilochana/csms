@@ -226,7 +226,7 @@ SidebarRoutes.managerRoutes = [
       {
         title: "View Routes",
         icon: "bi bi-box",
-        href: "#"
+        href: ManagerRoutes.viewRoute
       }
     ]
   }

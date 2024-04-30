@@ -11,9 +11,9 @@ import {
     Button
   } from "reactstrap";
   
-  import ViewBranchesTable from "../components/ViewBranchesTable";
+  import ViewRoutesTable from "../components/ViewRoutesTable.js";
   
-  const ViewBranches = () => {
+  const ViewRoutes = () => {
     return (
       <Container>
   
@@ -30,11 +30,11 @@ import {
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <a href="#">
-                    Branch Manamagement
+                    Routes Manamagement
                   </a>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
-                  View All Branches
+                  View All Routes
                 </BreadcrumbItem>
               </Breadcrumb>
             </Col>
@@ -63,7 +63,7 @@ import {
       <Row>
   
         <Col lg="12">
-          <ViewBranchesTable />
+          <ViewRoutesTable />
         </Col>
    
       </Row>
@@ -71,5 +71,5 @@ import {
     );
   };
   
-  export default ViewBranches;
+  export default ViewRoutes;
   

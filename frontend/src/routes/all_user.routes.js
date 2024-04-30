@@ -33,6 +33,7 @@ ManagerRoutes.viewBranches = "/manager/view-branch";
 ManagerRoutes.addTransportAgent = "/manager/add-transport-agent";
 ManagerRoutes.viewTransportAgents = "/manager/view-transport-agent";
 ManagerRoutes.addRoute = "/manager/add-route";
+ManagerRoutes.viewRoute = "/manager/view-route";
 
 
 // Declare Transport Agent routes
