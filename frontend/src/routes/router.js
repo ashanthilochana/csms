@@ -31,7 +31,9 @@ const ViewClients = lazy(() => import("../views/branch_manager/views/ViewClients
 const ViewReceivedOrders = lazy(() => import("../views/branch_manager/views/ViewReceivedOrdersView.jsx"));
 const AddDeliveryPerson = lazy(() => import("../views/branch_manager/views/AddDeliveryPersonView.jsx"));
 const AddTicketView = lazy(() => import("../views/branch_manager/views/AddTicketView.jsx"));
+const ViewTickets = lazy(() => import("../views/branch_manager/views/ViewTicketView.jsx"));
 const AddFeedbackView = lazy(() => import("../views/branch_manager/views/AddFeedbackView.jsx"));
+const ViewFeedback = lazy(() => import("../views/branch_manager/views/ViewFeedbackview.jsx"));
 const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderView.jsx"));
 
 // Import views - Delivery Person
@@ -199,9 +201,19 @@ const ThemeRoutes = [
             element: <AddTicketView />,
           },
           {
+            path: "/branch-manager/view-ticket",
+            exact: true,
+            element: <ViewTickets/>,
+          },
+          {
             path: "/branch-manager/add-feedback",
             exact: true,
             element: <AddFeedbackView />,
+          },
+          {
+            path: "/branch-manager/view-feedback",
+            exact: true,
+            element: <ViewFeedback/>,
           },
 
           {

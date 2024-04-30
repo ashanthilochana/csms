@@ -47,4 +47,22 @@ TicketService.getAllReasons = async () => {
     }
 };
 
+////Get all tickets(Query is not complete)
+TicketService.getAllTickets = async() => {
+    let query = `
+    SELECT t.nic, t.email, t.fullName, t.vehicleNumber, r.routeName 
+    FROM transportAgent t, route r
+    WHERE t.routeId = r.routeId
+    `;
+
+    try{
+        const [rows] = await pool.query(query);
+        return rows;
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+
 export default TicketService;

@@ -340,7 +340,25 @@ UserController.addTicket = async (
   }
 };
 
-/////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
+/////////////////////////////////////// Get all Tickets ////////////////////////////////////////////////
+
+UserController.getAllTickets = async () => {
+  try{
+   let response = await UserService.getAllTickets();
+
+   if (response.error) {
+     return { error: response.error };
+   }
+   else {
+     return { data: response.data };
+   }
+   
+  } catch(e){
+   return { error: e};
+  }
+};
+
+/////////////////////////////////////// Add a feedback ////////////////////////////////////////////////
 
 UserController.addFeedback = async (
   nic,

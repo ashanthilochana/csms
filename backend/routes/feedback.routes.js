@@ -9,4 +9,14 @@ router.route("/api/add-feedback").post(
     FeedbackController.addFeedback
 )
 
+router.route("/api/feedback").post(
+    verifyAuthentication,
+    FeedbackController.addFeedback
+)
+
+router.route("/api/feedback").get(
+    //verifyAuthentication,
+    FeedbackController.getAllFeedback
+)
+
 export {router};

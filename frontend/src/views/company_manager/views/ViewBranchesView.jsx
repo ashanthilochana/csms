@@ -42,16 +42,16 @@ import {
               <FormGroup>
                 <Input
                   className="pt-2 pb-2"
-                  id="district"
-                  name="district"
-                  placeholder="Search Clients..."
+                  id="branch"
+                  name="branch"
+                  placeholder="Search Branches..."
                   type="text"
                 // value={inputData.district}
                 // onChange={onChange}
                 // invalid={validations.district}
                 // required = {true}
                 />
-                <FormFeedback>Enter a valid district</FormFeedback>
+                <FormFeedback>Enter a valid branches</FormFeedback>
               </FormGroup>
             </Col>
             <Col lg="1">

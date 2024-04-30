@@ -78,7 +78,7 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "All Tickets",
-          href: "#",
+          href:BranchManagerRoutes.viewTicket,
           icon: "bi bi-envelope",
         },
       ],
@@ -94,7 +94,7 @@ SidebarRoutes.branchManagerRoutes = [
         },
         {
           title: "All Feedbacks",
-          href: "#",
+          href: BranchManagerRoutes.viewFeedback,
           icon: "bi bi-star-half",
         },
       ],
