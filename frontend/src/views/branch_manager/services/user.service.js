@@ -458,6 +458,27 @@ UserService.addTicket = async (reqBody) => {
   }
 };
 
+
+/////////////////////////////////////// Get all Tickets ////////////////////////////////////////////////
+UserService.getAllTickets = async()=>{
+  try{
+    let response = await AxiosController.instance.get("/api/tickets");
+
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+
+  }catch(e){
+    console.error(e);
+    throw e;
+  }
+
+};
+
 /////////////////////////////////////// Add a feedback ////////////////////////////////////////////////
 
 UserService.addFeedback = async (reqBody) => {
@@ -491,6 +512,26 @@ UserService.addFeedback = async (reqBody) => {
     console.error(e);
     throw e;
   }
+};
+
+/////////////////////////////////////// Get all Feedback ////////////////////////////////////////////////
+UserService.getAllFeedback = async()=>{
+  try{
+    let response = await AxiosController.instance.get("/api/feedback");
+
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+
+  }catch(e){
+    console.error(e);
+    throw e;
+  }
+
 };
 
 UserService.getAllClientNICs = async () => {

@@ -14,5 +14,11 @@ router.route("/api/reasons").get(
     TicketController.getAllReasons
 )
 
+router.route("/api/tickets").get(
+    //verifyAuthentication, 
+    TicketController.getAllTickets
+);
+
+
 
 export {router};

@@ -11,9 +11,11 @@ import {
     Button
   } from "reactstrap";
   
-  import ViewTransportAgentTable from "../components/ViewTransportAgentTable";
   
-  const ViewTransportAgent = () => {
+import ViewTicketTable from "../components/ViewTicketTable";
+import ViewFeedbackTable from "../components/ViewFeedbackTable";
+  
+  const ViewFeedback = () => {
     return (
       <Container>
   
@@ -30,11 +32,11 @@ import {
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <a href="#">
-                    TransportAgent Manamagement
+                    Quality Manamagement
                   </a>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
-                  View All TransportAgent
+                  View All Feedback
                 </BreadcrumbItem>
               </Breadcrumb>
             </Col>
@@ -42,16 +44,12 @@ import {
               <FormGroup>
                 <Input
                   className="pt-2 pb-2"
-                  id="TransportAgent"
-                  name="TransportAgent"
-                  placeholder="Search TransportAgent..."
+                  id="ticket"
+                  name="ticket"
+                  placeholder="Search Tickets..."
                   type="text"
-                // value={inputData.district}
-                // onChange={onChange}
-                // invalid={validations.district}
-                // required = {true}
                 />
-                <FormFeedback>Enter a valid TransportAgent</FormFeedback>
+                <FormFeedback>Enter a valid Feedbacks</FormFeedback>
               </FormGroup>
             </Col>
             <Col lg="1">
@@ -63,7 +61,7 @@ import {
       <Row>
   
         <Col lg="12">
-          <ViewTransportAgentTable />
+          <ViewFeedbackTable/>
         </Col>
    
       </Row>
@@ -71,5 +69,5 @@ import {
     );
   };
   
-  export default ViewTransportAgent;
+  export default ViewFeedback;
   

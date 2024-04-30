@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, FormGroup, Form, FormFeedback } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, FormGroup, Form, FormFeedback,Row,Col,BreadcrumbItem,Breadcrumb,Container } from "reactstrap";
 import UserService from "../services/user.service";
 
 const ViewDeliverPersonsList = () => {
@@ -115,6 +115,52 @@ const ViewDeliverPersonsList = () => {
 
   return (
     <div>
+      
+    <Container>
+
+{/* Breadcrumb and search bar */}
+<Form>
+    <Row className="d-flex">
+      <Col lg="8" className="align-content-center">
+        {/* Breadcrumbs */}
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <a href="#">
+              Home
+            </a>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <a href="#">
+              Delivery Manamagement
+            </a>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>
+            View All Delivery persons
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </Col>
+      <Col lg="3">
+        <FormGroup>
+          <Input
+            className="pt-2 pb-2"
+            id="deliveryPerson"
+            name="deliveryPerson"
+            placeholder="Search Delivery persons..."
+            type="text"
+         
+          />
+          <FormFeedback>Enter a valid dilivery person</FormFeedback>
+        </FormGroup>
+      </Col>
+      <Col lg="1">
+        <Button style={{"margin-top" : "3px"}} color="primary">Search</Button>
+      </Col>
+    </Row>
+  </Form>
+
+<Row>
+
+  <Col lg="12">
       <Card>
         <CardBody>
           <CardTitle tag="h5">Delivery Person List</CardTitle>
@@ -125,7 +171,7 @@ const ViewDeliverPersonsList = () => {
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
               <tr>
-                <th>#</th>
+                <th> </th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>NIC</th>
@@ -149,7 +195,7 @@ const ViewDeliverPersonsList = () => {
                     <Button
                       className="me-2"
                       outline
-                      color="secondary"
+                      color="primary"
                       size="sm"
                       onClick={() => {
                         setSelectedPerson(person);
@@ -282,7 +328,14 @@ const ViewDeliverPersonsList = () => {
           </Button>
         </ModalFooter>
       </Modal>
+
+      </Col>
+ 
+ </Row>
+ </Container>
     </div>
+
+   
   );
 };
 

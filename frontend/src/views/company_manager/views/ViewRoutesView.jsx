@@ -11,9 +11,9 @@ import {
     Button
   } from "reactstrap";
   
-  import ViewTransportAgentTable from "../components/ViewTransportAgentTable";
+  import ViewRoutesTable from "../components/ViewRoutesTable.js";
   
-  const ViewTransportAgent = () => {
+  const ViewRoutes = () => {
     return (
       <Container>
   
@@ -30,11 +30,11 @@ import {
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <a href="#">
-                    TransportAgent Manamagement
+                    Routes Manamagement
                   </a>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
-                  View All TransportAgent
+                  View All Routes
                 </BreadcrumbItem>
               </Breadcrumb>
             </Col>
@@ -42,16 +42,16 @@ import {
               <FormGroup>
                 <Input
                   className="pt-2 pb-2"
-                  id="TransportAgent"
-                  name="TransportAgent"
-                  placeholder="Search TransportAgent..."
+                  id="routes"
+                  name="routes"
+                  placeholder="Search Routes..."
                   type="text"
                 // value={inputData.district}
                 // onChange={onChange}
                 // invalid={validations.district}
                 // required = {true}
                 />
-                <FormFeedback>Enter a valid TransportAgent</FormFeedback>
+                <FormFeedback>Enter a valid routes</FormFeedback>
               </FormGroup>
             </Col>
             <Col lg="1">
@@ -63,7 +63,7 @@ import {
       <Row>
   
         <Col lg="12">
-          <ViewTransportAgentTable />
+          <ViewRoutesTable />
         </Col>
    
       </Row>
@@ -71,5 +71,5 @@ import {
     );
   };
   
-  export default ViewTransportAgent;
+  export default ViewRoutes;
   

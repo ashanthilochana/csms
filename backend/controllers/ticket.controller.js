@@ -43,4 +43,18 @@ TicketController.getAllReasons = async (req, res) => {
     }
 }
 
+// Get all tickets details
+TicketController.getAllTickets = async (req, res) => {
+    try{
+        let data = await ClientService.getAllTickets();
+        res.status(200).send(data);
+    }
+    catch(e)
+    {
+        res.status(500).send({error : "Internal Server Error"});
+    }
+};
+
+
+
 export default TicketController;
