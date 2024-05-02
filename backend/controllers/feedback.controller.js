@@ -28,4 +28,16 @@ FeedbackController.addFeedback = async (req, res) => {
     }
 };
 
+//Get all Feedback
+FeedbackController.getAllFeedback = async (req, res) => {
+    try{
+        let data = await TransportAgentService.getAllFeedback();
+        res.status(200).send(data);
+    }
+    catch(e)
+    {
+        res.status(500).send({error : "Internal Server Error"});
+    }
+};
+
 export default FeedbackController;

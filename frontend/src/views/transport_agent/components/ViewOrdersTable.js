@@ -16,35 +16,27 @@ const tableData = [
   {
     order_id: "0001",
     orderDate:"2024/04/17",
-    sender:"Kavidu senavirathna",
-    receiver: "Ashan Thilochana",
-    contactNo: "07267874746",
-    address: "No,122 malabe, Colombo",
-   
+    sendingBranch:"Colombo",
+    receivingBranch: "Kandy",
+    
+  },
+
+  {
+    order_id: "0001",
+    orderDate:"2024/04/17",
+    sendingBranch:"Colombo",
+    receivingBranch: "Kandy",
   
   },
 
   {
-    order_id: "0002",
+    order_id: "0001",
     orderDate:"2024/04/17",
-    sender:"Kavidu senavirathna",
-    receiver: "Pabasara Rajapaksha",
-    contactNo: "07267267443",
-    address: "No.56, Galewala",
+    sendingBranch:"Colombo",
+    receivingBranch: "Kandy",
     
-  
   },
-  {
-    order_id: "0003",
-    orderDate:"2024/04/17",
-    sender:"Kavidu senavirathna",
-    receiver: "Kaushani hettiarachchi",
-    contactNo: "07855625477",
-    address: "No.56, kadana ,ja-ela",
-   
-  
-  },
- 
+
 ];
 
 const ViewOrderTable = () => {
@@ -83,10 +75,8 @@ const ViewOrderTable = () => {
             <tr>
               <th>Order ID</th>
               <th>Order Date</th>
-              <th>Sender Name</th>
-              <th>Receiver Name</th>
-              <th>Reciever Contact Number</th>
-              <th>Reciever Address</th>
+              <th>Sending Branch</th>
+              <th>Receiving Branch</th>
               
             </tr>
           </thead>
