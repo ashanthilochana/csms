@@ -125,6 +125,41 @@ UserService.addOrder = async (reqBody) => {
   }
 };
 
+/////////////////////////////////////// Get Order by Order ID  ////////////////////////////////////////////////
+UserService.getOrderDetailsByOrderId = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/order/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Update Order ////////////////////////////////////////////////
+
+UserService.updateOrder = async (orderId, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order/${orderId}`, reqBody);
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      // Check for different status codes if needed
+      return { message: "Order Updated Successfully" };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
 /////////////////////////////////////// Get branch ID by branch manger NIC ////////////////////////////////////////////////
 
 UserService.getBranchIdByBranchManagerNIC = async (reqBody) => {

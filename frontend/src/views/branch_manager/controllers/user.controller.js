@@ -124,6 +124,66 @@ UserController.addOrder = async (
   }
 };
 
+/////////////////////////////////////// Get order details by order ID ///////////////////////////////////////////////
+
+UserController.getOrderDetailsByOrderId = async (orderId) => {
+
+  try {
+    let response = await UserService.getOrderDetailsByOrderId(orderId);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Update order details ////////////////////////////////////////////////
+
+UserController.updateOrder = async (
+  orderId,
+  weight,
+  sendingDate,
+  paymentDate,
+  packageTypes,
+  sendingBranch,
+  receivingBranch,
+  specialNotes,
+  orderStatus,
+  sender,
+  receiver,
+  contactNumber,
+  address
+) => {
+
+  let reqBody = {
+    weight,
+    sendingDate,
+    paymentDate,
+    packageTypes,
+    sendingBranch,
+    receivingBranch,
+    specialNotes,
+    orderStatus,
+    sender,
+    receiver,
+    contactNumber,
+    address,
+  };
+
+  try {
+    let response = await UserService.updateOrder(orderId, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Order Updated Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
 /////////////////////////////////////// Get Branch ID by Branch Manager NIC ////////////////////////////////////////////////
 
 UserController.getBranchIdByBranchManagerNIC = async (nic) => {

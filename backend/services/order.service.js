@@ -67,6 +67,62 @@ OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
     }
 };
 
+/////////////////////////////////////// Update an order by orderID ////////////////////////////////////////////////
+
+OrderService.updateOrder = async(
+    orderId,
+    weight,
+    sendingDate,
+    paymentDate,
+    packageTypes,
+    sendingBranch,
+    receivingBranch,
+    specialNotes,
+    orderStatus,
+    sender,
+    receiver,
+    contactNumber,
+    address) => {
+
+    let query = `
+    UPDATE orders
+    SET weight = ?,
+    registeredDate = ?,
+    paymentDate = ?,
+    receiverName = ?,
+    receiverAddress = ?,
+    receiverContactNumber = ?,
+    packageTypeId = ?,
+    senderNic = ?,
+    statusId = ?,
+    sendingBranchId = ?,
+    receivingBranchId = ?,
+    specialNote = ?
+    WHERE orderId = ?
+    `;
+    try {
+        await pool.query(query, [
+            weight,
+            sendingDate,
+            paymentDate,
+            receiver,
+            address,
+            contactNumber,
+            packageTypes,
+            sender,
+            orderStatus,
+            sendingBranch,
+            receivingBranch,
+            specialNotes,
+            orderId
+        ]);
+
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
 /////////////////////////////////////// Get all received orders to received order tables by branchId ////////////////////////////////////////////////
 
 
@@ -96,15 +152,10 @@ OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
 
 /////////////////////////////////////// Get an order details by OrderId ////////////////////////////////////////////////
 
-OrderService.getSingleOrderDetails = async(orderId) => {
-    let query = `
-    SELECT o.orderId, o.weight, o.registeredDate, o.receivedDate, o.deliveryDate, o.paymentDate, o.receiverName, o.receiverAddress, o.receiverContactNumber, pt.packageType, c.nic AS senderNic, c.fullName AS senderName, os.status, bs.district AS sendingBranch, br.district AS receivingBranch
-    FROM orders o, packagetype pt, client c, orderstatus os, branch bs, branch br
-    WHERE o.packageTypeId = pt.packageTypeId AND o.senderNic = c.nic AND o.statusId = os.statusId
-    AND o.sendingBranchId = bs.branchId AND o.receivingBranchId = br.branchId AND orderId = ?
-    `;
+OrderService.getOrderDetailsByOrderId = async(orderId) => {
+    let query = `SELECT * FROM orders WHERE orderId = ?`;
     try{
-        const [rows] = await pool.query(query, [orderId]);
+        let [rows] = await pool.query(query, [orderId]);
         return rows;
     } catch(e) {
         console.error(e);

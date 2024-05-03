@@ -20,7 +20,7 @@ router.route("/api/clients/nic").get(
 );
 
 router.route("/api/update-client/:id").put(
-    // verifyAuthentication,
+    verifyAuthentication,
     ClientController.updateClient
 );
 

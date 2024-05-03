@@ -10,8 +10,12 @@ import {
 import React, { useState, useEffect } from "react";
 import useCookie from "../../../hooks/useCookies.js";
 import UserController from "../controllers/user.controller.js";
+import { useNavigate } from "react-router-dom";
 
 const ViewOrderTable = () => {
+
+    const navigate = useNavigate();
+
   let [getCookie, setCookie] = useCookie();
   let [orders, setOrders] = useState([]);
 
@@ -112,14 +116,13 @@ const ViewOrderTable = () => {
                       outline
                       color="secondary"
                       size="sm"
+                      // create on click to navigate /edit-order/:id
+                      onClick={() => navigate(`/branch-manager/edit-order/${tdata.order_id}`)}
                     >
                       Edit
                     </Button>
                     <Button className="btn me-2" color="primary" size="sm">
                       View
-                    </Button>
-                    <Button className="btn" color="danger" size="sm">
-                      Delete
                     </Button>
                   </td>
                 </tr>
@@ -128,6 +131,7 @@ const ViewOrderTable = () => {
           </Table>
         </CardBody>
       </Card>
+
     </div>
   );
 };

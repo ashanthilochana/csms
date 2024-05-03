@@ -60,6 +60,59 @@ OrderController.getAllOrderByBranchId = async(req, res) => {
     }
 }
 
+/////////////////////////////////////// Update order ////////////////////////////////////////////////
+
+OrderController.updateOrder = async(req, res) => {
+    let {orderId} = req.params;
+    let {
+        weight,
+        sendingDate,
+        paymentDate,
+        packageTypes,
+        sendingBranch,
+        receivingBranch,
+        specialNotes,
+        orderStatus,
+        sender,
+        receiver,
+        contactNumber,
+        address
+    } = req.body;
+    try {
+        await OrderService.updateOrder(
+            orderId,
+            weight,
+            sendingDate,
+            paymentDate,
+            packageTypes,
+            sendingBranch,
+            receivingBranch,
+            specialNotes,
+            orderStatus,
+            sender,
+            receiver,
+            contactNumber,
+            address
+        );
+        res.status(200).send({ message: "Order updated successfully" });
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
+
+/////////////////////////////////////// Get order details by order Id ////////////////////////////////////////////////
+
+OrderController.getOrderDetailsByOrderId = async(req, res) => {
+    let {orderId} = req.params;
+    try {
+        let data = await OrderService.getOrderDetailsByOrderId(orderId);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
 /////////////////////////////////////// Get all package types ////////////////////////////////////////////////
 
 OrderController.getAllPackageTypes = async (req, res) => {

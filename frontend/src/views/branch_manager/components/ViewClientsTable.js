@@ -46,6 +46,20 @@ const ViewClientsTable = () => {
     toggleEditModal();
   };
 
+  // create function to get all clients
+  const getClients = async () => {
+    try {
+      let response = await UserController.getAllClients();
+      if (response.error) {
+        console.error("Error fetching clients:", response.error);
+      } else {
+        setClients(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching clients:", error);
+    }
+  };
+
   // create function to update client data
   const updateClient = async () => {
     let response = await UserController.updateClient(selectedPerson.nic, inputData);
@@ -73,24 +87,12 @@ const ViewClientsTable = () => {
     toggleEditModal();
   };
 
-  // create function to get all client and set to setClients
-  const getClients = async () => {
-    try {
-      let response = await UserController.getAllClients();
-      if (response.error) {
-        console.error("Error fetching clients:", response.error);
-      } else {
-        setClients(response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching clients:", error);
-    }
-  };
-
+  // create function to toggle edit modal
   const toggleEditModal = () => {
     setEditModalOpen(!editModalOpen);
   };
 
+  // Use effect to get all clients when component is mounted
   useEffect(() => {
     getClients();
   }, []);
@@ -148,7 +150,7 @@ const ViewClientsTable = () => {
       </Card>
       
       {/* Create a Modal for update and delete clients */}
-      
+
       <Modal isOpen={editModalOpen} toggle={toggleEditModal}>
         <ModalHeader toggle={toggleEditModal}>Edit Client</ModalHeader>
         <ModalBody>
@@ -164,6 +166,7 @@ const ViewClientsTable = () => {
                   onChange={onChange}
                   invalid={validations.nic}
                   required = {true}
+                  disabled
                 />
                 <FormFeedback>Enter a valid NIC number</FormFeedback>
               </FormGroup>

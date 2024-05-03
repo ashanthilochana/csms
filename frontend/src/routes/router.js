@@ -36,6 +36,8 @@ const AddFeedbackView = lazy(() => import("../views/branch_manager/views/AddFeed
 const ViewFeedback = lazy(() => import("../views/branch_manager/views/ViewFeedbackview.jsx"));
 const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderView.jsx"));
 
+const UpdateOrder = lazy(() => import("../views/branch_manager/views/EditOrderView.jsx"));
+
 // Import views - Delivery Person
 const DeliveryPersonDashboard = lazy(() => import("../views/delivery_person/views/ViewDashboardView.jsx"));
 const ViewDeliveryPersonOrder = lazy(() => import("../views/delivery_person/views/ViewOrderDetailsView.jsx"));
@@ -164,6 +166,11 @@ const ThemeRoutes = [
             path: "/branch-manager/view-orders",
             exact: true,
             element: <ViewOrders />,
+          },
+          {
+            path: "/branch-manager/edit-order/:orderId",
+            exact: true,
+            element: <UpdateOrder />,
           },
           {
             path: "/branch-manager/view-received-orders",
