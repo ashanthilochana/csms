@@ -47,6 +47,8 @@ TransportAgentRoutes.viewMyRoute = "/transport-agent/view-my-route";
 // Declare Client routes
 ClientRoutes.main = "/client";
 ClientRoutes.dashboard = "/client/dashboard";
+ClientRoutes.myOrders = "/client/my-orders";
+ClientRoutes.trackOrder = "/client/track-order";
 
 // Export high level variables
 export {BranchManagerRoutes, DeliveryPersonRoutes, ManagerRoutes, TransportAgentRoutes, ClientRoutes};

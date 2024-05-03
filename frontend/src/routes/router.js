@@ -47,6 +47,8 @@ const TrasportAgentMyRoute = lazy(() => import("../views/transport_agent/views/V
 
 // Import Views - Clients
 const ClientDashboard = lazy(() => import("../views/customer/views/ViewDashboardView.jsx"));
+const ClientMyOrders = lazy(() => import("../views/customer/views/ViewOrdersView.jsx"));
+const ClientTrackOrder = lazy(() => import("../views/customer/views/TrackOrderView.jsx"));
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -312,7 +314,7 @@ const ThemeRoutes = [
       {
         path: "/client/", 
         element: (
-          <FullLayout sidebarNavigation={SidebarRoutes.transportAgentRoutes} /> // Change side bar router here - Ashan
+          <FullLayout sidebarNavigation={SidebarRoutes.clientRoutes} /> // Change side bar router here - Ashan
         ),
         children: [
           {
@@ -323,6 +325,16 @@ const ThemeRoutes = [
             path: "/client/dashboard",
             exact: true,
             element: <ClientDashboard />,
+          },
+          {
+            path: "/client/my-orders",
+            exact: true,
+            element: <ClientMyOrders />,
+          },
+          {
+            path: "/client/track-order",
+            exact: true,
+            element: <ClientTrackOrder />,
           },
         ],
       },

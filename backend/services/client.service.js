@@ -110,7 +110,7 @@ ClientService.getAllClientsWithoutJoins = async () => {
   };
 
 // Delete a client
-ClientService.deleteCustomer = async (nic) => {
+ClientService.deleteClient = async (nic) => {
     let queryDeleteClientFeedbacks = `
     DELETE FROM clientfeedback WHERE clientNic = ?
     `;
@@ -142,6 +142,23 @@ ClientService.deleteCustomer = async (nic) => {
         await pool.query(queryDeleteOrderDeliveries, [nic]);
         await pool.query(queryDeleteOrders, [nic]);
         await pool.query(query, [nic]);
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+// Update a client
+ClientService.updateClient = async (nic, email, fullName, address, contactNumber) => {
+    let query = `
+    UPDATE client
+    SET email = ?, fullName = ?, address = ?, contactNumber = ?
+    WHERE nic = ?
+    `;
+
+    try {
+        await pool.query(query, [email, fullName, address, contactNumber, nic]);
     }
     catch (e) {
         console.error(e);

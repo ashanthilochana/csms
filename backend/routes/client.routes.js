@@ -19,4 +19,14 @@ router.route("/api/clients/nic").get(
     ClientController.getAllClientNICs
 );
 
+router.route("/api/update-client/:id").put(
+    // verifyAuthentication,
+    ClientController.updateClient
+);
+
+router.route("/api/client/:id").delete(
+    verifyAuthentication,
+    ClientController.deleteClient
+);
+
 export {router};

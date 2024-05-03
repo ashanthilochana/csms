@@ -19,6 +19,10 @@ router.route("/api/tickets").get(
     TicketController.getAllTickets
 );
 
-
+// route to update a ticket by ticket id
+router.route("/api/update-ticket/:id").put(
+    verifyAuthentication,
+    TicketController.updateTicket
+)
 
 export {router};

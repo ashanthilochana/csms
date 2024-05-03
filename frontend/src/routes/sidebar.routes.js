@@ -245,12 +245,12 @@ SidebarRoutes.clientRoutes = [
     subItems: [
       {
         title: "View My Orders",
-        href: "#",
+        href: ClientRoutes.myOrders,
         icon: "bi bi-box",
       },
       {
         title: "Track Order",
-        href: "#",
+        href: ClientRoutes.trackOrder,
         icon: "bi bi-box",
       },
     ],

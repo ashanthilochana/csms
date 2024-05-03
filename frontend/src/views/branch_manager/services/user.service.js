@@ -57,6 +57,39 @@ UserService.getAllClients = async()=>{
 
 };
 
+/////////////////////////////////////// Update Client ////////////////////////////////////////////////
+UserService.updateClient = async (id, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-client/${id}`, reqBody);
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      // Check for different status codes if needed
+      return { message: "Client Updated Successfully" };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Delete Client ////////////////////////////////////////////////
+UserService.deleteClient = async (id) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/client/${id}`);
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      // Check for different status codes if needed
+      return { message: "Client Deleted Successfully" };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
 UserService.addOrder = async (reqBody) => {

@@ -64,5 +64,20 @@ TicketService.getAllTickets = async() => {
     }
 };
 
+// Update a ticket by ticket id
+TicketService.updateTicket = async (ticketId, responseStatusId) => {
+    let query = `
+    UPDATE supportTicket
+    SET responseStatusId = ?
+    WHERE ticketId = ?
+    `;
+
+    try {
+        const [rows] = await pool.query(query, [responseStatusId, ticketId]);
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
 
 export default TicketService;

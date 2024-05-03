@@ -53,6 +53,32 @@ UserController.getAllClients = async () => {
    }
 };
 
+/////////////////////////////////////// Update client details ////////////////////////////////////////////////
+UserController.updateClient = async (id, inputData) => {
+  try {
+    let response = await UserService.updateClient(id, inputData);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Client Updated Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
+/////////////////////////////////////// Delete client details ////////////////////////////////////////////////
+UserController.deleteClient = async (id) => {
+  try {
+    let response = await UserService.deleteClient(id);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Client Deleted Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
 
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 

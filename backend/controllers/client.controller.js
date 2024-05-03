@@ -53,4 +53,34 @@ ClientController.getAllClientNICs = async (req, res) => {
     }
 }
 
+// Update client details
+ClientController.updateClient = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { email, name, address, contactNumber } = req.body;
+
+        await ClientService.updateClient(id , email, name, address, contactNumber);
+
+        res.status(200).send({ message: "Client updated successfully" });
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({error : "Internal Server Error"});
+    }
+};
+
+// Delete client
+ClientController.deleteClient = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        await ClientService.deleteClient(id);
+
+        res.status(200).send({ message: "Client deleted successfully" });
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({error : "Internal Server Error"});
+    }
+};
+
+
 export default ClientController;

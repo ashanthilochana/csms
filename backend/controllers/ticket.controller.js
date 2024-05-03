@@ -56,5 +56,26 @@ TicketController.getAllTickets = async (req, res) => {
 };
 
 
+// Update a ticket by ticket id
+TicketController.updateTicket = async (req, res) => {
+    try {
+        const {
+            id
+        } = req.params;
+
+        const {
+            responseStatusId
+        } = req.body;
+
+        await TicketService.updateTicket(id, responseStatusId);
+        res.status(200).send({ message: "Ticket updated successfully" });
+
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+};
+
+
 
 export default TicketController;
