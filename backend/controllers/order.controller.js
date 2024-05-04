@@ -213,5 +213,16 @@ OrderController.getReceivedOrdersByStatus = async(req, res) => {
     }
 }
 
+/////////////////////////////////////// Get order view details by order Id ////////////////////////////////////////////////
+
+OrderController.getOrderViewDetailsByOrderId = async(req, res) => {
+    let {orderId} = req.params;
+    try {
+        let data = await OrderService.getOrderViewDetailsByOrderId(orderId);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
   
 export default OrderController;

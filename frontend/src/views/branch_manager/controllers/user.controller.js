@@ -144,6 +144,24 @@ UserController.getOrderDetailsByOrderId = async (orderId) => {
   }
 }
 
+
+/////////////////////////////////////// Get order view details by order ID ///////////////////////////////////////////////
+
+UserController.getOrderViewDetailsByOrderId = async (orderId) => {
+
+  try {
+    let response = await UserService.getOrderViewDetailsByOrderId(orderId);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+
 /////////////////////////////////////// Update order details ////////////////////////////////////////////////
 
 UserController.updateOrder = async (
@@ -227,6 +245,21 @@ UserController.updateOrderStatus = async (orderId, status) => {
   }
 }
 
+
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+UserController.checkOrderExistingStatus = async (orderId) => {
+  try {
+    let response = await UserService.checkOrderExistingStatus(orderId);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
 
 
 
@@ -551,5 +584,7 @@ UserController.getCourierFee = async (
     return { error: e };
   }
 };
+
+
 
 export default UserController;

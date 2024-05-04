@@ -195,7 +195,7 @@ const ThemeRoutes = [
             element: <TrackOrder />,
           },
           {
-            path: "/branch-manager/view-order-details",
+            path: "/branch-manager/view-order-details/:orderId",
             exact: true,
             element: <ViewOrderDetailsView />,
           },

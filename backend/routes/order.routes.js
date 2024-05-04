@@ -64,5 +64,9 @@ router.route("/api/received-orders-by-status/:branchId/:status").get(
     OrderController.getReceivedOrdersByStatus
 );
 
+router.route("/api/order-view/:orderId").get(
+    // verifyAuthentication,
+    OrderController.getOrderViewDetailsByOrderId
+);
 
 export {router};

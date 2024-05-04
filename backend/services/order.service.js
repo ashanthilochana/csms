@@ -347,4 +347,27 @@ OrderService.getReceivedOrdersByStatus = async(branchId, status) => {
     }
 }
 
+/////////////////////////////////////// Get order view details by order Id ////////////////////////////////////////////////
+
+OrderService.getOrderViewDetailsByOrderId = async(orderId) => {
+    let query = `
+    SELECT o.orderId, os.status, c1.fullName as senderName, c1.nic as senderNic, o.receiverName, o.receiverAddress, o.receiverContactNumber, o.weight, pt.packageType, o.specialNote, b1.district as sendingBranch, b2.district as receivingBranch, o.registeredDate, o.paymentDate, o.deliveryDate, o.receivedDate
+    FROM orders o
+    JOIN client c1 ON o.senderNic = c1.nic
+    JOIN branch b1 ON o.sendingBranchId = b1.branchId
+    JOIN branch b2 ON o.receivingBranchId = b2.branchId
+    JOIN packagetype pt ON o.packageTypeId = pt.packageTypeId
+    JOIN orderstatus os ON os.statusId = o.statusId
+    WHERE o.orderId = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [orderId]);
+        return rows[0];
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
 export default OrderService;

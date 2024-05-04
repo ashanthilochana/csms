@@ -121,7 +121,8 @@ const ViewOrderTable = () => {
                     >
                       Edit
                     </Button>
-                    <Button className="btn me-2" color="primary" size="sm">
+                    <Button className="btn me-2" color="primary" size="sm"
+                    onClick={() => navigate(`/branch-manager/view-order-details/${tdata.order_id}`)}>
                       View
                     </Button>
                   </td>

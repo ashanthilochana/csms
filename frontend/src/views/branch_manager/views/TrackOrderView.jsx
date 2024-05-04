@@ -15,10 +15,31 @@ import {
     FormFeedback,
     Button
 } from "reactstrap";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import UserController from "../controllers/user.controller.js";
+
+
 
 const TrackOrderView = () => {
 
+    const navigate = useNavigate();
 
+    const [orderId, setOrderId] = useState(null);
+
+    const checkOrderExistingAndNavigate = async (orderId) => {
+        
+        try {
+            const response = await UserController.checkOrderExistingStatus(orderId);
+            console.log(response);
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+        // For now, we will just navigate to the order details page
+        navigate(`/branch-manager/orders/${orderId}`);
+    }
 
     return (
 
@@ -42,15 +63,18 @@ const TrackOrderView = () => {
                                         name="routeName"
                                         placeholder="Enter the order ID"
                                         type="text"
-                                        // value={inputData.routeName}
-                                        // onChange={onChange}
-                                        // invalid={validations.routeName}
+                                        value={orderId}
+                                        onChange={(e) => setOrderId(e.target.value)}
                                         required={true}
                                     />
                                     <FormFeedback>Enter a valid route name</FormFeedback>
                                 </FormGroup>
 
-                                <Button type="submit" className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Track Order</Button>
+                                <Button type="submit" className="btn mt-4 w-100 pt-2 pb-2 bg-primary border" onClick={
+                                    () => {
+                                        checkOrderExistingAndNavigate(orderId); 
+                                    }
+                                }>Track Order</Button>
 
                             </CardBody>
                         </Card>

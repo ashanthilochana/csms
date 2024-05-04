@@ -146,6 +146,25 @@ UserService.getOrderDetailsByOrderId = async (orderId) => {
   }
 };
 
+
+/////////////////////////////////////// Get Order View Details by Order ID  ////////////////////////////////////////////////
+
+UserService.getOrderViewDetailsByOrderId = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/order-view/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 /////////////////////////////////////// Update Order ////////////////////////////////////////////////
 
 UserService.updateOrder = async (orderId, reqBody) => {
@@ -196,6 +215,21 @@ UserService.updateOrderStatus = async (orderId, status) => {
   }
 };
 
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+UserService.checkOrderExistingStatus = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/check-order-existing-status/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
 
 
 /////////////////////////////////////// Get branch ID by branch manger NIC ////////////////////////////////////////////////
