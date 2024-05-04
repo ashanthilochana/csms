@@ -35,9 +35,14 @@ SidebarRoutes.branchManagerRoutes = [
           icon: "bi bi-plus",
         },
         {
-          title: "All Orders",
+          title: "Outgoing Orders",
           href: BranchManagerRoutes.viewOrders,
           icon: "bi bi-inbox",
+        },
+        {
+          title: "Incoming Orders",
+          href: BranchManagerRoutes.incomingOrders,
+          icon: "bi bi-box-arrow-in-down-right",
         },
         {
           title: "Received Orders",

@@ -80,6 +80,10 @@ UserController.deleteClient = async (id) => {
 };
 
 
+
+
+
+
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
 UserController.addOrder = async (
@@ -183,6 +187,48 @@ UserController.updateOrder = async (
     return { error: e };
   }
 };
+
+/////////////////////////////////////// Get Incoming Orders by branch ID ////////////////////////////////////////////////
+
+UserController.getAllIncomingOrdersByBranchId = async (branchId) => {
+  try {
+    let response = await UserService.getAllIncomingOrdersByBranchId(branchId)
+    
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserController.updateOrderStatus = async (orderId, status) => {
+
+  let statusId = 0;
+
+  if(status === "Received"){
+    statusId = 3;
+  } else if (status === "Registered"){
+    statusId = 1;
+  }
+
+  try {
+    let response = await UserService.updateOrderStatus(orderId, statusId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { response: response };
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+
+
 
 /////////////////////////////////////// Get Branch ID by Branch Manager NIC ////////////////////////////////////////////////
 

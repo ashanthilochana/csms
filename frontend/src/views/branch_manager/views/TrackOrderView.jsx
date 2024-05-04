@@ -58,31 +58,6 @@ const TrackOrderView = () => {
                 </Row>
             </Form>
 
-            <Row className="justify-content-center">
-                <Col lg="8">
-                    <Card>
-                        <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                            <i className="bi bi-sign-turn-right me-2"> </i>
-                            Order Details
-                        </CardTitle>
-                        <CardBody>
-                            <Container>
-                                <Row>Order ID: P0001</Row><br />
-                                <Row>Order ID: P0001</Row><br />
-                                <Row>Order ID: P0001</Row><br />
-                                <Row>Order ID: P0001</Row><br />
-                                <Row>Order ID: P0001</Row><br />
-                                <Row>Order ID: P0001</Row><br />
-                                <Row>Order ID: P0001</Row><br />
-                                <Row>Order ID: P0001</Row><br />
-                                <Row>Order ID: P0001</Row><br />
-                            </Container>
-
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-
         </Container>
 
 

@@ -21,6 +21,8 @@ BranchManagerRoutes.viewTicket = "/branch-manager/view-ticket";
 BranchManagerRoutes.addFeedback = "/branch-manager/add-feedback";
 BranchManagerRoutes.viewFeedback = "/branch-manager/view-feedback";
 BranchManagerRoutes.trackOrder = "/branch-manager/track-order";
+BranchManagerRoutes.incomingOrders = "/branch-manager/incoming-orders";
+BranchManagerRoutes.addRoute = "/branch-manager/view-order-details";
 
 // Declare Delivery Person routes
 DeliveryPersonRoutes.main = "/delivery-person";

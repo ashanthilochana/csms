@@ -39,4 +39,30 @@ router.route("/api/update-order/:orderId").put(
     OrderController.updateOrder
 );
 
+router.route("/api/receivedOrders/:branchId").get(
+    // verifyAuthentication,
+    OrderController.getAllReceivedOrdersByBranchId
+);
+
+router.route("/api/assign-delivery-person/:orderId/:nic").put(
+    // verifyAuthentication,
+    OrderController.assignDeliveryPerson
+);
+
+router.route("/api/incoming-orders/:branchId").get(
+    // verifyAuthentication,
+    OrderController.getAllIncomingOrdersByBranchId
+);
+
+router.route("/api/update-order-status/:orderId/:status").put(
+    // verifyAuthentication,
+    OrderController.updateOrderStatus
+);
+
+router.route("/api/received-orders-by-status/:branchId/:status").get(
+    // verifyAuthentication,
+    OrderController.getReceivedOrdersByStatus
+);
+
+
 export {router};

@@ -60,6 +60,19 @@ OrderController.getAllOrderByBranchId = async(req, res) => {
     }
 }
 
+/////////////////////////////////////// Get all received orders by branch Id ////////////////////////////////////////////////
+
+OrderController.getAllReceivedOrdersByBranchId = async(req, res) => {
+    let {branchId} = req.params;
+    try {
+        let data = await OrderService.getAllReceivedOrdersByBranch(branchId);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
+
 /////////////////////////////////////// Update order ////////////////////////////////////////////////
 
 OrderController.updateOrder = async(req, res) => {
@@ -135,6 +148,7 @@ OrderController.getAllOrderStatus = async (req, res) => {
     }
 }
 
+/////////////////////////////////////// Get Courier Fee ////////////////////////////////////////////////
 
 OrderController.getCourierFee = async (req, res) => {
     let { packageWeight, packageTypeId } = req.body;
@@ -146,5 +160,58 @@ OrderController.getCourierFee = async (req, res) => {
       res.status(500).send({ error: "internal Server Error!" });
     }
   };
+  
+  /////////////////////////////////////// Assign Delivery Person ////////////////////////////////////////////////
+  
+    OrderController.assignDeliveryPerson = async (req, res) => {
+    let { orderId, nic } = req.params;
+
+    try {
+        await OrderService.assignDeliveryPerson(orderId, nic);
+        res.status(200).send({ message: "Delivery person assigned successfully" });
+    }
+    catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
+/////////////////////////////////////// Get all incoming orders by branch Id ////////////////////////////////////////////////
+
+OrderController.getAllIncomingOrdersByBranchId = async(req, res) => {
+    let {branchId} = req.params;
+    try {
+        let data = await OrderService.getAllIncomingOrdersByBranchId(branchId);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
+/////////////////////////////////////// Update order status ////////////////////////////////////////////////
+
+OrderController.updateOrderStatus = async(req, res) => {
+
+    let {orderId, status} = req.params;
+    try {
+        await OrderService.updateOrderStatus(orderId, status);
+        res.status(200).send({ message: "Order status updated successfully" });
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
+
+/////////////////////////////////////// Get received orders by status ////////////////////////////////////////////////
+
+OrderController.getReceivedOrdersByStatus = async(req, res) => {
+    let {branchId, status} = req.params;
+    try {
+        let data = await OrderService.getReceivedOrdersByStatus(branchId, status);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
   
 export default OrderController;

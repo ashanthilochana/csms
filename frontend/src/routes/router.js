@@ -35,6 +35,8 @@ const ViewTickets = lazy(() => import("../views/branch_manager/views/ViewTicketV
 const AddFeedbackView = lazy(() => import("../views/branch_manager/views/AddFeedbackView.jsx"));
 const ViewFeedback = lazy(() => import("../views/branch_manager/views/ViewFeedbackview.jsx"));
 const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderView.jsx"));
+const IncomingOrders = lazy(() => import("../views/branch_manager/views/ViewIncomingOrders.jsx"));
+const ViewOrderDetailsView = lazy(() => import("../views/branch_manager/views/ViewOrderDetails.jsx"));
 
 const UpdateOrder = lazy(() => import("../views/branch_manager/views/EditOrderView.jsx"));
 
@@ -178,6 +180,11 @@ const ThemeRoutes = [
             element: <ViewReceivedOrders />,
           },
           {
+            path: "/branch-manager/incoming-orders",
+            exact: true,
+            element: <IncomingOrders />,
+          },
+          {
             path: "/branch-manager/add-new-order",
             exact: true,
             element: <AddOrderView />,
@@ -186,6 +193,11 @@ const ThemeRoutes = [
             path: "/branch-manager/track-order",
             exact: true,
             element: <TrackOrder />,
+          },
+          {
+            path: "/branch-manager/view-order-details",
+            exact: true,
+            element: <ViewOrderDetailsView />,
           },
           {
             path: "/branch-manager/add-new-client",

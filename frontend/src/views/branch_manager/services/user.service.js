@@ -90,6 +90,10 @@ UserService.deleteClient = async (id) => {
 };
 
 
+
+
+
+
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
 UserService.addOrder = async (reqBody) => {
@@ -158,6 +162,40 @@ UserService.updateOrder = async (orderId, reqBody) => {
     throw e;
   }
 };
+
+/////////////////////////////////////// Get Incoming Orders by Branch ID ////////////////////////////////////////////////
+
+UserService.getAllIncomingOrdersByBranchId = async (branchId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/incoming-orders/${branchId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserService.updateOrderStatus = async (orderId, status) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order-status/${orderId}/${status}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.status;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 
 
 /////////////////////////////////////// Get branch ID by branch manger NIC ////////////////////////////////////////////////
