@@ -251,6 +251,7 @@ UserController.updateOrderStatus = async (orderId, status) => {
 UserController.checkOrderExistingStatus = async (orderId) => {
   try {
     let response = await UserService.checkOrderExistingStatus(orderId);
+
     if (response.error) {
       return { error: response.error };
     } else {

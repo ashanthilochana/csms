@@ -224,5 +224,17 @@ OrderController.getOrderViewDetailsByOrderId = async(req, res) => {
         res.status(500).send({ error: "Internal Server Error" });
     }
 }
+
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+OrderController.checkOrderExistingStatus = async(req, res) => {
+    let {orderId} = req.params;
+    try {
+        let data = await OrderService.checkOrderExistingStatus(orderId);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
   
 export default OrderController;

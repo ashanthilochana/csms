@@ -82,6 +82,7 @@ const ViewReceivedOrderTable = () => {
       } else {
         setShowErrorDialog(false);
         setShowSuccessDialog(true);
+        fetchData();
       }
 
     } catch (error) {

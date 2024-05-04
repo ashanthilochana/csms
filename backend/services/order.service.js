@@ -370,4 +370,28 @@ OrderService.getOrderViewDetailsByOrderId = async(orderId) => {
     }
 }
 
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+OrderService.checkOrderExistingStatus = async(orderId) => {
+    let query = `
+    SELECT * FROM orders WHERE orderId = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [orderId]);
+        
+        // if order exist return true else return false
+        if(rows.length > 0) {
+            return true;
+        } else {
+            return false;
+        } 
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+
 export default OrderService;

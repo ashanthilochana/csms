@@ -69,4 +69,9 @@ router.route("/api/order-view/:orderId").get(
     OrderController.getOrderViewDetailsByOrderId
 );
 
+router.route("/api/check-order-existing-status/:orderId").get(
+    // verifyAuthentication,
+    OrderController.checkOrderExistingStatus
+);
+
 export {router};
