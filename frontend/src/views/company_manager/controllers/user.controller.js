@@ -176,9 +176,9 @@ UserController.addBranch = async (district, address, mapLocation, contactNumber)
 
 /////////////////////////////////////// Get all routes ////////////////////////////////////////////////
 
-UserController.getAllRoutes = async () => {
+UserController.getAllRoutesForTable = async () => {
   try {
-    let response = await UserService.getAllRoutes();
+    let response = await UserService.getAllRoutesForTable();
 
     if (response.error) {
       return { error: response.error };
@@ -369,5 +369,56 @@ UserController.addRoute = async (routeName, fBranchId, sBranchId) => {
   }
 };
 
+// get all routes for table
+UserController.getAllRoutesForTable = async () => {
+  try {
+    let response = await UserService.getAllRoutesForTable();
 
+    if (response.error) {
+      return { error: response.error };
+    }
+    else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+// update route
+
+UserController.updateRoute = async (inputData) => {
+    
+    let reqBody = {
+      routeId: inputData.routeId,
+      routeName: inputData.routeName,
+      firstBranchId: inputData.firstBranchId,
+      secondBranchId: inputData.secondBranchId,
+    };
+  
+    try {
+      let response = await UserService.updateRoute(reqBody);
+      if (response.error) {
+        return { error: response.error };
+      }
+      return { message: "Route Updated Successfully" };
+    } catch (e) {
+      return { error: e };
+    }
+  }
+
+// delete route
+
+UserController.deleteRoute = async (routeId) => {
+
+  try {
+    let response = await UserService.deleteRoute(routeId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Route Deleted Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+}
 export default UserController;

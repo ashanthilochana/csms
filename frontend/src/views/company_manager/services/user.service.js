@@ -532,4 +532,58 @@ UserService.deleteTransportAgent = async (nic) => {
   }
 }
 
+// get all routes for table
+
+UserService.getAllRoutesForTable = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/routes-for-table");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// update route
+
+UserService.updateRoute = async (reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-route`, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// delete route
+
+UserService.deleteRoute = async (routeId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-route/${routeId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export default UserService;
