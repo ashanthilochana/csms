@@ -161,10 +161,15 @@ const ViewReceivedOrderTable = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Order Date</th>
                 <th>Receiver</th>
                 <th>Address</th>
                 <th>Contact Number</th>
+                <th
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>Status</th>
                 <th className="text-center">Action</th>
               </tr>
             </thead>
@@ -179,10 +184,28 @@ const ViewReceivedOrderTable = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{tdata.registeredDate}</td>
                   <td>{tdata.receiverName}</td>
                   <td>{tdata.receiverAddress}</td>
                   <td>{tdata.receiverContactNumber}</td>
+                  <td>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {tdata.status === "Assigned" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-success text-white d-inline-block">
+                          Assigned
+                        </span>
+                      ) :(
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">
+                          Not Assigned
+                        </span>
+                      )}
+                    </div>
+                  </td>
                   <td className="d-flex justify-content-center">
                     {/* <Button  className="btn me-2" outline color="secondary" size="sm">Edit</Button> */}
                     <Button  className="btn me-2" color="primary" size="sm" onClick={() => {

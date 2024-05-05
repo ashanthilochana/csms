@@ -39,6 +39,11 @@ router.route("/api/update-order/:orderId").put(
     OrderController.updateOrder
 );
 
+router.route("/api/delete-order/:orderId").delete(
+    // verifyAuthentication,
+    OrderController.deleteOrder
+);
+
 router.route("/api/receivedOrders/:branchId").get(
     // verifyAuthentication,
     OrderController.getAllReceivedOrdersByBranchId

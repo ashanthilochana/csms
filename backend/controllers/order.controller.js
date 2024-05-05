@@ -236,5 +236,19 @@ OrderController.checkOrderExistingStatus = async(req, res) => {
         res.status(500).send({ error: "Internal Server Error" });
     }
 }
+
+/////////////////////////////////////// Delete Order By Order Id ////////////////////////////////////////////////
+
+OrderController.deleteOrder = async(req, res) => {
+
+    let {orderId} = req.params;
+    try {
+        await OrderService.deleteOrder(orderId);
+        res.status(200).send({ message: "Order deleted successfully" });
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
   
 export default OrderController;

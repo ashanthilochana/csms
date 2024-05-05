@@ -188,6 +188,7 @@ const AddNewOrder = () => {
                   onChange={onChange}
                   value={userInput.orderStatus}
                   required = {true}
+                  disabled = {true}
                 >
                   {orderStatus.map((orderStat) => {
                     return (

@@ -19,9 +19,24 @@ import { BranchManagerRoutes } from "../../../routes/all_user.routes.js";
 import validator from "../../../validation/validation.js";
 import BranchManagerController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
+import { Rating } from 'react-simple-star-rating'
 
 
-const AddNewTicket = () => {
+const AddNewFeedback = () => {
+
+    // Start Rating
+    const [rating, setRating] = useState(0)
+
+    // Catch Rating value
+    const handleRating = (rate) => {
+        setRating(rate)
+
+        // other logic
+    }
+    // Optinal callback functions
+    const onPointerEnter = () => console.log('Enter')
+    const onPointerLeave = () => console.log('Leave')
+    const onPointerMove = (value, index) => console.log(value, index)
 
     // Alert
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -49,7 +64,6 @@ const AddNewTicket = () => {
     // Map variable
     const [inputData, setInputData] = useState({
         nic: "",
-        rating: "5",
         message: "",
     })
 
@@ -73,7 +87,7 @@ const AddNewTicket = () => {
     const validateField = (name, value) => {
         switch (name) {
             case 'message':
-              return (!value == "");
+                return (!value == "");
             default:
                 return true;
         }
@@ -114,7 +128,6 @@ const AddNewTicket = () => {
 
         const {
             nic,
-            rating,
             message
         } = inputData;
 
@@ -170,8 +183,8 @@ const AddNewTicket = () => {
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="rating">Rating</Label>
-                                <Input
+                                <Label for="rating">Rating</Label><br></br>
+                                {/* <Input
                                     id="rating"
                                     name="rating"
                                     type="select"
@@ -185,7 +198,16 @@ const AddNewTicket = () => {
                                     <option value={4}> 4 </option>
                                     <option value={5}> 5 </option>
                                 
-                                </Input>
+                                </Input> */}
+                                <Rating
+                                    onClick={handleRating}
+                                    onPointerEnter={onPointerEnter}
+                                    onPointerLeave={onPointerLeave}
+                                    onPointerMove={onPointerMove}
+                                    showTooltip={true}
+                                    tooltipArray={['Very Bad', 'Bad', 'Ok', 'Good', 'Very Good']}
+                                /* Available Props */
+                                />
                             </FormGroup>
 
                             <FormGroup>
@@ -197,8 +219,8 @@ const AddNewTicket = () => {
                                     type="textarea"
                                     value={inputData.message}
                                     onChange={onChange}
-                                    invalid = {validations.message}
-                                    required = {true}
+                                    invalid={validations.message}
+                                    required={true}
                                 />
                                 <FormFeedback>Enter a feedback message body</FormFeedback>
                             </FormGroup>
@@ -217,5 +239,5 @@ const AddNewTicket = () => {
 };
 
 
-export default AddNewTicket;
+export default AddNewFeedback;
 

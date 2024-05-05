@@ -59,6 +59,10 @@ const AddNewOrder = () => {
  
    const [showErrorDialog, setShowErrorDialog] = useState(false);
    const hideErrorDialog = () => setShowErrorDialog(false);
+
+    const [showErrorDeleteDialog, setShowErrorDeleteDialog] = useState(false);
+    const hideErrorDeleteDialog = () => setShowErrorDeleteDialog(false);
+
  
    //state variable to hold courier fee
    let [courierFee, setCourierFee] = useState(0.0);
@@ -329,10 +333,24 @@ const AddNewOrder = () => {
     }
   }, [orderDetails]);
 
+  async function deleteOrder(orderId) {
+    let data = await BranchManagerController.deleteOrder(orderId);
+    console.log("data", data);
+    if (data.message === "Order Deleted Successfully") {
+      navigate(BranchManagerRoutes.viewOrders);
+    }else{
+      setShowErrorDialog(false);
+      setShowSuccessDialog(false);
+      setShowErrorDeleteDialog(true);
+    }
+  }
+
   return (
     <Form>
       <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Order Updated Successfully!</Alert>
       <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> Something Went Wrong! </Alert>
+      <Alert color="danger" isOpen={showErrorDeleteDialog} toggle={hideErrorDeleteDialog}> Can't delete this order!. Order assigned to delivery person </Alert>
+
       <Row>
         <Col className="col-md-8">
           <Card>
@@ -556,6 +574,9 @@ const AddNewOrder = () => {
               <Button
                 type="reset"
                 className="btn mt-2 w-100 pt-2 pb-2 bg-danger border"
+                onClick={() => {
+                  deleteOrder(orderId);
+                }}
               >
                 Delete the Order
               </Button>

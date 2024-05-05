@@ -38,7 +38,7 @@ UserController.addClient = async (
 /////////////////////////////////////// Get all clients ////////////////////////////////////////////////
 
 UserController.getAllClients = async () => {
-   try{
+  try {
     let response = await UserService.getAllClients();
 
     if (response.error) {
@@ -47,10 +47,10 @@ UserController.getAllClients = async () => {
     else {
       return { data: response.data };
     }
-    
-   } catch(e){
-    return { error: e};
-   }
+
+  } catch (e) {
+    return { error: e };
+  }
 };
 
 /////////////////////////////////////// Update client details ////////////////////////////////////////////////
@@ -211,7 +211,7 @@ UserController.updateOrder = async (
 UserController.getAllIncomingOrdersByBranchId = async (branchId) => {
   try {
     let response = await UserService.getAllIncomingOrdersByBranchId(branchId)
-    
+
     if (response.error) {
       return { error: response.error };
     } else {
@@ -228,9 +228,9 @@ UserController.updateOrderStatus = async (orderId, status) => {
 
   let statusId = 0;
 
-  if(status === "Received"){
+  if (status === "Received") {
     statusId = 3;
-  } else if (status === "Registered"){
+  } else if (status === "Registered") {
     statusId = 1;
   }
 
@@ -257,6 +257,20 @@ UserController.checkOrderExistingStatus = async (orderId) => {
     } else {
       return response;
     }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Delete Order By Order Id ////////////////////////////////////////////////
+
+UserController.deleteOrder = async (orderId) => {
+  try {
+    let response = await UserService.deleteOrder(orderId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Order Deleted Successfully" };
   } catch (e) {
     return { error: e };
   }
@@ -506,23 +520,76 @@ UserController.addTicket = async (
   }
 };
 
-/////////////////////////////////////// Get all Tickets ////////////////////////////////////////////////
 
-UserController.getAllTickets = async () => {
-  try{
-   let response = await UserService.getAllTickets();
+/////////////////////////////////////// Get all tickets by branch ID ////////////////////////////////////////////////
 
-   if (response.error) {
-     return { error: response.error };
-   }
-   else {
-     return { data: response.data };
-   }
-   
-  } catch(e){
-   return { error: e};
+UserController.getAllTicketsByBranchId = async (branchId) => {
+  try {
+    let response = await UserService.getAllTicketsByBranchId(branchId)
+
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+
+/////////////////////////////////////// Update ticket reply ////////////////////////////////////////////////
+
+UserController.updateTicketReply = async (ticketId, responseMessage) => {
+
+  let reqBody = {
+    responseMessage
+  };
+
+  try {
+    let response = await UserService.updateTicketReply(ticketId, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Ticket Reply Updated Successfully" };
+  }
+  catch (e) {
+    return { error: e };
   }
 };
+
+/////////////////////////////////////// Close ticket ////////////////////////////////////////////////
+
+UserController.ticketStatusUpdate = async (ticketId, statusId) => {
+
+  try {
+    let response = await UserService.ticketStatusUpdate(ticketId, statusId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Ticket Status Updated Successfully" };
+  }
+  catch (e) {
+    return { error: e };
+  }
+};
+
+//////////////////////////////////////// Delete ticket ////////////////////////////////////////////////
+
+UserController.deleteTicket = async (ticketId) => {
+
+  try {
+    let response = await UserService.deleteTicket(ticketId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Ticket Deleted Successfully" };
+  }
+  catch (e) {
+    return { error: e };
+  }
+};
+
 
 /////////////////////////////////////// Add a feedback ////////////////////////////////////////////////
 
@@ -548,6 +615,23 @@ UserController.addFeedback = async (
     return { error: e };
   }
 };
+
+/////////////////////////////////////// Get all feedbacks ////////////////////////////////////////////////
+
+UserController.getAllFeedbacks = async () => {
+  try {
+    let response = await UserService.getAllFeedbacks();
+
+    if (response.error) {
+      return { error: response.error };
+    }
+    else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
 
 
 UserController.getAllClientNICs = async () => {

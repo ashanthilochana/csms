@@ -14,15 +14,33 @@ router.route("/api/reasons").get(
     TicketController.getAllReasons
 )
 
-router.route("/api/tickets").get(
-    //verifyAuthentication, 
-    TicketController.getAllTickets
-);
+router.route("/api/tickets/:branchId").get(
+    // verifyAuthentication,
+    TicketController.getAllTicketsByBranchId
+)
 
 // route to update a ticket by ticket id
 router.route("/api/update-ticket/:id").put(
     verifyAuthentication,
     TicketController.updateTicket
+)
+
+// update ticket reply
+router.route("/api/update-ticket-reply/:id").put(
+    // verifyAuthentication,
+    TicketController.updateTicketReply
+)
+
+// update ticket status
+router.route("/api/update-ticket-status/:ticketId/:statusId").put(
+    verifyAuthentication,
+    TicketController.ticketStatusUpdate
+)
+
+// delete ticket
+router.route("/api/delete-ticket/:id").delete(
+    verifyAuthentication,
+    TicketController.deleteTicket
 )
 
 export {router};

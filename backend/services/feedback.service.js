@@ -31,9 +31,7 @@ FeedbackService.addFeedback = async (
 
 FeedbackService.getAllFeedback = async() => {
     let query = `
-    SELECT t.nic, t.email, t.fullName, t.vehicleNumber, r.routeName 
-    FROM transportAgent t, route r
-    WHERE t.routeId = r.routeId
+    SELECT * FROM clientFeedback
     `;
 
     try{
@@ -44,5 +42,6 @@ FeedbackService.getAllFeedback = async() => {
         throw e;
     }
 };
+
 
 export default FeedbackService;

@@ -155,11 +155,10 @@ OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
 
 OrderService.getAllReceivedOrdersByBranch = async(branchId) => {
     let query = `
-    SELECT o.orderId, o.registeredDate, o.receiverName, o.receiverAddress, o.receiverContactNumber
-    FROM orders o
-    WHERE o.receivingBranchId = ? AND o.statusId = 3
+    SELECT o.orderId, o.receiverName, o.receiverAddress, o.receiverContactNumber, os.status
+    FROM orders o, orderstatus os
+    WHERE os.statusId = o.statusId AND o.receivingBranchId = ? AND o.statusId != 1
     `;
-
     try{
         let [rows] = await pool.query(query, [branchId]);
         return rows;
@@ -388,6 +387,23 @@ OrderService.checkOrderExistingStatus = async(orderId) => {
         } 
     }
     catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Delete Order By Order Id ////////////////////////////////////////////////
+
+OrderService.deleteOrder = async(orderId) => {
+    let query = `
+    DELETE FROM orders
+    WHERE orderId = ?
+    `;
+
+    try {
+        const res = await pool.query(query, [orderId]);
+        return res;
+    } catch (e) {
         console.error(e);
         throw e;
     }

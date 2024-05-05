@@ -232,6 +232,22 @@ UserService.checkOrderExistingStatus = async (orderId) => {
 };
 
 
+/////////////////////////////////////// Delete order by order ID ////////////////////////////////////////////////
+
+UserService.deleteOrder = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-order/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 /////////////////////////////////////// Get branch ID by branch manger NIC ////////////////////////////////////////////////
 
 UserService.getBranchIdByBranchManagerNIC = async (reqBody) => {
@@ -599,25 +615,70 @@ UserService.addTicket = async (reqBody) => {
 };
 
 
-/////////////////////////////////////// Get all Tickets ////////////////////////////////////////////////
-UserService.getAllTickets = async()=>{
-  try{
-    let response = await AxiosController.instance.get("/api/tickets");
+/////////////////////////////////////// Get All tickets by branch id ////////////////////////////////////////////////
 
+UserService.getAllTicketsByBranchId = async (branchId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/tickets/${branchId}`);
     if (response.error) {
       return { error: response.error };
-    } else if (response.data.error) {
-      return { error: response.data.error };
     } else {
-      return { data: response.data };
+      return response;
     }
-
-  }catch(e){
+  } catch (e) {
     console.error(e);
     throw e;
   }
+}
 
-};
+/////////////////////////////////////// Update Ticket Reply ////////////////////////////////////////////////
+
+UserService.updateTicketReply = async (ticketId, reply) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-ticket-reply/${ticketId}`, reply);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Close Ticket ////////////////////////////////////////////////
+
+UserService.ticketStatusUpdate = async (ticketId, statusId) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-ticket-status/${ticketId}/${statusId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Delete Ticket ////////////////////////////////////////////////
+
+UserService.deleteTicket = async (ticketId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-ticket/${ticketId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 
 /////////////////////////////////////// Add a feedback ////////////////////////////////////////////////
 
@@ -655,7 +716,7 @@ UserService.addFeedback = async (reqBody) => {
 };
 
 /////////////////////////////////////// Get all Feedback ////////////////////////////////////////////////
-UserService.getAllFeedback = async()=>{
+UserService.getAllFeedbacks = async()=>{
   try{
     let response = await AxiosController.instance.get("/api/feedback");
 
@@ -673,6 +734,7 @@ UserService.getAllFeedback = async()=>{
   }
 
 };
+
 
 UserService.getAllClientNICs = async () => {
   try {
