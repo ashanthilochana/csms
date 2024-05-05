@@ -79,4 +79,10 @@ router.route("/api/check-order-existing-status/:orderId").get(
     OrderController.checkOrderExistingStatus
 );
 
+// getAllAvailableOrdersByUserNic
+router.route("/api/orders-by-nic/:nic").get(
+    // verifyAuthentication,
+    OrderController.getAllAvailableOrdersByUserNic
+);
+
 export {router};

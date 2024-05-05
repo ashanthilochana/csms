@@ -250,5 +250,18 @@ OrderController.deleteOrder = async(req, res) => {
     }
 }
 
+/////////////////////////////////////// Get all available orders by user NIC ////////////////////////////////////////////////
+
+OrderController.getAllAvailableOrdersByUserNic = async(req, res) => {
+
+    let {nic} = req.params;
+    try {
+        let data = await OrderService.getAllAvailableOrdersByUserNic(nic);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
   
 export default OrderController;

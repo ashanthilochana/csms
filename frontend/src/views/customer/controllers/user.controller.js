@@ -79,6 +79,39 @@ UserController.addOrder = async (
   }
 };
 
+// /////////////////////////////////////// Get order view details by order ID ///////////////////////////////////////////////
+
+UserController.getOrderViewDetailsByOrderId = async (orderId) => {
+
+  try {
+    let response = await UserService.getOrderViewDetailsByOrderId(orderId);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+UserController.checkOrderExistingStatus = async (orderId) => {
+  try {
+    let response = await UserService.checkOrderExistingStatus(orderId);
+
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+
 /////////////////////////////////////// Get Branch ID by Branch Manager NIC ////////////////////////////////////////////////
 
 UserController.getBranchIdByBranchManagerNIC = async (nic) => {
@@ -150,6 +183,24 @@ UserController.getAllOrderStatus = async () => {
     return { error: e };
   }
 }
+
+/////////////////////////////////////// Get All Order By User Nic ////////////////////////////////////////////////
+
+UserController.getAllAvailableOrdersByUserNic = async (nic) => {
+  try {
+    let response = await UserService.getAllAvailableOrdersByUserNic(nic);
+
+    if (response.error) {
+      return { error: response.error };
+    }
+    else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
 
 /////////////////////////////////////// Add a branch ////////////////////////////////////////////////
 

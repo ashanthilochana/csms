@@ -409,5 +409,27 @@ OrderService.deleteOrder = async(orderId) => {
     }
 }
 
+/////////////////////////////////////// Get all available orders by user NIC ////////////////////////////////////////////////
+
+OrderService.getAllAvailableOrdersByUserNic = async(nic) => {
+    let query = `
+    SELECT o.orderId, os.status, c1.fullName as senderName, c1.nic as senderNic, o.receiverName, o.receiverAddress, o.receiverContactNumber, o.weight, pt.packageType, o.specialNote, b1.district as sendingBranch, b2.district as receivingBranch, o.registeredDate, o.paymentDate, o.deliveryDate, o.receivedDate
+    FROM orders o
+    JOIN client c1 ON o.senderNic = c1.nic
+    JOIN branch b1 ON o.sendingBranchId = b1.branchId
+    JOIN branch b2 ON o.receivingBranchId = b2.branchId
+    JOIN packagetype pt ON o.packageTypeId = pt.packageTypeId
+    JOIN orderstatus os ON os.statusId = o.statusId
+    WHERE o.senderNic = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [nic]);
+        return rows;
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
 
 export default OrderService;

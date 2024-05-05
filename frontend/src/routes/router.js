@@ -53,6 +53,7 @@ const TrasportAgentMyRoute = lazy(() => import("../views/transport_agent/views/V
 const ClientDashboard = lazy(() => import("../views/customer/views/ViewDashboardView.jsx"));
 const ClientMyOrders = lazy(() => import("../views/customer/views/ViewOrdersView.jsx"));
 const ClientTrackOrder = lazy(() => import("../views/customer/views/TrackOrderView.jsx"));
+const ViewOrderDetails = lazy(() => import("../views/customer/views/ViewOrderDetails.jsx"));
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -354,6 +355,11 @@ const ThemeRoutes = [
             path: "/client/track-order",
             exact: true,
             element: <ClientTrackOrder />,
+          },
+          {
+            path: "/client/view-order-details/:orderId",
+            exact: true,
+            element: <ViewOrderDetails />,
           },
         ],
       },

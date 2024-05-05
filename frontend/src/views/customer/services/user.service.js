@@ -72,6 +72,42 @@ UserService.addOrder = async (reqBody) => {
   }
 };
 
+/////////////////////////////////////// Get Order View Details by Order ID  ////////////////////////////////////////////////
+
+UserService.getOrderViewDetailsByOrderId = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/order-view/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+UserService.checkOrderExistingStatus = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/check-order-existing-status/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
+
 /////////////////////////////////////// Get branch ID by branch manger NIC ////////////////////////////////////////////////
 
 UserService.getBranchIdByBranchManagerNIC = async (reqBody) => {
@@ -80,6 +116,23 @@ UserService.getBranchIdByBranchManagerNIC = async (reqBody) => {
       "/api/branch-id-by-nic",
       reqBody
     );
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+// getAllAvailableOrdersByUserNic
+
+UserService.getAllAvailableOrdersByUserNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/orders-by-nic/${nic}`);
+    
     if (response.error) {
       return { error: response.error };
     } else {
