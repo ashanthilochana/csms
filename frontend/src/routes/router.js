@@ -56,6 +56,10 @@ const ClientTrackOrder = lazy(() => import("../views/customer/views/TrackOrderVi
 const ViewOrderDetails = lazy(() => import("../views/customer/views/ViewOrderDetails.jsx"));
 const ClientAddTicketView = lazy(() => import("../views/customer/views/AddTicketView.jsx"));
 const ClientViewTickets = lazy(() => import("../views/customer/views/ViewTicketView.jsx"));
+const ClientAddFeedback = lazy(() => import("../views/customer/views/AddFeedbackView.jsx"));
+const ClientViewFeedback = lazy(() => import("../views/customer/views/ViewFeedbackview.jsx"));
+const ClientViewProfileView = lazy(() => import("../views/customer/views/ViewProfileView.jsx"));
+const UpdateProfilePassword = lazy(() => import("../views/customer/views/UpdateProfilePassword.jsx"));
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -372,6 +376,26 @@ const ThemeRoutes = [
             path: "/client/view-my-tickets",
             exact: true,
             element: <ClientViewTickets />,
+          },
+          {
+            path: "/client/add-feedback",
+            exact: true,
+            element: <ClientAddFeedback />,
+          },
+          {
+            path: "/client/view-feedback",
+            exact: true,
+            element: <ClientViewFeedback />,
+          },
+          {
+            path: "/client/view-profile",
+            exact: true,
+            element: <ClientViewProfileView />,
+          },
+          {
+            path: "/client/update-profile-password",
+            exact: true,
+            element: <UpdateProfilePassword />,
           },
         ],
       },

@@ -1,42 +1,28 @@
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, ButtonGroup } from "reactstrap";
-import user from "../../../assets/images/users/user.jpg";
+import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, ButtonGroup, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from "reactstrap";import user from "../../../assets/images/users/user.jpg";
 import React , { useEffect, useState } from "react";
 import UserController from "../controllers/user.controller";
 
-// const tableData = [
-//   {
-//     distric:"," 
-//     address:"" ,
-//     mapLocation: "",
-//     contactNumber:0754764544
-//   },
-// ];
-
-
 const ViewBranchTable = () => {
 
-  let [Branches, setBranches] = useState([]);
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+
+  const [branches, setBranches] = useState([]);
+
+  // function to get all branches
+  const getBranches = async () => {
+    try {
+      const response = await UserController.getAllBranches();
+      setBranches(response);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
 
   useEffect(() => {
-    
-    async function getBranches() {
-      try {
-        let response = await UserController.getAllBranches();
-        if (response.error) {
-          console.error("Error fetching clients:", response.error);
-        } else {
-          setBranches(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching clients:", error);
-      }
-    };
-    
-
     getBranches();
-
-  }, []);
-  
+  }
+  , []);
 
   return (
     <div>
@@ -59,7 +45,7 @@ const ViewBranchTable = () => {
               </tr>
             </thead>
             <tbody>
-              {Branches.map((tdata, index) => (
+              {branches.map((tdata, index) => (
                 <tr key={index} className="border-top">
                
                   <td>{tdata.branchId}</td>
@@ -78,6 +64,31 @@ const ViewBranchTable = () => {
           </Table>
         </CardBody>
       </Card>
+
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Add Branch</ModalHeader>
+        <ModalBody>
+          <Form>
+            <FormGroup>
+              <Label for="district">District</Label>
+              <Input type="text" name="district" id="district" placeholder="Enter district" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="address">Address</Label>
+              <Input type="text" name="address" id="address" placeholder="Enter address" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="contactNumber">Contact Number</Label>
+              <Input type="text" name="contactNumber" id="contactNumber" placeholder="Enter contact number" />
+            </FormGroup>
+          </Form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Add</Button>{' '}
+          <Button color="secondary" onClick={toggle}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
+
     </div>
   );
 };

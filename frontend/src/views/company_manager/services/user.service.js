@@ -443,4 +443,21 @@ UserService.getCourierFee = async (reqBody) => {
 
 }
 
+// get alll branches
+UserService.getAllBranches = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/branches");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 export default UserService;

@@ -644,4 +644,100 @@ UserService.getAllReasons = async () => {
   }
 };
 
+// Get all feedbacks by user NIC
+
+UserService.getAllFeedbacksByUserNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/feedback/${nic}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// Delete feedback
+
+UserService.deleteFeedback = async (feedbackId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-feedback/${feedbackId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// Update feedback
+
+UserService.updateFeedback = async (feedbackId, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-feedback/${feedbackId}`, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// update client details
+
+UserService.updateClientDetails = async (userNic, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-client/${userNic}`, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// get client details by NIC
+
+UserService.getClientDetailsByUserNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/client-details/${nic}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// update client password
+
+UserService.updateClientPassword = async (userNic, password) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-client-password/${userNic}`, { password: password });
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export default UserService;

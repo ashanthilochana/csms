@@ -31,4 +31,15 @@ UserService.registerUser = async (nicNo, password, roleId) => {
   }
 };
 
+//Function to update user password
+UserService.updateUserPassword = async (nicNo, password) => {
+  try {
+    let query = `UPDATE usercredentials SET password = ? WHERE userNic = ?`;
+    await pool.query(query, [password, nicNo]);
+  } catch (e) {
+    console.error("Error updating user password! :" + e);
+    throw e;
+  }
+};
+
 export default UserService;

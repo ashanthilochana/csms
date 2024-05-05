@@ -82,5 +82,34 @@ ClientController.deleteClient = async (req, res) => {
     }
 };
 
+// Get client details by ID
+ClientController.getClientDetails = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        let data = await ClientService.getClientDetails(id);
+
+        res.status(200).send(data);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({error : "Internal Server Error"});
+    }
+};
+
+// Update client password
+
+ClientController.updateClientPassword = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { password } = req.body;
+
+        await ClientService.updateClientPassword(id, password);
+
+        res.status(200).send({ message: "Password updated successfully" });
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({error : "Internal Server Error"});
+    }
+}
 
 export default ClientController;

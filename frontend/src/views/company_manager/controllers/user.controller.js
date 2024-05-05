@@ -110,7 +110,7 @@ UserController.getAllBranches = async () => {
     }
 
     else {
-      return { data: response.data };
+      return response;
     }
   } catch (e) {
     return { error: e };
