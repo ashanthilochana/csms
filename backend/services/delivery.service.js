@@ -134,6 +134,21 @@ DeliveryPersonService.deleteDeliveryPerson = async (nic) => {
     }
 };
 
+// Get all delivery persons NICs by branch id
+DeliveryPersonService.getAllDeliveryPersonsNics = async (branchId) => {
+    let query = `
+        SELECT nic FROM deliveryperson
+        WHERE branchId = ?
+        `;
+
+    try {
+        const [rows] = await pool.query(query, [branchId]);
+        return rows;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
 
 
 export default DeliveryPersonService;

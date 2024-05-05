@@ -35,6 +35,10 @@ const ViewTickets = lazy(() => import("../views/branch_manager/views/ViewTicketV
 const AddFeedbackView = lazy(() => import("../views/branch_manager/views/AddFeedbackView.jsx"));
 const ViewFeedback = lazy(() => import("../views/branch_manager/views/ViewFeedbackview.jsx"));
 const TrackOrder = lazy(() => import("../views/branch_manager/views/TrackOrderView.jsx"));
+const IncomingOrders = lazy(() => import("../views/branch_manager/views/ViewIncomingOrders.jsx"));
+const ViewOrderDetailsView = lazy(() => import("../views/branch_manager/views/ViewOrderDetails.jsx"));
+
+const UpdateOrder = lazy(() => import("../views/branch_manager/views/EditOrderView.jsx"));
 
 // Import views - Delivery Person
 const DeliveryPersonDashboard = lazy(() => import("../views/delivery_person/views/ViewDashboardView.jsx"));
@@ -47,6 +51,11 @@ const TrasportAgentMyRoute = lazy(() => import("../views/transport_agent/views/V
 
 // Import Views - Clients
 const ClientDashboard = lazy(() => import("../views/customer/views/ViewDashboardView.jsx"));
+const ClientMyOrders = lazy(() => import("../views/customer/views/ViewOrdersView.jsx"));
+const ClientTrackOrder = lazy(() => import("../views/customer/views/TrackOrderView.jsx"));
+const ViewOrderDetails = lazy(() => import("../views/customer/views/ViewOrderDetails.jsx"));
+const ClientAddTicketView = lazy(() => import("../views/customer/views/AddTicketView.jsx"));
+const ClientViewTickets = lazy(() => import("../views/customer/views/ViewTicketView.jsx"));
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -164,9 +173,19 @@ const ThemeRoutes = [
             element: <ViewOrders />,
           },
           {
+            path: "/branch-manager/edit-order/:orderId",
+            exact: true,
+            element: <UpdateOrder />,
+          },
+          {
             path: "/branch-manager/view-received-orders",
             exact: true,
             element: <ViewReceivedOrders />,
+          },
+          {
+            path: "/branch-manager/incoming-orders",
+            exact: true,
+            element: <IncomingOrders />,
           },
           {
             path: "/branch-manager/add-new-order",
@@ -177,6 +196,11 @@ const ThemeRoutes = [
             path: "/branch-manager/track-order",
             exact: true,
             element: <TrackOrder />,
+          },
+          {
+            path: "/branch-manager/view-order-details/:orderId",
+            exact: true,
+            element: <ViewOrderDetailsView />,
           },
           {
             path: "/branch-manager/add-new-client",
@@ -312,7 +336,7 @@ const ThemeRoutes = [
       {
         path: "/client/", 
         element: (
-          <FullLayout sidebarNavigation={SidebarRoutes.transportAgentRoutes} /> // Change side bar router here - Ashan
+          <FullLayout sidebarNavigation={SidebarRoutes.clientRoutes} /> // Change side bar router here - Ashan
         ),
         children: [
           {
@@ -323,6 +347,31 @@ const ThemeRoutes = [
             path: "/client/dashboard",
             exact: true,
             element: <ClientDashboard />,
+          },
+          {
+            path: "/client/my-orders",
+            exact: true,
+            element: <ClientMyOrders />,
+          },
+          {
+            path: "/client/track-order",
+            exact: true,
+            element: <ClientTrackOrder />,
+          },
+          {
+            path: "/client/view-order-details/:orderId",
+            exact: true,
+            element: <ViewOrderDetails />,
+          },
+          {
+            path: "/client/add-ticket",
+            exact: true,
+            element: <ClientAddTicketView />,
+          },
+          {
+            path: "/client/view-my-tickets",
+            exact: true,
+            element: <ClientViewTickets />,
           },
         ],
       },

@@ -35,9 +35,14 @@ SidebarRoutes.branchManagerRoutes = [
           icon: "bi bi-plus",
         },
         {
-          title: "All Orders",
+          title: "Outgoing Orders",
           href: BranchManagerRoutes.viewOrders,
           icon: "bi bi-inbox",
+        },
+        {
+          title: "Incoming Orders",
+          href: BranchManagerRoutes.incomingOrders,
+          icon: "bi bi-box-arrow-in-down-right",
         },
         {
           title: "Received Orders",
@@ -99,47 +104,47 @@ SidebarRoutes.branchManagerRoutes = [
         },
       ],
     },
-    {
-      title: "Components",
-      icon: "bi bi-layers",
-      subItems: [
-        {
-          title: "Badges",
-          href: "/branch-manager/badges",
-          icon: "bi bi-patch-check",
-        },
-        {
-          title: "Buttons",
-          href: "/branch-manager/buttons",
-          icon: "bi bi-hdd-stack",
-        },
-        {
-          title: "Cards",
-          href: "/branch-manager/cards",
-          icon: "bi bi-card-text",
-        },
-        {
-          title: "Grid",
-          href: "/branch-manager/grid",
-          icon: "bi bi-columns",
-        },
-        {
-          title: "Table",
-          href: "/branch-manager/table",
-          icon: "bi bi-layout-split",
-        },
-        {
-          title: "Forms",
-          href: "/branch-manager/forms",
-          icon: "bi bi-textarea-resize",
-        },
-        {
-          title: "Breadcrumbs",
-          href: "/branch-manager/breadcrumbs",
-          icon: "bi bi-link",
-        },
-      ],
-    },
+    // {
+    //   title: "Components",
+    //   icon: "bi bi-layers",
+    //   subItems: [
+    //     {
+    //       title: "Badges",
+    //       href: "/branch-manager/badges",
+    //       icon: "bi bi-patch-check",
+    //     },
+    //     {
+    //       title: "Buttons",
+    //       href: "/branch-manager/buttons",
+    //       icon: "bi bi-hdd-stack",
+    //     },
+    //     {
+    //       title: "Cards",
+    //       href: "/branch-manager/cards",
+    //       icon: "bi bi-card-text",
+    //     },
+    //     {
+    //       title: "Grid",
+    //       href: "/branch-manager/grid",
+    //       icon: "bi bi-columns",
+    //     },
+    //     {
+    //       title: "Table",
+    //       href: "/branch-manager/table",
+    //       icon: "bi bi-layout-split",
+    //     },
+    //     {
+    //       title: "Forms",
+    //       href: "/branch-manager/forms",
+    //       icon: "bi bi-textarea-resize",
+    //     },
+    //     {
+    //       title: "Breadcrumbs",
+    //       href: "/branch-manager/breadcrumbs",
+    //       icon: "bi bi-link",
+    //     },
+    //   ],
+    // },
   ];
 
 // Delivery Person
@@ -245,12 +250,12 @@ SidebarRoutes.clientRoutes = [
     subItems: [
       {
         title: "View My Orders",
-        href: "#",
+        href: ClientRoutes.myOrders,
         icon: "bi bi-box",
       },
       {
         title: "Track Order",
-        href: "#",
+        href: ClientRoutes.trackOrder,
         icon: "bi bi-box",
       },
     ],
@@ -278,12 +283,12 @@ SidebarRoutes.clientRoutes = [
       {
         title: "New Ticket",
         icon: "bi bi-ticket",
-        href: "#",
+        href: ClientRoutes.addTicket,
       },
       {
         title: "View My Tickets",
         icon: "bi bi-ticket",
-        href: "#",
+        href: ClientRoutes.viewMyTickets,
       },
     ],
   },

@@ -15,32 +15,18 @@ import {
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BranchManagerRoutes } from "../../../routes/all_user.routes.js";
+import { ClientRoutes } from "../../../routes/all_user.routes.js";
 import validator from "../../../validation/validation.js";
-import BranchManagerController from "../controllers/user.controller.js";
+import DropdownOption from "../../../components/common/DropdownOption.jsx";
+import UserController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
-import { Rating } from 'react-simple-star-rating'
 
 
-const AddNewFeedback = () => {
-
-    // Start Rating
-    const [rating, setRating] = useState(0)
-
-    // Catch Rating value
-    const handleRating = (rate) => {
-        setRating(rate)
-
-        // other logic
-    }
-    // Optinal callback functions
-    const onPointerEnter = () => console.log('Enter')
-    const onPointerLeave = () => console.log('Leave')
-    const onPointerMove = (value, index) => console.log(value, index)
+const AddNewTicket = () => {
 
     // Alert
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-    const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(BranchManagerRoutes.dashboard); }
+    const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(ClientRoutes.dashboard); }
 
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const hideErrorDialog = () => setShowErrorDialog(false);
@@ -61,13 +47,33 @@ const AddNewFeedback = () => {
     // Create object for use navigator
     const navigate = useNavigate();
 
-    // Map variable
-    const [inputData, setInputData] = useState({
-        nic: "",
-        message: "",
-    })
+    // Dropdown state variables
+    let [branches, setBranches] = useState([]);
+    let [reasons, setReasons] = useState([]);
 
     useEffect(() => {
+        //Fetch branches to fill dropdown
+        async function fetchAllBranches() {
+            let response = await UserController.getAllBranches();
+            if (response.error) {
+                alert(response.error);
+            }
+            else {
+                setBranches(response.data);
+            }
+        }
+
+        // Fetch reasons to fill dropdown
+        async function fetchAllReasons() {
+            let response = await UserController.getAllReasons();
+            if (response.error) {
+                alert(response.error);
+            }
+            else {
+                setReasons(response.data);
+            }
+        }
+
         // get user branch with cookies
         let userNic = getCookie('user-nic');
 
@@ -75,11 +81,23 @@ const AddNewFeedback = () => {
         setInputData((prev) => {
             return { ...prev, nic: userNic }
         });
+
+        fetchAllBranches();
+        fetchAllReasons();
     }, []);
+
+    // Map variable
+    const [inputData, setInputData] = useState({
+        nic: "",
+        branchId: "1",
+        reasonId: "1",
+        message: "",
+        responseStatusId: "1",
+    })
 
     // Validation data map
     const [validations, setValidations] = useState({
-        rating: false,
+        nic: false,
         message: false,
     });
 
@@ -128,14 +146,19 @@ const AddNewFeedback = () => {
 
         const {
             nic,
-            message
+            branchId,
+            reasonId,
+            message,
+            responseStatusId
         } = inputData;
 
         try {
-            const res = await BranchManagerController.addFeedback(
+            const res = await UserController.addTicket(
                 nic,
-                rating,
-                message
+                branchId,
+                reasonId,
+                message,
+                responseStatusId
             );
 
             // Error handling
@@ -159,14 +182,14 @@ const AddNewFeedback = () => {
 
     return (
         <Form>
-            <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Feedback Submitted Successfully!</Alert>
+            <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Ticket Submitted Successfully!</Alert>
             <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> Something Went Wrong! </Alert>
             <Row className="justify-content-center">
                 <Col className="col-md-8">
                     <Card>
                         <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                            <i className="bi bi-star me-2"> </i>
-                            Add a New Feedback
+                            <i className="bi bi-envelope-plus me-2"> </i>
+                            Add a New Ticket
                         </CardTitle>
                         <CardBody>
                             <FormGroup>
@@ -178,36 +201,54 @@ const AddNewFeedback = () => {
                                     type="text"
                                     value={inputData.nic}
                                     onChange={onChange}
-                                    disabled={true}
-                                />
+                                    disabled={true}     
+                                    required = {true}                           />
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="rating">Rating</Label><br></br>
-                                {/* <Input
-                                    id="rating"
-                                    name="rating"
+                                <Label for="branchId">Select the Branch</Label>
+                                <Input
+                                    id="branchId"
+                                    name="branchId"
                                     type="select"
-                                    value={inputData.rating}
                                     onChange={onChange}
+                                    value={inputData.branchId}
                                     required = {true}
                                 >
-                                    <option value={1}> 1 </option>
-                                    <option value={2}> 2 </option>
-                                    <option value={3}> 3 </option>
-                                    <option value={4}> 4 </option>
-                                    <option value={5}> 5 </option>
-                                
-                                </Input> */}
-                                <Rating
-                                    onClick={handleRating}
-                                    onPointerEnter={onPointerEnter}
-                                    onPointerLeave={onPointerLeave}
-                                    onPointerMove={onPointerMove}
-                                    showTooltip={true}
-                                    tooltipArray={['Very Bad', 'Bad', 'Ok', 'Good', 'Very Good']}
-                                /* Available Props */
-                                />
+                                    {branches.map((branch) => {
+                                        return (
+                                            <DropdownOption
+                                                key={branch.branchId}
+                                                id={branch.branchId}
+                                                value={branch.district}
+                                                onChange={onChange}
+                                            />
+                                        );
+                                    })}
+                                </Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="reasonId">Select the reason</Label>
+                                <Input
+                                    id="reasonId"
+                                    name="reasonId"
+                                    type="select"
+                                    onChange={onChange}
+                                    value={inputData.reasonId}
+                                    required = {true}
+                                >
+                                    {reasons.map((reason) => {
+                                        return (
+                                            <DropdownOption
+                                                key={reason.reasonId}
+                                                id={reason.reasonId}
+                                                value={reason.reason}
+                                                onChange={onChange}
+                                            />
+                                        );
+                                    })}
+                                </Input>
                             </FormGroup>
 
                             <FormGroup>
@@ -219,15 +260,12 @@ const AddNewFeedback = () => {
                                     type="textarea"
                                     value={inputData.message}
                                     onChange={onChange}
-                                    invalid={validations.message}
-                                    required={true}
-                                />
-                                <FormFeedback>Enter a feedback message body</FormFeedback>
+                                    invalid = {validations.message}
+                                    required = {true}                              />
+                                <FormFeedback>Enter a ticket message body   </FormFeedback>
                             </FormGroup>
 
-
-
-                            <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Submit the Feedback</Button>
+                            <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Open The Ticket</Button>
                             <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
 
                         </CardBody>
@@ -239,5 +277,5 @@ const AddNewFeedback = () => {
 };
 
 
-export default AddNewFeedback;
+export default AddNewTicket;
 

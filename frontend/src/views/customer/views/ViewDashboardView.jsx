@@ -62,7 +62,7 @@ const Dashboard = () => {
           <DashboardFeeds />
         </Col>
         <Col lg="8">
-          <DashboardOrdersTable />
+          {/* <DashboardOrdersTable /> */}
         </Col>
       </Row>
     </div>

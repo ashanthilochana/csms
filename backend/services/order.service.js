@@ -67,7 +67,64 @@ OrderService.getLatestOrderByBranch = async(sendingBranchId) => {
     }
 };
 
-/////////////////////////////////////// Get all received orders to received order tables by branchId ////////////////////////////////////////////////
+
+/////////////////////////////////////// Update an order by orderID ////////////////////////////////////////////////
+
+OrderService.updateOrder = async(
+    orderId,
+    weight,
+    sendingDate,
+    paymentDate,
+    packageTypes,
+    sendingBranch,
+    receivingBranch,
+    specialNotes,
+    orderStatus,
+    sender,
+    receiver,
+    contactNumber,
+    address) => {
+
+    let query = `
+    UPDATE orders
+    SET weight = ?,
+    registeredDate = ?,
+    paymentDate = ?,
+    receiverName = ?,
+    receiverAddress = ?,
+    receiverContactNumber = ?,
+    packageTypeId = ?,
+    senderNic = ?,
+    statusId = ?,
+    sendingBranchId = ?,
+    receivingBranchId = ?,
+    specialNote = ?
+    WHERE orderId = ?
+    `;
+    try {
+        await pool.query(query, [
+            weight,
+            sendingDate,
+            paymentDate,
+            receiver,
+            address,
+            contactNumber,
+            packageTypes,
+            sender,
+            orderStatus,
+            sendingBranch,
+            receivingBranch,
+            specialNotes,
+            orderId
+        ]);
+
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+/////////////////////////////////////// Get all sending orders to received order tables by branchId ////////////////////////////////////////////////
 
 
 OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
@@ -94,17 +151,29 @@ OrderService.getAllOrdersByBranch = async(sendingBranchId) => {
     }
 };
 
-/////////////////////////////////////// Get an order details by OrderId ////////////////////////////////////////////////
+/////////////////////////////////////// Get all received orders to received order tables by branchId ////////////////////////////////////////////////
 
-OrderService.getSingleOrderDetails = async(orderId) => {
+OrderService.getAllReceivedOrdersByBranch = async(branchId) => {
     let query = `
-    SELECT o.orderId, o.weight, o.registeredDate, o.receivedDate, o.deliveryDate, o.paymentDate, o.receiverName, o.receiverAddress, o.receiverContactNumber, pt.packageType, c.nic AS senderNic, c.fullName AS senderName, os.status, bs.district AS sendingBranch, br.district AS receivingBranch
-    FROM orders o, packagetype pt, client c, orderstatus os, branch bs, branch br
-    WHERE o.packageTypeId = pt.packageTypeId AND o.senderNic = c.nic AND o.statusId = os.statusId
-    AND o.sendingBranchId = bs.branchId AND o.receivingBranchId = br.branchId AND orderId = ?
+    SELECT o.orderId, o.receiverName, o.receiverAddress, o.receiverContactNumber, os.status
+    FROM orders o, orderstatus os
+    WHERE os.statusId = o.statusId AND o.receivingBranchId = ? AND o.statusId != 1
     `;
     try{
-        const [rows] = await pool.query(query, [orderId]);
+        let [rows] = await pool.query(query, [branchId]);
+        return rows;
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Get an order details by OrderId ////////////////////////////////////////////////
+
+OrderService.getOrderDetailsByOrderId = async(orderId) => {
+    let query = `SELECT * FROM orders WHERE orderId = ?`;
+    try{
+        let [rows] = await pool.query(query, [orderId]);
         return rows;
     } catch(e) {
         console.error(e);
@@ -175,6 +244,8 @@ OrderService.getAllOrderStatus = async () => {
     }
 };
 
+/////////////////////////////////////// Get courier fee ////////////////////////////////////////////////
+
 OrderService.getOrderFee = async (packageWeight, packageTypeId) => {
     let query = `CALL getCourierFee(?,?)`;
     try {
@@ -183,6 +254,181 @@ OrderService.getOrderFee = async (packageWeight, packageTypeId) => {
     } catch (error) {
         console.error(error);
         throw error;
+    }
+}
+
+
+/////////////////////////////////////// Assign delivery person to an order ////////////////////////////////////////////////
+
+OrderService.assignDeliveryPerson = async(orderId, nic) => {
+
+    let deleteQuery = `
+    DELETE FROM orderdelivery
+    WHERE orderId = ?
+    `;
+   
+
+    let query = `
+    INSERT INTO orderdelivery(orderId, deliveryPersonNic)
+    VALUES(?, ?)
+    `;
+
+    try {
+        await pool.query(deleteQuery, [orderId]);
+        await pool.query(query, [orderId, nic]);
+
+        // if delivery person added successfully this order status update to Assigned status
+        
+        let query2 = `
+        UPDATE orders
+        SET statusId = 7
+        WHERE orderId = ?
+        `;
+
+        await pool.query(query2, [orderId]);
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+/////////////////////////////////////// Get all incoming orders by branch Id ////////////////////////////////////////////////
+
+OrderService.getAllIncomingOrdersByBranchId = async(branchId) => {
+    let query = `
+    SELECT o.orderId, o.registeredDate, b.district as sendingBranch, os.status
+    FROM orders o, branch b, orderstatus os
+    WHERE o.sendingBranchId = b.branchId AND os.statusId = o.statusId AND o.receivingBranchId = ? AND o.statusId = 1
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [branchId]);
+        return rows;
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Update order status by orderId ////////////////////////////////////////////////
+
+OrderService.updateOrderStatus = async(orderId, status) => {
+    let query = `
+    UPDATE orders
+    SET statusId = ?
+    WHERE orderId = ?
+    `;
+
+    try {
+        await pool.query(query, [status, orderId]);
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Get received orders by status ////////////////////////////////////////////////
+
+OrderService.getReceivedOrdersByStatus = async(branchId, status) => {
+    let query = `
+    SELECT o.orderId, o.registeredDate, c.fullName as sender, os.status
+    FROM orders o, client c, orderstatus os
+    WHERE o.senderNic = c.nic AND os.statusId = o.statusId AND o.receivingBranchId = ? AND o.statusId = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [branchId, status]);
+        return rows;
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Get order view details by order Id ////////////////////////////////////////////////
+
+OrderService.getOrderViewDetailsByOrderId = async(orderId) => {
+    let query = `
+    SELECT o.orderId, os.status, c1.fullName as senderName, c1.nic as senderNic, o.receiverName, o.receiverAddress, o.receiverContactNumber, o.weight, pt.packageType, o.specialNote, b1.district as sendingBranch, b2.district as receivingBranch, o.registeredDate, o.paymentDate, o.deliveryDate, o.receivedDate
+    FROM orders o
+    JOIN client c1 ON o.senderNic = c1.nic
+    JOIN branch b1 ON o.sendingBranchId = b1.branchId
+    JOIN branch b2 ON o.receivingBranchId = b2.branchId
+    JOIN packagetype pt ON o.packageTypeId = pt.packageTypeId
+    JOIN orderstatus os ON os.statusId = o.statusId
+    WHERE o.orderId = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [orderId]);
+        return rows[0];
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+OrderService.checkOrderExistingStatus = async(orderId) => {
+    let query = `
+    SELECT * FROM orders WHERE orderId = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [orderId]);
+        
+        // if order exist return true else return false
+        if(rows.length > 0) {
+            return true;
+        } else {
+            return false;
+        } 
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Delete Order By Order Id ////////////////////////////////////////////////
+
+OrderService.deleteOrder = async(orderId) => {
+    let query = `
+    DELETE FROM orders
+    WHERE orderId = ?
+    `;
+
+    try {
+        const res = await pool.query(query, [orderId]);
+        return res;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Get all available orders by user NIC ////////////////////////////////////////////////
+
+OrderService.getAllAvailableOrdersByUserNic = async(nic) => {
+    let query = `
+    SELECT o.orderId, os.status, c1.fullName as senderName, c1.nic as senderNic, o.receiverName, o.receiverAddress, o.receiverContactNumber, o.weight, pt.packageType, o.specialNote, b1.district as sendingBranch, b2.district as receivingBranch, o.registeredDate, o.paymentDate, o.deliveryDate, o.receivedDate
+    FROM orders o
+    JOIN client c1 ON o.senderNic = c1.nic
+    JOIN branch b1 ON o.sendingBranchId = b1.branchId
+    JOIN branch b2 ON o.receivingBranchId = b2.branchId
+    JOIN packagetype pt ON o.packageTypeId = pt.packageTypeId
+    JOIN orderstatus os ON os.statusId = o.statusId
+    WHERE o.senderNic = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [nic]);
+        return rows;
+    } catch(e) {
+        console.error(e);
+        throw e;
     }
 }
 

@@ -44,7 +44,7 @@ const TrackOrderView = () => {
             const response = await UserController.checkOrderExistingStatus(orderIdPassed);
 
             if (response.data == true) {
-                navigate(`/branch-manager/view-order-details/${orderIdPassed}`);
+                navigate(`/client/view-order-details/${orderIdPassed}`);
             }
             else {
                 setTimeout(() => {

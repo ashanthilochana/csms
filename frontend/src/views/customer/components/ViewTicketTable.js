@@ -44,9 +44,10 @@ const ViewTicketTable = () => {
 
   // close ticket
   const closeTicket = async (ticketId) => {
+
     try {
       const response = await UserController.ticketStatusUpdate(ticketId, 3);
-      console.log(response.data);
+      console.log("close res", response.data);
       fetchTickets();
     } catch (error) {
       console.error("Error: ", error);
@@ -67,8 +68,8 @@ const ViewTicketTable = () => {
   // fetch tickets from the backend
   const fetchTickets = async () => {
     try {
-      const branchId = getCookie("user-branch-id");
-      const response = await UserController.getAllTicketsByBranchId(branchId);
+      const userNic = getCookie("user-nic");
+      const response = await UserController.getAllTicketsByUserNic(userNic);
       console.log(response.data);
       setTickets(response.data);
     } catch (error) {
@@ -144,7 +145,7 @@ const ViewTicketTable = () => {
                     onClick={() =>{
                       setSelectedTicket(tdata);
                       toggleEditModal();
-                    }}>Reply</Button>
+                    }}>View</Button>
                     <Button  className="btn" color="danger" size="sm" onClick={() => {
                       closeTicket(tdata.ticketId);
                     }}>Close</Button>
@@ -166,27 +167,12 @@ const ViewTicketTable = () => {
           <p><b>Reason: </b>{selectedTicket.reason}</p>
           <p><b>Response Status:</b> {selectedTicket.responseStatus}</p>
           <p><b>Ticket Message: </b>{selectedTicket.message}</p>
-
-          <Form>
-              <FormGroup>
-                <Input
-                  id="replyToTheTicket"
-                  name="replyToTheTicket"
-                  placeholder="Enter your reply"
-                  type="textarea"
-                  value={selectedTicket.responseMessage}
-                  onChange={handleTicketReplyChange}
-                  required = {true}
-                />
-                <FormFeedback>Enter a valid contact number</FormFeedback>
-              </FormGroup>
-          </Form>
+          <FormGroup>
+            <p><b>Response Message</b></p>
+            <Input readOnly type="textarea" name="responseMessage" id="responseMessage" placeholder="No Message Yet" value={selectedTicket.responseMessage} onChange={handleTicketReplyChange}/>
+          </FormGroup>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => {
-            updateTicketReply();
-            toggleEditModal();
-            }}>Reply</Button>
           <Button color="danger" onClick={() => {
             deleteTicket(selectedTicket.ticketId);
             toggleEditModal();

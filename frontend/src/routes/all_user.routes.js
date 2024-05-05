@@ -21,6 +21,8 @@ BranchManagerRoutes.viewTicket = "/branch-manager/view-ticket";
 BranchManagerRoutes.addFeedback = "/branch-manager/add-feedback";
 BranchManagerRoutes.viewFeedback = "/branch-manager/view-feedback";
 BranchManagerRoutes.trackOrder = "/branch-manager/track-order";
+BranchManagerRoutes.incomingOrders = "/branch-manager/incoming-orders";
+BranchManagerRoutes.addRoute = "/branch-manager/view-order-details";
 
 // Declare Delivery Person routes
 DeliveryPersonRoutes.main = "/delivery-person";
@@ -47,6 +49,10 @@ TransportAgentRoutes.viewMyRoute = "/transport-agent/view-my-route";
 // Declare Client routes
 ClientRoutes.main = "/client";
 ClientRoutes.dashboard = "/client/dashboard";
+ClientRoutes.myOrders = "/client/my-orders";
+ClientRoutes.trackOrder = "/client/track-order";
+ClientRoutes.addTicket = "/client/add-ticket";
+ClientRoutes.viewMyTickets = "/client/view-my-tickets";
 
 // Export high level variables
 export {BranchManagerRoutes, DeliveryPersonRoutes, ManagerRoutes, TransportAgentRoutes, ClientRoutes};
