@@ -224,6 +224,24 @@ UserController.addBranch = async (district, address, mapLocation, contactNumber)
   }
 };
 
+/////////////////////////////////////// Get All Branches ////////////////////////////////////////////////
+
+UserController.getAllBranches = async () => {
+  try {
+    let response = await UserService.getAllBranches();
+
+    if (response.error) {
+      return { error: response.error };
+    }
+
+    else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
 /////////////////////////////////////// Get all routes ////////////////////////////////////////////////
 
 UserController.getAllRoutes = async () => {
@@ -371,6 +389,86 @@ UserController.addTicket = async (
     return { error: e };
   }
 };
+
+/////////////////////////////////////// Update ticket reply ////////////////////////////////////////////////
+
+UserController.updateTicketReply = async (ticketId, replyMessage) => {
+  let reqBody = {
+    ticketId,
+    replyMessage
+  };
+
+  try {
+    let response = await UserService.updateTicketReply(reqBody);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Ticket Reply Updated Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
+
+/////////////////////////////////////// Update ticket status ////////////////////////////////////////////////
+
+UserController.ticketStatusUpdate = async (ticketId, statusId) => {
+  try {
+    let response = await UserService.ticketStatusUpdate(ticketId, statusId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Ticket Status Updated Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Delete ticket ////////////////////////////////////////////////
+
+UserController.deleteTicket = async (ticketId) => {
+  try {
+    let response = await UserService.deleteTicket(ticketId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { message: "Ticket Deleted Successfully" };
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Get all tickets by branch ID //////////////////////////////////////////////// 
+
+UserController.getAllTicketsByUserNic = async (userNic) => {
+  try {
+    let response = await UserService.getAllTicketsByUserNic(userNic);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Get all ticket reasons ////////////////////////////////////////////////
+
+UserController.getAllReasons = async () => {
+  try {
+    let response = await UserService.getAllReasons();
+
+    if (response.error) {
+      return { error: response.error };
+    }
+    else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
 
 /////////////////////////////////////// Add a ticket ////////////////////////////////////////////////
 

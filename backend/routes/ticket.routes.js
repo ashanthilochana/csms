@@ -43,4 +43,9 @@ router.route("/api/delete-ticket/:id").delete(
     TicketController.deleteTicket
 )
 
+router.route("/api/tickets-by-nic/:nic").get(
+    // verifyAuthentication,
+    TicketController.getTicketsByNic
+)
+
 export {router};

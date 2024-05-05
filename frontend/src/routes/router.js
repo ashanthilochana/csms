@@ -54,6 +54,8 @@ const ClientDashboard = lazy(() => import("../views/customer/views/ViewDashboard
 const ClientMyOrders = lazy(() => import("../views/customer/views/ViewOrdersView.jsx"));
 const ClientTrackOrder = lazy(() => import("../views/customer/views/TrackOrderView.jsx"));
 const ViewOrderDetails = lazy(() => import("../views/customer/views/ViewOrderDetails.jsx"));
+const ClientAddTicketView = lazy(() => import("../views/customer/views/AddTicketView.jsx"));
+const ClientViewTickets = lazy(() => import("../views/customer/views/ViewTicketView.jsx"));
 
 const Starter = lazy(() => import("../views/ui/Starter.js"));
 const About = lazy(() => import("../views/ui/About.js"));
@@ -360,6 +362,16 @@ const ThemeRoutes = [
             path: "/client/view-order-details/:orderId",
             exact: true,
             element: <ViewOrderDetails />,
+          },
+          {
+            path: "/client/add-ticket",
+            exact: true,
+            element: <ClientAddTicketView />,
+          },
+          {
+            path: "/client/view-my-tickets",
+            exact: true,
+            element: <ClientViewTickets />,
           },
         ],
       },

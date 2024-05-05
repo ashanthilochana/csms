@@ -155,4 +155,22 @@ TicketService.deleteTicket = async (ticketId) => {
     }
 }
 
+// Get tickets by NIC
+
+TicketService.getTicketsByNic = async (nic) => {
+    let query = `
+    SELECT t.ticketId, t.clientNic, r.reason, t.message, s.responseStatus, t.responseMessage
+    FROM supportTicket t, supportTicketReasons r, supportResponseStatus s
+    WHERE t.clientNic = ? AND t.reasonId = r.reasonId AND t.responseStatusId = s.responseStatusId
+    `;
+
+    try {
+        const [rows] = await pool.query(query, [nic]);
+        return rows;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
 export default TicketService;

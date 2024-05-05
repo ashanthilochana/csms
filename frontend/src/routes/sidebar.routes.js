@@ -283,12 +283,12 @@ SidebarRoutes.clientRoutes = [
       {
         title: "New Ticket",
         icon: "bi bi-ticket",
-        href: "#",
+        href: ClientRoutes.addTicket,
       },
       {
         title: "View My Tickets",
         icon: "bi bi-ticket",
-        href: "#",
+        href: ClientRoutes.viewMyTickets,
       },
     ],
   },

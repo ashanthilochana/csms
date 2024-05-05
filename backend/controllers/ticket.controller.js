@@ -135,4 +135,21 @@ TicketController.deleteTicket = async (req, res) => {
     }
 }
 
+// Get tickets by NIC
+
+TicketController.getTicketsByNic = async (req, res) => {
+    try {
+        const {
+            nic
+        } = req.params;
+
+        let data = await TicketService.getTicketsByNic(nic);
+        res.status(200).send(data);
+
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
 export default TicketController;

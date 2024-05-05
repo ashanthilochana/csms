@@ -24,12 +24,12 @@ const ViewOrderTable = () => {
       let data = await UserController.getAllAvailableOrdersByUserNic(userNic);
       
       // formate all dates with formatDate function
-      data.forEach((order) => {
-        order.registeredDate = formatDate(order.registeredDate);
-        order.paymentDate = formatDate(order.paymentDate);
-        order.deliveryDate = formatDate(order.deliveryDate);
-        order.receivedDate = formatDate(order.receivedDate);
-      });
+      // data.forEach((order) => {
+      //   order.registeredDate = formatDate(order.registeredDate);
+      //   order.paymentDate = formatDate(order.paymentDate);
+      //   order.deliveryDate = formatDate(order.deliveryDate);
+      //   order.receivedDate = formatDate(order.receivedDate);
+      // });
 
       setOrders(data);
 
