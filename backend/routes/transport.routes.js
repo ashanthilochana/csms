@@ -14,4 +14,16 @@ router.route("/api/transport-agent").get(
     TransportAgentController.getAllTransportAgents
 )
 
+// update transport agent by nic
+router.route("/api/update-transport-agent").put(
+    // verifyAuthentication,
+    TransportAgentController.updateTransportAgent
+)
+
+// delete transport agent by nic
+router.route("/api/delete-transport-agent/:nic").delete(
+    verifyAuthentication,
+    TransportAgentController.deleteTransportAgent
+)
+
 export {router};

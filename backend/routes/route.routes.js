@@ -10,7 +10,7 @@ router.route("/api/add-route").post(
 )
 
 router.route("/api/routes").get(
-    verifyAuthentication,
+    // verifyAuthentication,
     RouteController.getAllRoutes
 )
 

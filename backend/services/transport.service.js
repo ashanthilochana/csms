@@ -64,7 +64,7 @@ TransportAgentService.addTransportAgent = async (
 
 TransportAgentService.getAllTransportAgents = async() => {
     let query = `
-    SELECT t.nic, t.email, t.fullName, t.vehicleNumber, r.routeName 
+    SELECT t.nic, t.email, t.fullName, t.vehicleNumber, t.routeId, r.routeName 
     FROM transportAgent t, route r
     WHERE t.routeId = r.routeId
     `;
@@ -77,5 +77,41 @@ TransportAgentService.getAllTransportAgents = async() => {
         throw e;
     }
 };
+
+// Update transport agent
+
+TransportAgentService.updateTransportAgent = async (nic, email, fullName, vehicleNumber, routeId) => {
+
+    let query = `
+    UPDATE transportAgent
+    SET email = ?, fullName = ?, vehicleNumber = ?, routeId = ?
+    WHERE nic = ?
+    `;
+
+    try {
+        await pool.query(query, [email, fullName, vehicleNumber, routeId, nic]);
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+// Delete transport agent
+
+TransportAgentService.deleteTransportAgent = async (nic) => {
+    let query = `
+    DELETE FROM transportAgent
+    WHERE nic = ?
+    `;
+
+    try {
+        await pool.query(query, [nic]);
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
 
 export default TransportAgentService;

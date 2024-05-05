@@ -103,7 +103,7 @@ UserService.getAllRoutes = async () => {
     } else if (response.data.error) {
       return { error: response.data.error };
     } else {
-      return { data: response.data };
+      return response.data;
     }
   } catch (e) {
     console.error(e);
@@ -158,7 +158,7 @@ UserService.getAllTransportAgents = async()=>{
     } else if (response.data.error) {
       return { error: response.data.error };
     } else {
-      return { data: response.data };
+      return response.data;
     }
 
   }catch(e){
@@ -459,5 +459,77 @@ UserService.getAllBranches = async () => {
     throw e;
   }
 };
+
+// update branch
+
+UserService.updateBranch = async (branchId, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-branch/${branchId}`, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// delete branch
+
+UserService.deleteBranch = async (branchId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-branch/${branchId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// update transport agent
+
+UserService.updateTransportAgent = async (reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-transport-agent`, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// delete transport agent
+
+UserService.deleteTransportAgent = async (nic) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-transport-agent/${nic}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
 
 export default UserService;
