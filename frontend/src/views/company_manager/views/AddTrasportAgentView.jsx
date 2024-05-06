@@ -52,7 +52,7 @@ const AddTransportAgent = () => {
                 alert(response.error);
             }
             else {
-                setRoutes(response.data);
+                setRoutes(response);
             }
         }
 

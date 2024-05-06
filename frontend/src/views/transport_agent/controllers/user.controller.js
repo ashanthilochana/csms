@@ -383,4 +383,20 @@ UserController.getCourierFee = async (
   }
 };
 
+// get order by transport agent nic
+
+UserController.getOrdersByTransportAgentNic = async (nic) => {
+  try {
+    let response = await UserService.getOrdersByTransportAgentNic(nic);
+
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
 export default UserController;

@@ -12,45 +12,17 @@ import React, { useState, useEffect } from "react";
 import UserController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
 
-const tableData = [
-  {
-    order_id: "0001",
-    orderDate:"2024/04/17",
-    sendingBranch:"Colombo",
-    receivingBranch: "Kandy",
-    
-  },
-
-  {
-    order_id: "0001",
-    orderDate:"2024/04/17",
-    sendingBranch:"Colombo",
-    receivingBranch: "Kandy",
-  
-  },
-
-  {
-    order_id: "0001",
-    orderDate:"2024/04/17",
-    sendingBranch:"Colombo",
-    receivingBranch: "Kandy",
-    
-  },
-
-];
 
 const ViewOrderTable = () => {
-  let [getCookie, setCookie] = useCookie();
-  let [orders, setOrders] = useState([]);
+  
+  const [tableData, setTableData] = useState([]);
+  const [setCookie, getCookie] = useCookie();
 
   useEffect(() => {
-    async function getOrders() {
-      let branchId = getCookie("user-branch-id");
-      let data = await UserController.getAllOrdersByBranchId(branchId);
-      setOrders(data);
-    }
-
-    getOrders();
+    const nic = getCookie("user-nic");
+    UserController.getOrdersByTransportAgentNic(nic).then((res) => {
+      setTableData(res);
+    });
   }, []);
 
   function formatDate(dateString) {
@@ -77,7 +49,6 @@ const ViewOrderTable = () => {
               <th>Order Date</th>
               <th>Sending Branch</th>
               <th>Receiving Branch</th>
-              
             </tr>
           </thead>
 
@@ -94,10 +65,7 @@ const ViewOrderTable = () => {
                 <td>{formatDate(tdata.orderDate)}</td>
                 <td>{tdata.sender}</td>
                 <td>{tdata.receiver}</td>
-                <td>{tdata.contactNo}</td>
-                <td>{tdata.address}</td>
-               
-                
+                <td>{tdata.contactNo}</td>               
                 
               </tr>
             ))}

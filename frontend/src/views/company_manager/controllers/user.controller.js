@@ -176,9 +176,9 @@ UserController.addBranch = async (district, address, mapLocation, contactNumber)
 
 /////////////////////////////////////// Get all routes ////////////////////////////////////////////////
 
-UserController.getAllRoutesForTable = async () => {
+UserController.getAllRoutes = async () => {
   try {
-    let response = await UserService.getAllRoutesForTable();
+    let response = await UserService.getAllRoutes();
 
     if (response.error) {
       return { error: response.error };
