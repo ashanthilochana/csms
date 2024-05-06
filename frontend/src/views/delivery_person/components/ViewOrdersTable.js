@@ -11,35 +11,37 @@ import {
 import React, { useState, useEffect } from "react";
 import UserController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
+import { useNavigate } from "react-router-dom";
 
 
 const ViewOrderTable = () => {
+
+  const navigate = useNavigate();
 
   const [tableData, setTableData] = useState([]);
   const [getCookie] = useCookie();
 
   // fetch orders by transport agent nic async function
   const fetchOrders = async () => {
-    let response = await UserController.getOrdersByTransportAgentNic(getCookie("user-nic"));
+    let response = await UserController.getOrdersByDeliveryPersonNic(getCookie("user-nic"));
 
     // filter response data orderStatus = "Registered" and "Received" only
-    response = response.filter((order) => order.status === "Registered" || order.status === "On Route");
+    response = response.filter((order) => order.status === "Assigned" || order.status === "Handed to Deliver");
 
     setTableData(response);
   };
 
   // update order status by order id async function
-  const updateOrderStatusPickedUp = async (orderId) => {
-    const response = await UserController.updateOrderStatus(orderId, "On Route");
+  const updateOrderStatusHanded = async (orderId) => {
+    const response = await UserController.updateOrderStatus(orderId, "Handed");
     fetchOrders();
   };
 
   // update order status by order id async function
-  const updateOrderStatusDroppedOff = async (orderId) => {
-    const response = await UserController.updateOrderStatus(orderId, "Received");
+  const updateOrderStatusComplete = async (orderId) => {
+    const response = await UserController.updateOrderStatus(orderId, "Delivered");
     fetchOrders();
   };
-
 
 
   function formatDate(dateString) {
@@ -70,10 +72,8 @@ const ViewOrderTable = () => {
               <tr>
                 <th>Order ID</th>
                 <th>Order Date</th>
-                <th style={{ "color": "green" }}>Sending Branch</th>
-                <th style={{ "color": "green" }}>Contact Number</th>
-                <th style={{ "color": "red" }}>Receiving Branch</th>
-                <th style={{ "color": "red" }}>Contact Number</th>
+                <th style={{ "color": "green" }}>Receiver Name</th>
+                <th style={{ "color": "green" }}>Address</th>
                 <th >Order Status</th>
                 <th className="d-flex justify-content-center">Action</th>
               </tr>
@@ -90,10 +90,8 @@ const ViewOrderTable = () => {
                     </div>
                   </td>
                   <td>{formatDate(tdata.registeredDate)}</td>
-                  <td>{tdata.sendingBranch}</td>
-                  <td>{tdata.sendingBranchContact}</td>
-                  <td>{tdata.receivingBranch}</td>
-                  <td >{tdata.receivingBranchContact}</td>
+                  <td>{tdata.receiverName}</td>
+                  <td>{tdata.receiverAddress}</td>
                   <td>
                     <div>
                       {tdata.status === "Delivered" ? (
@@ -112,13 +110,17 @@ const ViewOrderTable = () => {
                         <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">
                           Registered
                         </span>
-                      ) : tdata.status === "Handed to Delivery" ? (
-                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-success text-white d-inline-block">
+                      ) : tdata.status === "Handed to Deliver" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-warning text-white d-inline-block">
                           Handed
                         </span>
                       ) : tdata.status === "Returned" ? (
                         <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">
                           Returned
+                        </span>
+                      ) : tdata.status === "Assigned" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">
+                          To Deliver
                         </span>
                       ) : (
                         <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-black text-white d-inline-block">
@@ -129,20 +131,25 @@ const ViewOrderTable = () => {
                   </td>
 
                   <td className="d-flex justify-content-center">
-                    {
-                      tdata.status === "Registered" ? (
 
-                        <Button className="btn me-2" color="warning" size="sm"
+                  <Button className="btn me-2" color="primary" size="sm"
+                          onClick={() => navigate(`/delivery-person/view-order-details/${tdata.orderId}`) }
+                  >View</Button>
+
+                    {
+                      tdata.status === "Assigned" ? (
+
+                        <Button className="btn me-2" color="primary" size="sm"
                           onClick={
-                            () => { updateOrderStatusPickedUp(tdata.orderId) }
+                            () => { updateOrderStatusHanded(tdata.orderId) }
                           }>Picked Up</Button>
 
-                      ) : tdata.status === "On Route" ? (
+                      ) : tdata.status === "Handed to Deliver" ? (
 
-                        <Button className="btn me-2" color="danger" size="sm"
+                        <Button className="btn me-2" color="success" size="sm"
                           onClick={
-                            () => { updateOrderStatusDroppedOff(tdata.orderId) }
-                          }>Dropped Off</Button>
+                            () => { updateOrderStatusComplete(tdata.orderId) }
+                          }>Complete</Button>
                       ) : (
                         <Button className="btn me-2" color="success" size="sm" disabled>Done</Button>
                       )}

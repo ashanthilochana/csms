@@ -43,6 +43,7 @@ const UpdateOrder = lazy(() => import("../views/branch_manager/views/EditOrderVi
 // Import views - Delivery Person
 const DeliveryPersonDashboard = lazy(() => import("../views/delivery_person/views/ViewDashboardView.jsx"));
 const ViewDeliveryPersonOrder = lazy(() => import("../views/delivery_person/views/ViewOrderDetailsView.jsx"));
+const DpViewOrderDetails = lazy(() => import("../views/delivery_person/views/ViewOrderDetails.jsx"))
 
 // Import Views - Transport Agent
 const TransportAgentDashboard = lazy(() => import("../views/transport_agent/views/ViewDashboardView.jsx"))
@@ -292,6 +293,11 @@ const ThemeRoutes = [
             exact: true,
             element: <ViewDeliveryPersonOrder />,
           },
+          {
+            path: "/delivery-person/view-order-details/:orderId",
+            exact: true,
+            element: <DpViewOrderDetails />,
+          }
         ],
       },
     ],
