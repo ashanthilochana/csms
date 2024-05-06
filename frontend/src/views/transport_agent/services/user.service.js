@@ -505,4 +505,20 @@ UserService.getCourierFee = async (reqBody) => {
   }
 }
 
+// getOrdersByTransportAgentNic
+
+UserService.getOrdersByTransportAgentNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/orders-by-transport-agent-nic/${nic}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export default UserService;
