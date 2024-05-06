@@ -26,4 +26,10 @@ router.route("/api/delete-transport-agent/:nic").delete(
     TransportAgentController.deleteTransportAgent
 )
 
+// get orders by transport agent nic
+router.route("/api/orders-by-transport-agent/:nic").get(
+    // verifyAuthentication,
+    TransportAgentController.getOrdersByTransportAgentNic
+)
+
 export {router};
