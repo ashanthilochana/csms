@@ -16,15 +16,15 @@ import useCookie from "../../../hooks/useCookies.js";
 const ViewOrderTable = () => {
   
   const [tableData, setTableData] = useState([]);
-  const [setCookie, getCookie] = useCookie();
+  const [getCookie] = useCookie();
 
-  useEffect(() => {
-    const nic = getCookie("user-nic");
-    UserController.getOrdersByTransportAgentNic(nic).then((res) => {
-      setTableData(res);
-    });
-  }, []);
+  // fetch orders by transport agent nic async function
+  const fetchOrders = async () => {
+    const response = await UserController.getOrdersByTransportAgentNic(getCookie("user-nic"));
+    setTableData(response);
+  };
 
+ 
   function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -33,6 +33,12 @@ const ViewOrderTable = () => {
     
     return `${year}-${month}-${day}`;
   }
+
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
   return (
     <div>
     <Card>
@@ -47,8 +53,10 @@ const ViewOrderTable = () => {
             <tr>
               <th>Order ID</th>
               <th>Order Date</th>
-              <th>Sending Branch</th>
-              <th>Receiving Branch</th>
+              <th style={{"color": "green"}}>Sending Branch</th>
+              <th style={{"color": "green"}}>Contact Number</th>
+              <th style={{"color": "red"}}>Receiving Branch</th>
+              <th style={{"color": "red"}}>Contact Number</th>
             </tr>
           </thead>
 
@@ -58,14 +66,15 @@ const ViewOrderTable = () => {
                 <td>
                   <div className="d-flex align-items-center p-2">
                     <div className="ms-3">
-                      <h6 className="mb-0">{tdata.order_id}</h6>
+                      <h6 className="mb-0">{tdata.orderId}</h6>
                     </div>
                   </div>
                 </td>
-                <td>{formatDate(tdata.orderDate)}</td>
-                <td>{tdata.sender}</td>
-                <td>{tdata.receiver}</td>
-                <td>{tdata.contactNo}</td>               
+                <td>{formatDate(tdata.registeredDate)}</td>
+                <td>{tdata.sendingBranch}</td>
+                <td>{tdata.sendingBranchContact}</td>
+                <td>{tdata.receivingBranch}</td>
+                <td >{tdata.receivingBranchContact}</td>               
                 
               </tr>
             ))}

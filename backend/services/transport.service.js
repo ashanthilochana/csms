@@ -118,13 +118,26 @@ TransportAgentService.deleteTransportAgent = async (nic) => {
 
 TransportAgentService.getOrdersByTransportAgentNic = async (nic) => {
     let query = `
-    SELECT DISTINCT o.orderId, o.registeredDate, b1.district AS sendingBranch, b2.district AS receivingBranch, b1.contactNumber, b2.contactNumber
-    FROM orders o
-    JOIN route r ON (o.sendingBranchId = r.firstBranchId OR o.sendingBranchId = r.secondBranchId) AND (o.receivingBranchId = r.secondBranchId)
-    JOIN transportagent t ON t.routeId = r.routeId
-    JOIN branch b1 ON b1.branchId = o.sendingBranchId
-    JOIN branch b2 ON b2.branchId = o.receivingBranchId
-    WHERE t.nic = ?;
+    SELECT DISTINCT 
+    o.orderId, 
+    o.registeredDate, 
+    b1.district AS sendingBranch, 
+    b2.district AS receivingBranch, 
+    b1.contactNumber AS sendingBranchContact, 
+    b2.contactNumber AS receivingBranchContact
+    FROM 
+        orders o
+    JOIN 
+        route r ON (o.sendingBranchId = r.firstBranchId OR o.sendingBranchId = r.secondBranchId) AND (o.receivingBranchId = r.secondBranchId)
+    JOIN 
+        transportagent t ON t.routeId = r.routeId
+    JOIN 
+        branch b1 ON b1.branchId = r.firstBranchId -- Use firstBranchId for sending branch
+    JOIN 
+        branch b2 ON b2.branchId = r.secondBranchId -- Use secondBranchId for receiving branch
+    WHERE 
+        t.nic = 200124353533;
+
     `;
 
     try {
