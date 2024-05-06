@@ -522,4 +522,21 @@ UserService.getOrdersByTransportAgentNic = async (nic) => {
   }
 }
 
+// getBranchesByTransportAgentNic
+
+UserService.getBranchesByTransportAgentNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`api/branches-by-transport-agent-nic/${nic}`);
+    
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export default UserService;

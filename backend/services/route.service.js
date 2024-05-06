@@ -131,4 +131,23 @@ RouteService.deleteRoute = async (routeId) => {
     }
 }
 
+/////////////////////////////////////// Get branches by transport agent NIC ////////////////////////////////////////////////
+
+RouteService.getBranchesByTransportAgentNic = async (nic) => {
+    let query = `
+    SELECT b1.district AS firstBranch, b2.district AS secondBranch
+    FROM transportagent t, route r, branch b1, branch b2
+    WHERE t.nic = ? AND t.routeId = r.routeId AND r.firstBranchId = b1.branchId AND r.secondBranchId = b2.branchId
+    `;
+
+    try {
+        let [rows] = await pool.query(query, [nic]);
+        return rows[0];
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
 export default RouteService;

@@ -95,4 +95,16 @@ RouteController.deleteRoute = async (req, res) => {
     }
 }
 
+/////////////////////////////////////// Get branches by transport agent NIC ////////////////////////////////////////////////
+
+RouteController.getBranchesByTransportAgentNic = async (req, res) => {
+    try {
+        const nic = req.params.nic;
+        let data = await RouteService.getBranchesByTransportAgentNic(nic);
+        res.status(200).send(data);
+    } catch (e) {
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
 export default RouteController;

@@ -32,4 +32,10 @@ router.route("/api/delete-route/:routeId").delete(
     RouteController.deleteRoute
 )
 
+
+router.route("/api/branches-by-transport-agent-nic/:nic").get(
+    // verifyAuthentication,
+    RouteController.getBranchesByTransportAgentNic
+)
+
 export {router};

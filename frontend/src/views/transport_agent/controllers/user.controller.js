@@ -399,4 +399,20 @@ UserController.getOrdersByTransportAgentNic = async (nic) => {
   }
 }
 
+// get branches by transport agent nic
+
+UserController.getBranchesByTransportAgentNic = async (nic) => {
+  try {
+    let response = await UserService.getBranchesByTransportAgentNic(nic);
+
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
 export default UserController;
