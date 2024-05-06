@@ -539,4 +539,20 @@ UserService.getBranchesByTransportAgentNic = async (nic) => {
   }
 }
 
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserService.updateOrderStatus = async (orderId, status) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order-status/${orderId}/${status}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.status;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 export default UserService;

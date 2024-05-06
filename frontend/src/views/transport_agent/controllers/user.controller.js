@@ -415,4 +415,30 @@ UserController.getBranchesByTransportAgentNic = async (nic) => {
   }
 }
 
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserController.updateOrderStatus = async (orderId, status) => {
+
+  let statusId = 0;
+
+  if (status === "Received") {
+    statusId = 3;
+  } else if (status === "Registered") {
+    statusId = 1;
+  } else if (status === "On Route") {
+  statusId = 2;
+}
+
+  try {
+    let response = await UserService.updateOrderStatus(orderId, statusId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { response: response };
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+
 export default UserController;
