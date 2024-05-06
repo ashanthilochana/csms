@@ -97,4 +97,17 @@ DeliverPersonController.getAllDeliveryPersons = async (req, res) => {
     }
 };
 
+// Get all delivery persons NICs by branch id
+DeliverPersonController.getAllDeliveryPersonsNics = async (req, res) => {
+    try {
+        const { branchId } = req.params;
+        const deliveryPersonsNics = await DeliveryPersonService.getAllDeliveryPersonsNics(branchId);
+
+        res.status(200).send(deliveryPersonsNics);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+};
+
 export default DeliverPersonController;

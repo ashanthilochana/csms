@@ -57,4 +57,43 @@ BranchController.getBranchIdByBranchManagerNIC = async (req, res) => {
   }
 };
 
+// Update a branch
+
+BranchController.updateBranch = async (req, res) => {
+  try {
+    const { branchId } = req.params;
+    const { district, address, mapLocation, contactNumber } = req.body;
+    let data = await BranchService.updateBranch(
+      branchId,
+      district,
+      address,
+      mapLocation,
+      contactNumber
+    );
+    if (data.affectedRows === 0) {
+      res.status(404).send({ error: "Branch not found" });
+    } else {
+      res.status(200).send({ message: "Branch updated successfully" });
+    }
+  } catch (e) {
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+}
+
+// Delete a branch
+
+BranchController.deleteBranch = async (req, res) => {
+  try {
+    const { branchId } = req.params;
+    let data = await BranchService.deleteBranch(branchId);
+    if (data.affectedRows === 0) {
+      res.status(404).send({ error: "Branch not found" });
+    } else {
+      res.status(200).send({ message: "Branch deleted successfully" });
+    }
+  } catch (e) {
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+}
+
 export default BranchController

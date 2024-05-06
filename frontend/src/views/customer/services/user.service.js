@@ -72,6 +72,43 @@ UserService.addOrder = async (reqBody) => {
   }
 };
 
+/////////////////////////////////////// Get Order View Details by Order ID  ////////////////////////////////////////////////
+
+UserService.getOrderViewDetailsByOrderId = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/order-view/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+UserService.checkOrderExistingStatus = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/check-order-existing-status/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
+
+
 /////////////////////////////////////// Get branch ID by branch manger NIC ////////////////////////////////////////////////
 
 UserService.getBranchIdByBranchManagerNIC = async (reqBody) => {
@@ -80,6 +117,23 @@ UserService.getBranchIdByBranchManagerNIC = async (reqBody) => {
       "/api/branch-id-by-nic",
       reqBody
     );
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+// getAllAvailableOrdersByUserNic
+
+UserService.getAllAvailableOrdersByUserNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/orders-by-nic/${nic}`);
+    
     if (response.error) {
       return { error: response.error };
     } else {
@@ -436,6 +490,55 @@ UserService.addTicket = async (reqBody) => {
   }
 };
 
+/////////////////////////////////////// Get All tickets by branch id ////////////////////////////////////////////////
+
+UserService.getAllTicketsByUserNic = async (userNic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/tickets-by-nic/${userNic}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Close Ticket ////////////////////////////////////////////////
+
+UserService.ticketStatusUpdate = async (ticketId, statusId) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-ticket-status/${ticketId}/${statusId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Delete Ticket ////////////////////////////////////////////////
+
+UserService.deleteTicket = async (ticketId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-ticket/${ticketId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+
 /////////////////////////////////////// Add a feedback ////////////////////////////////////////////////
 
 UserService.addFeedback = async (reqBody) => {
@@ -500,6 +603,138 @@ UserService.getCourierFee = async (reqBody) => {
       }
   }
   catch(e){
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Get all branches ////////////////////////////////////////////////
+
+UserService.getAllBranches = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/branches");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Get all ticket reasons ////////////////////////////////////////////////
+
+UserService.getAllReasons = async () => {
+  try {
+    let response = await AxiosController.instance.get("/api/reasons");
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+// Get all feedbacks by user NIC
+
+UserService.getAllFeedbacksByUserNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/feedback/${nic}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// Delete feedback
+
+UserService.deleteFeedback = async (feedbackId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-feedback/${feedbackId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// Update feedback
+
+UserService.updateFeedback = async (feedbackId, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-feedback/${feedbackId}`, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// update client details
+
+UserService.updateClientDetails = async (userNic, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-client/${userNic}`, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// get client details by NIC
+
+UserService.getClientDetailsByUserNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/client-details/${nic}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// update client password
+
+UserService.updateClientPassword = async (userNic, password) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-client-password/${userNic}`, { password: password });
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
     console.error(e);
     throw e;
   }

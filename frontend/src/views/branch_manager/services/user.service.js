@@ -57,6 +57,43 @@ UserService.getAllClients = async()=>{
 
 };
 
+/////////////////////////////////////// Update Client ////////////////////////////////////////////////
+UserService.updateClient = async (id, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-client/${id}`, reqBody);
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      // Check for different status codes if needed
+      return { message: "Client Updated Successfully" };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Delete Client ////////////////////////////////////////////////
+UserService.deleteClient = async (id) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/client/${id}`);
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      // Check for different status codes if needed
+      return { message: "Client Deleted Successfully" };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
+
+
+
+
 /////////////////////////////////////// Add a new order ////////////////////////////////////////////////
 
 UserService.addOrder = async (reqBody) => {
@@ -85,6 +122,125 @@ UserService.addOrder = async (reqBody) => {
       if (response.status) {
         return { error: "Duplicate Entry" };
       }
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Get Order by Order ID  ////////////////////////////////////////////////
+UserService.getOrderDetailsByOrderId = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/order/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
+/////////////////////////////////////// Get Order View Details by Order ID  ////////////////////////////////////////////////
+
+UserService.getOrderViewDetailsByOrderId = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/order-view/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Update Order ////////////////////////////////////////////////
+
+UserService.updateOrder = async (orderId, reqBody) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order/${orderId}`, reqBody);
+    if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      // Check for different status codes if needed
+      return { message: "Order Updated Successfully" };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Get Incoming Orders by Branch ID ////////////////////////////////////////////////
+
+UserService.getAllIncomingOrdersByBranchId = async (branchId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/incoming-orders/${branchId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserService.updateOrderStatus = async (orderId, status) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order-status/${orderId}/${status}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.status;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Check Order Existing Status By Order Id ////////////////////////////////////////////////
+
+UserService.checkOrderExistingStatus = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/check-order-existing-status/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+
+/////////////////////////////////////// Delete order by order ID ////////////////////////////////////////////////
+
+UserService.deleteOrder = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-order/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
     }
   } catch (e) {
     console.error(e);
@@ -458,6 +614,72 @@ UserService.addTicket = async (reqBody) => {
   }
 };
 
+
+/////////////////////////////////////// Get All tickets by branch id ////////////////////////////////////////////////
+
+UserService.getAllTicketsByBranchId = async (branchId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/tickets/${branchId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Update Ticket Reply ////////////////////////////////////////////////
+
+UserService.updateTicketReply = async (ticketId, reply) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-ticket-reply/${ticketId}`, reply);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Close Ticket ////////////////////////////////////////////////
+
+UserService.ticketStatusUpdate = async (ticketId, statusId) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-ticket-status/${ticketId}/${statusId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Delete Ticket ////////////////////////////////////////////////
+
+UserService.deleteTicket = async (ticketId) => {
+  try {
+    let response = await AxiosController.instance.delete(`/api/delete-ticket/${ticketId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+
 /////////////////////////////////////// Add a feedback ////////////////////////////////////////////////
 
 UserService.addFeedback = async (reqBody) => {
@@ -492,6 +714,27 @@ UserService.addFeedback = async (reqBody) => {
     throw e;
   }
 };
+
+/////////////////////////////////////// Get all Feedback ////////////////////////////////////////////////
+UserService.getAllFeedbacks = async()=>{
+  try{
+    let response = await AxiosController.instance.get("/api/feedback");
+
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+
+  }catch(e){
+    console.error(e);
+    throw e;
+  }
+
+};
+
 
 UserService.getAllClientNICs = async () => {
   try {

@@ -30,11 +30,11 @@ import {
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <a href="#">
-                    Order Manamagement
+                    TransportAgent Manamagement
                   </a>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
-                  View All Clients
+                  View All TransportAgent
                 </BreadcrumbItem>
               </Breadcrumb>
             </Col>
@@ -42,16 +42,16 @@ import {
               <FormGroup>
                 <Input
                   className="pt-2 pb-2"
-                  id="district"
-                  name="district"
-                  placeholder="Search Clients..."
+                  id="TransportAgent"
+                  name="TransportAgent"
+                  placeholder="Search TransportAgent..."
                   type="text"
                 // value={inputData.district}
                 // onChange={onChange}
                 // invalid={validations.district}
                 // required = {true}
                 />
-                <FormFeedback>Enter a valid district</FormFeedback>
+                <FormFeedback>Enter a valid TransportAgent</FormFeedback>
               </FormGroup>
             </Col>
             <Col lg="1">

@@ -3,24 +3,26 @@ import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, ButtonGroup } f
 const tableData = [
   {
     order_id: "0001",
-    receiver: "Ashan Thilochana",
-    address: "No,122 malabe, Colombo",
-    contactNo: "07267874746",
+    receivingBranch: "Ashan Thilochana",
+    sendingBranch: "No,122 malabe, Colombo",
+    sBranchContactNo:"07853634645",
+    rBranchContactNo:"07074735777"
+  
   
   },
 
   {
-    order_id: "0002",
-    receiver: "Pabasara Rajapaksha",
-    address: "No.56, Galewala",
-    contactNo: "07267267443",
+    order_id: "0001",
+    receivingBranch: "Ashan Thilochana",
+    sendingBranch: "No,122 malabe, Colombo",
+  
   
   },
   {
-    order_id: "0003",
-    receiver: "Kaushani hettiarachchi",
-    address: "No.56, kadana ,ja-ela",
-    contactNo: "07855625477",
+    order_id: "0001",
+    receivingBranch: "Ashan Thilochana",
+    sendingBranch: "No,122 malabe, Colombo",
+  
   
   },
  
@@ -40,9 +42,9 @@ const DashboardOrdersTable = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Receiver Name</th>
-                <th>Receiver Address</th>
-                <th>Receiver Contact Number</th>
+                <th>Receiving Branch</th>
+                <th>Sending Branch</th>
+
               
               </tr>
             </thead>

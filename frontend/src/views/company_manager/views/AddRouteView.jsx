@@ -43,7 +43,7 @@ const AddTransportAgent = () => {
                 alert(response.error);
             }
             else {
-                setBranches(response.data);
+                setBranches(response);
             }
         }
 
@@ -66,6 +66,11 @@ const AddTransportAgent = () => {
         fBranchId: "1",
         sBranchId: "1",
     })
+
+    const[selectedRoutes, setSelectedRoutes] = useState({
+        sendingBranch: "",
+        receivingBranch: "",
+    });
 
     // Validation data map
     const [validations, setValidations] = useState({

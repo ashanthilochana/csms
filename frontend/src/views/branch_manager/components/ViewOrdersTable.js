@@ -5,23 +5,34 @@ import {
   CardSubtitle,
   Table,
   Button,
+  Alert
 } from "reactstrap";
 
 import React, { useState, useEffect } from "react";
 import useCookie from "../../../hooks/useCookies.js";
 import UserController from "../controllers/user.controller.js";
+import { useNavigate } from "react-router-dom";
 
 const ViewOrderTable = () => {
+
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+
+  const hideSuccessDialog = () => setShowSuccessDialog(false);
+  const hideErrorDialog = () => setShowErrorDialog(false);
+
+    const navigate = useNavigate();
+
   let [getCookie, setCookie] = useCookie();
   let [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    async function getOrders() {
-      let branchId = getCookie("user-branch-id");
-      let data = await UserController.getAllOrdersByBranchId(branchId);
-      setOrders(data);
-    }
+  async function getOrders() {
+    let branchId = getCookie("user-branch-id");
+    let data = await UserController.getAllOrdersByBranchId(branchId);
+    setOrders(data);
+  }
 
+  useEffect(() => {
     getOrders();
   }, []);
 
@@ -33,8 +44,25 @@ const ViewOrderTable = () => {
     
     return `${year}-${month}-${day}`;
   }
+
+  async function deleteOrder(orderId) {
+    let data = await UserController.deleteOrder(orderId);
+    console.log("data", data);
+    if (data.message === "Order Deleted Successfully") {
+      setShowSuccessDialog(true);
+      setShowErrorDialog(false);
+      getOrders();
+    }else{
+      setShowSuccessDialog(false);
+      setShowErrorDialog(true);
+      getOrders();
+    }
+  }
+
   return (
     <div>
+    <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Order Placed Successfully!</Alert>
+      <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}>Cannot Delte This Order!. Order Assigned To A Delivery Person </Alert>
       <Card>
         <CardBody>
           <CardTitle tag="h5">Latest Orders</CardTitle>
@@ -112,13 +140,19 @@ const ViewOrderTable = () => {
                       outline
                       color="secondary"
                       size="sm"
+                      // create on click to navigate /edit-order/:id
+                      onClick={() => navigate(`/branch-manager/edit-order/${tdata.order_id}`)}
                     >
                       Edit
                     </Button>
-                    <Button className="btn me-2" color="primary" size="sm">
+                    <Button className="btn me-2" color="primary" size="sm"
+                    onClick={() => navigate(`/branch-manager/view-order-details/${tdata.order_id}`)}>
                       View
                     </Button>
-                    <Button className="btn" color="danger" size="sm">
+                    <Button className="btn me-2" color="danger" size="sm"
+                    onClick={() => {
+                      deleteOrder(tdata.order_id);
+                    }}>
                       Delete
                     </Button>
                   </td>
@@ -128,6 +162,7 @@ const ViewOrderTable = () => {
           </Table>
         </CardBody>
       </Card>
+
     </div>
   );
 };

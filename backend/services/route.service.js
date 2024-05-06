@@ -72,4 +72,63 @@ RouteService.getAllRoutes = async () => {
 };
 
 
+/////////////////////////////////////// Get all routes for table ////////////////////////////////////////////////
+
+RouteService.getAllRoutesForTable = async () => {
+    let query = `
+    SELECT r.routeId, r.routeName, r.firstBranchId, r.secondBranchId, b1.district AS firstBranch, b2.district AS secondBranch
+    FROM route r, branch b2, branch b1
+    WHERE r.secondBranchId = b2.branchId AND r.firstBranchId = b1.branchId
+    `;
+    
+    try {
+        let [rows] = await pool.query(query);
+        return rows;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/////////////////////////////////////// Update route ////////////////////////////////////////////////
+
+RouteService.updateRoute = async (
+    routeId,
+    routeName,
+    firstBranchId,
+    secondBranchId
+) => {
+    let query = `
+    UPDATE route
+    SET routeName = ?, firstBranchId = ?, secondBranchId = ?
+    WHERE routeId = ?
+    `;
+
+    try {
+        await pool.query(query, [routeName, firstBranchId, secondBranchId, routeId]);
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+};
+
+/////////////////////////////////////// Delete route ////////////////////////////////////////////////
+
+RouteService.deleteRoute = async (routeId) => {
+    let query = `
+    DELETE FROM route
+    WHERE routeId = ?
+    `;
+
+    try {
+        await pool.query(query, [routeId]);
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
 export default RouteService;
