@@ -110,4 +110,18 @@ DeliverPersonController.getAllDeliveryPersonsNics = async (req, res) => {
     }
 };
 
+// Get orders by delivery person NIC
+
+DeliverPersonController.getOrdersByDeliveryPersonNic = async (req, res) => {
+    try {
+        const { nic } = req.params;
+        const orders = await DeliveryPersonService.getOrdersByDeliveryPersonNic(nic);
+
+        res.status(200).send(orders);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
 export default DeliverPersonController;

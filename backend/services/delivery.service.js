@@ -150,5 +150,23 @@ DeliveryPersonService.getAllDeliveryPersonsNics = async (branchId) => {
     }
 };
 
+// Get orders by delivery person NIC
+
+DeliveryPersonService.getOrdersByDeliveryPersonNic = async (nic) => {
+    let query = `
+    SELECT o.orderId, o.registeredDate, o.receiverName, o.receiverAddress, s.status
+    FROM orders o, orderdelivery od, orderstatus s
+    WHERE o.orderId = od.orderId AND o.statusId = s.statusId AND od.deliveryPersonNic = ?
+        `;
+
+    try {
+        const [rows] = await pool.query(query, [nic]);
+        return rows;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
 
 export default DeliveryPersonService;

@@ -169,7 +169,7 @@ SidebarRoutes.transportAgentRoutes = [
     icon: "bi bi-speedometer2",
   },
   {
-    title: "Show Deliveries",
+    title: "Show Transports",
     icon: "bi bi-box",
     href: TransportAgentRoutes.viewMyOrders,
   },

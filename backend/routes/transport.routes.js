@@ -26,4 +26,16 @@ router.route("/api/delete-transport-agent/:nic").delete(
     TransportAgentController.deleteTransportAgent
 )
 
+// get orders by transport agent nic
+router.route("/api/orders-by-transport-agent/:nic").get(
+    // verifyAuthentication,
+    TransportAgentController.getOrdersByTransportAgentNic
+)
+
+// update order received date by order id
+router.route("/api/update-order-received-date/:orderId").put(
+    verifyAuthentication,
+    TransportAgentController.updateOrderReceivedDate
+)
+
 export {router};

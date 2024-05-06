@@ -399,4 +399,63 @@ UserController.getOrdersByTransportAgentNic = async (nic) => {
   }
 }
 
+// get branches by transport agent nic
+
+UserController.getBranchesByTransportAgentNic = async (nic) => {
+  try {
+    let response = await UserService.getBranchesByTransportAgentNic(nic);
+
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserController.updateOrderStatus = async (orderId, status) => {
+
+  let statusId = 0;
+
+  if (status === "Received") {
+    statusId = 3;
+  } else if (status === "Registered") {
+    statusId = 1;
+  } else if (status === "On Route") {
+  statusId = 2;
+}
+
+  try {
+    let response = await UserService.updateOrderStatus(orderId, statusId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { response: response };
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Update Order Received Date ////////////////////////////////////////////////
+
+UserController.updateOrderReceivedDate = async (orderId) => {
+  
+    try {
+      let response = await UserService.updateOrderReceivedDate(orderId);
+      if (response.error) {
+        return { error: response.error };
+      }
+      return { response: response };
+    } catch (e) {
+      return { error: e };
+    }
+  }
+
+  
+
+
 export default UserController;
