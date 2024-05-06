@@ -129,13 +129,13 @@ TransportAgentService.getOrdersByTransportAgentNic = async (nic) => {
     FROM 
         orders o
     JOIN 
-        route r ON (o.sendingBranchId = r.firstBranchId OR o.sendingBranchId = r.secondBranchId) AND (o.receivingBranchId = r.secondBranchId)
+        route r ON (o.sendingBranchId = r.firstBranchId OR o.sendingBranchId = r.secondBranchId) AND (o.receivingBranchId = r.secondBranchId OR o.receivingBranchId = r.firstBranchId)
     JOIN 
         transportagent t ON t.routeId = r.routeId
     JOIN 
-        branch b1 ON b1.branchId = r.firstBranchId -- Use firstBranchId for sending branch
+        branch b1 ON b1.branchId = o.sendingBranchId -- Use firstBranchId for sending branch
     JOIN 
-        branch b2 ON b2.branchId = r.secondBranchId -- Use secondBranchId for receiving branch
+        branch b2 ON b2.branchId = o.receivingBranchId -- Use secondBranchId for receiving branch
     JOIN
         orderstatus s ON s.statusId = o.statusId
     WHERE 
@@ -146,6 +146,24 @@ TransportAgentService.getOrdersByTransportAgentNic = async (nic) => {
     try {
         const [rows] = await pool.query(query, [nic]);
         return rows;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+// Update order received date by order id
+
+TransportAgentService.updateOrderReceivedDate = async (orderId) => {
+    let query = `
+    UPDATE orders
+    SET receivedDate = NOW()
+    WHERE orderId = ?
+    `;
+
+    try {
+        await pool.query(query, [orderId]);
     }
     catch (e) {
         console.error(e);

@@ -37,6 +37,7 @@ const ViewOrderTable = () => {
   // update order status by order id async function
   const updateOrderStatusDroppedOff = async (orderId) => {
     const response = await UserController.updateOrderStatus(orderId, "Received");
+    const dateUpdateResponse = await UserController.updateOrderReceivedDate(orderId);
     fetchOrders();
   };
 

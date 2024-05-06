@@ -440,5 +440,22 @@ UserController.updateOrderStatus = async (orderId, status) => {
   }
 }
 
+/////////////////////////////////////// Update Order Received Date ////////////////////////////////////////////////
+
+UserController.updateOrderReceivedDate = async (orderId) => {
+  
+    try {
+      let response = await UserService.updateOrderReceivedDate(orderId);
+      if (response.error) {
+        return { error: response.error };
+      }
+      return { response: response };
+    } catch (e) {
+      return { error: e };
+    }
+  }
+
+  
+
 
 export default UserController;

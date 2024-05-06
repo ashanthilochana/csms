@@ -4,6 +4,8 @@ import {
   CardTitle,
   CardSubtitle,
   Table,
+  Button,
+  ButtonGroup,
 } from "reactstrap";
 
 import React, { useState, useEffect } from "react";
@@ -11,65 +13,49 @@ import UserController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
 
 
-const tableData = [
-  {
-    order_id: "0001",
-    orderDate:"2024/04/17",
-    sender:"Kavidu senavirathna",
-    receiver: "Ashan Thilochana",
-    contactNo: "07267874746",
-    address: "No,122 malabe, Colombo",
-   
-  
-  },
-
-  {
-    order_id: "0002",
-    orderDate:"2024/04/17",
-    sender:"Kavidu senavirathna",
-    receiver: "Pabasara Rajapaksha",
-    contactNo: "07267267443",
-    address: "No.56, Galewala",
-    
-  
-  },
-  {
-    order_id: "0003",
-    orderDate:"2024/04/17",
-    sender:"Kavidu senavirathna",
-    receiver: "Kaushani hettiarachchi",
-    contactNo: "07855625477",
-    address: "No.56, kadana ,ja-ela",
-   
-  
-  },
- 
-];
-
 const ViewOrderTable = () => {
-  let [getCookie, setCookie] = useCookie();
-  let [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    async function getOrders() {
-      let branchId = getCookie("user-branch-id");
-      let data = await UserController.getAllOrdersByBranchId(branchId);
-      setOrders(data);
-    }
+  const [tableData, setTableData] = useState([]);
+  const [getCookie] = useCookie();
 
-    getOrders();
-  }, []);
+  // fetch orders by transport agent nic async function
+  const fetchOrders = async () => {
+    let response = await UserController.getOrdersByTransportAgentNic(getCookie("user-nic"));
+
+    // filter response data orderStatus = "Registered" and "Received" only
+    response = response.filter((order) => order.status === "Registered" || order.status === "On Route");
+
+    setTableData(response);
+  };
+
+  // update order status by order id async function
+  const updateOrderStatusPickedUp = async (orderId) => {
+    const response = await UserController.updateOrderStatus(orderId, "On Route");
+    fetchOrders();
+  };
+
+  // update order status by order id async function
+  const updateOrderStatusDroppedOff = async (orderId) => {
+    const response = await UserController.updateOrderStatus(orderId, "Received");
+    fetchOrders();
+  };
+
+
 
   function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-    
+
     return `${year}-${month}-${day}`;
   }
 
-  
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
   return (
     <div>
       <Card>
@@ -84,11 +70,12 @@ const ViewOrderTable = () => {
               <tr>
                 <th>Order ID</th>
                 <th>Order Date</th>
-                <th>Sender Name</th>
-                <th>Receiver Name</th>
-                <th>Reciever Contact Number</th>
-                <th>Reciever Address</th>
-                
+                <th style={{ "color": "green" }}>Sending Branch</th>
+                <th style={{ "color": "green" }}>Contact Number</th>
+                <th style={{ "color": "red" }}>Receiving Branch</th>
+                <th style={{ "color": "red" }}>Contact Number</th>
+                <th >Order Status</th>
+                <th className="d-flex justify-content-center">Action</th>
               </tr>
             </thead>
 
@@ -98,18 +85,68 @@ const ViewOrderTable = () => {
                   <td>
                     <div className="d-flex align-items-center p-2">
                       <div className="ms-3">
-                        <h6 className="mb-0">{tdata.order_id}</h6>
+                        <h6 className="mb-0">{tdata.orderId}</h6>
                       </div>
                     </div>
                   </td>
-                  <td>{formatDate(tdata.orderDate)}</td>
-                  <td>{tdata.sender}</td>
-                  <td>{tdata.receiver}</td>
-                  <td>{tdata.contactNo}</td>
-                  <td>{tdata.address}</td>
-                 
-                  
-                  
+                  <td>{formatDate(tdata.registeredDate)}</td>
+                  <td>{tdata.sendingBranch}</td>
+                  <td>{tdata.sendingBranchContact}</td>
+                  <td>{tdata.receivingBranch}</td>
+                  <td >{tdata.receivingBranchContact}</td>
+                  <td>
+                    <div>
+                      {tdata.status === "Delivered" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-success text-white d-inline-block">
+                          Delivered
+                        </span>
+                      ) : tdata.status === "On Route" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-warning text-white d-inline-block">
+                          On Route
+                        </span>
+                      ) : tdata.status === "Received" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-info text-white d-inline-block">
+                          Dropped Off
+                        </span>
+                      ) : tdata.status === "Registered" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">
+                          Registered
+                        </span>
+                      ) : tdata.status === "Handed to Delivery" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-success text-white d-inline-block">
+                          Handed
+                        </span>
+                      ) : tdata.status === "Returned" ? (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-danger text-white d-inline-block">
+                          Returned
+                        </span>
+                      ) : (
+                        <span className="ps-3 pe-3 pt-1 pb-1 rounded-5 bg-black text-white d-inline-block">
+                          No Status
+                        </span>
+                      )}
+                    </div>
+                  </td>
+
+                  <td className="d-flex justify-content-center">
+                    {
+                      tdata.status === "Registered" ? (
+
+                        <Button className="btn me-2" color="warning" size="sm"
+                          onClick={
+                            () => { updateOrderStatusPickedUp(tdata.orderId) }
+                          }>Picked Up</Button>
+
+                      ) : tdata.status === "On Route" ? (
+
+                        <Button className="btn me-2" color="danger" size="sm"
+                          onClick={
+                            () => { updateOrderStatusDroppedOff(tdata.orderId) }
+                          }>Dropped Off</Button>
+                      ) : (
+                        <Button className="btn me-2" color="success" size="sm" disabled>Done</Button>
+                      )}
+                  </td>
                 </tr>
               ))}
             </tbody>

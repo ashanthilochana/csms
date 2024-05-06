@@ -555,4 +555,20 @@ UserService.updateOrderStatus = async (orderId, status) => {
   }
 };
 
+/////////////////////////////////////// Update Order Received Date ////////////////////////////////////////////////
+
+UserService.updateOrderReceivedDate = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order-received-date/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.status;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export default UserService;
