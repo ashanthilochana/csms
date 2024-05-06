@@ -505,4 +505,70 @@ UserService.getCourierFee = async (reqBody) => {
   }
 }
 
+// getOrdersByTransportAgentNic
+
+UserService.getOrdersByTransportAgentNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`api/orders-by-transport-agent/${nic}`);
+    console.log("response", response);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+// getBranchesByTransportAgentNic
+
+UserService.getBranchesByTransportAgentNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`api/branches-by-transport-agent-nic/${nic}`);
+    
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserService.updateOrderStatus = async (orderId, status) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order-status/${orderId}/${status}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.status;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Update Order Received Date ////////////////////////////////////////////////
+
+UserService.updateOrderReceivedDate = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order-received-date/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.status;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export default UserService;

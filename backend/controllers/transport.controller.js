@@ -98,4 +98,34 @@ TransportAgentController.deleteTransportAgent = async (req, res) => {
         res.status(500).send({error : "Internal Server Error"});
     }
 }
+
+// Get orders by transport agent nic
+TransportAgentController.getOrdersByTransportAgentNic = async (req, res) => {
+    try {
+        const nic = req.params.nic;
+
+        let data = await TransportAgentService.getOrdersByTransportAgentNic(nic);
+
+        res.status(200).send(data);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({error : "Internal Server Error"});
+    }
+}
+
+// Update order received date by order id
+
+TransportAgentController.updateOrderReceivedDate = async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+
+        await TransportAgentService.updateOrderReceivedDate(orderId);
+
+        res.status(200).send({ message: "Order received date updated successfully" });
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({error : "Internal Server Error"});
+    }
+}
+
 export default TransportAgentController;

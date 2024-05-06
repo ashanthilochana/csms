@@ -19,4 +19,7 @@ router.delete("/api/delete-delivery-person/:nic", verifyAuthentication, Delivery
 // Get all delivery persons NICs
 router.get("/api/get-all-delivery-persons-nics/:branchId", DeliveryPersonController.getAllDeliveryPersonsNics);
 
+// Get orders by delivery person NIC
+router.get("/api/get-orders-by-delivery-person-nic/:nic", DeliveryPersonController.getOrdersByDeliveryPersonNic);
+
 export { router };

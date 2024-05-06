@@ -383,4 +383,66 @@ UserController.getCourierFee = async (
   }
 };
 
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserController.updateOrderStatus = async (orderId, status) => {
+
+  let statusId = 0;
+
+  if (status === "Received") {
+    statusId = 3;
+  } else if (status === "Registered") {
+    statusId = 1;
+  } else if (status === "On Route") {
+    statusId = 2;
+  } else if (status === "Handed") {
+    statusId = 4;
+  }
+  else if (status === "Delivered") {
+    statusId = 5;
+  }
+
+  try {
+    let response = await UserService.updateOrderStatus(orderId, statusId);
+    if (response.error) {
+      return { error: response.error };
+    }
+    return { response: response };
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Get Orders by Delivery Person NIC ////////////////////////////////////////////////
+
+UserController.getOrdersByDeliveryPersonNic = async (nic) => {
+  try {
+    let response = await UserService.getOrdersByDeliveryPersonNic(nic);
+
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+/////////////////////////////////////// Get order view details by order ID ///////////////////////////////////////////////
+
+UserController.getOrderViewDetailsByOrderId = async (orderId) => {
+
+  try {
+    let response = await UserService.getOrderViewDetailsByOrderId(orderId);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
 export default UserController;

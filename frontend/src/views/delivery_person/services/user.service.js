@@ -505,4 +505,54 @@ UserService.getCourierFee = async (reqBody) => {
   }
 }
 
+UserService.getOrdersByDeliveryPersonNic = async (nic) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/get-orders-by-delivery-person-nic/${nic}`);
+    console.log("res", response);
+
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+/////////////////////////////////////// Update Order Status ////////////////////////////////////////////////
+
+UserService.updateOrderStatus = async (orderId, status) => {
+  try {
+    let response = await AxiosController.instance.put(`/api/update-order-status/${orderId}/${status}`);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response.status;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+/////////////////////////////////////// Get Order View Details by Order ID  ////////////////////////////////////////////////
+
+UserService.getOrderViewDetailsByOrderId = async (orderId) => {
+  try {
+    let response = await AxiosController.instance.get(`/api/order-view/${orderId}`);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return { data: response.data };
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 export default UserService;
