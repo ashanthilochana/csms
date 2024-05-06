@@ -200,6 +200,11 @@ SidebarRoutes.managerRoutes = [
         title: "View Branches",
         icon: "bi bi-box",
         href: ManagerRoutes.viewBranches,
+      },
+      {
+        title: "Add Branch Manager",
+        icon: "bi bi-person",
+        href: ManagerRoutes.addBranchManager,
       }
     ],
   },

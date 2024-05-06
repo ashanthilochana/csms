@@ -96,4 +96,25 @@ BranchController.deleteBranch = async (req, res) => {
   }
 }
 
+// Add a branch manager
+
+BranchController.addBranchManager = async (req, res) => {
+  try {
+    const { nic, email, fullName, branchId } = req.body;
+
+    let userExists = await BranchService.checkBranchManagerExistStatus(nic);
+
+    if (!userExists) {
+      let data = await BranchService.addBranchManager(nic, email, fullName, branchId);
+
+      res.status(201).send({ message: "Branch Manager Added Successfully" });
+  }
+  else {
+      res.status(422).send({ error: "User Already Exists!" });
+  }
+  } catch (e) {
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+}
+
 export default BranchController
