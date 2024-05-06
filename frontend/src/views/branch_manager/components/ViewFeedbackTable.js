@@ -36,7 +36,7 @@ const ViewFeedbackTable = () => {
                 <th>Client NIC</th>
                 <th>Rating</th>
                 <th>Message</th>
-                <th>Action</th>
+                {/* <th>Action</th> */}
               </tr>
             </thead>
             <tbody>
@@ -52,10 +52,10 @@ const ViewFeedbackTable = () => {
                   /></td>
 
                   <td>{tdata.message}</td>
-                  <td>
+                  {/* <td>
                     <Button disabled className="btn me-2" outline color="secondary" size="sm">Edit</Button>
                     <Button disabled className="btn" color="danger" size="sm">Delete</Button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

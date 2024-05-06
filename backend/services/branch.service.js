@@ -60,23 +60,6 @@ BranchService.getAllBranches = async () => {
 };
 
 
-// Delete a branch
-BranchService.deleteBranch = async (district) => {
-    let query = `
-    DELETE * FROM customer
-    WHERE district = ?
-    `;
-
-    try{
-        await pool.query(query, [district]);
-    }
-    catch(e) {
-        console.error(e);
-        throw e;
-    }
-}
-
-
 BranchService.getBranchIdByBranchManagerNIC = async (nic) =>{
     let query = `
     SELECT branchID FROM branchmanager
@@ -90,5 +73,43 @@ BranchService.getBranchIdByBranchManagerNIC = async (nic) =>{
         throw e;
     }
 }
+
+// Update a branch
+
+BranchService.updateBranch = async (branchId, district, address, mapLocation, contactNumber) => {
+    let query = `
+    UPDATE branch
+    SET district = ?, address = ?, mapLocation = ?, contactNumber = ?
+    WHERE branchID = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [district, address, mapLocation, contactNumber, branchId]);
+        return rows;
+    }
+    catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+// delete branch
+
+BranchService.deleteBranch = async (branchId) => {
+    let query = `
+    DELETE FROM branch
+    WHERE branchID = ?
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [branchId]);
+        return rows;
+    }
+    catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
 
 export default BranchService;

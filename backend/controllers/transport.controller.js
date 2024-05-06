@@ -60,4 +60,42 @@ TransportAgentController.getAllTransportAgents = async (req, res) => {
     }
 };
 
+// Update transport agent
+TransportAgentController.updateTransportAgent = async (req, res) => {
+    try {
+        const {
+            nic,
+            email,
+            fullName,
+            vehicleNumber,
+            routeId, } = req.body;
+
+        await TransportAgentService.updateTransportAgent(
+            nic,
+            email,
+            fullName,
+            vehicleNumber,
+            routeId,);
+
+        res.status(200).send({ message: "Transport agent updated successfully" });
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({error : "Internal Server Error"});
+    }
+};
+
+// Delete transport agent
+
+TransportAgentController.deleteTransportAgent = async (req, res) => {
+    try {
+        const nic = req.params.nic;
+
+        await TransportAgentService.deleteTransportAgent(nic);
+
+        res.status(200).send({ message: "Transport agent deleted successfully" });
+    } catch (e) {
+        console.error(e);
+        res.status(500).send({error : "Internal Server Error"});
+    }
+}
 export default TransportAgentController;

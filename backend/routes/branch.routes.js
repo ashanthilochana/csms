@@ -15,8 +15,20 @@ router.route("/api/branch-id-by-nic").post(
 );
 
 router.route("/api/branches").get(
-  verifyAuthentication,
+  // verifyAuthentication,
   BranchController.getAllBranches
+);
+
+// update branch
+router.route("/api/update-branch/:branchId").put(
+  verifyAuthentication,
+  BranchController.updateBranch
+);
+
+// delete branch
+router.route("/api/delete-branch/:branchId").delete(
+  verifyAuthentication,
+  BranchController.deleteBranch
 );
 
 export { router };

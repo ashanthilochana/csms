@@ -53,6 +53,10 @@ ClientRoutes.myOrders = "/client/my-orders";
 ClientRoutes.trackOrder = "/client/track-order";
 ClientRoutes.addTicket = "/client/add-ticket";
 ClientRoutes.viewMyTickets = "/client/view-my-tickets";
+ClientRoutes.addFeedback = "/client/add-feedback";
+ClientRoutes.viewFeedback = "/client/view-feedback";
+ClientRoutes.viewProfile = "/client/view-profile";
+ClientRoutes.updateProfilePassword = "/client/update-profile-password";
 
 // Export high level variables
 export {BranchManagerRoutes, DeliveryPersonRoutes, ManagerRoutes, TransportAgentRoutes, ClientRoutes};

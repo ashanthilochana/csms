@@ -532,4 +532,96 @@ UserController.getCourierFee = async (
   }
 };
 
+// /////////////////////////////////////// Get all feedbacks by user NIC ///////////////////////////////////////////////
+
+UserController.getAllFeedbacksByUserNic = async (nic) => {
+  try {
+    let response = await UserService.getAllFeedbacksByUserNic(nic);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+// /////////////////////////////////////// Update feedback ///////////////////////////////////////////////
+
+UserController.updateFeedback = async (feedbackId, inputData) => {
+  try {
+    let response = await UserService.updateFeedback(feedbackId, inputData);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+// /////////////////////////////////////// Delete feedback ///////////////////////////////////////////////
+
+UserController.deleteFeedback = async (feedbackId) => {
+  try {
+    let response = await UserService.deleteFeedback(feedbackId);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+// update client details
+
+UserController.updateClientDetails = async (userNic, inputData) => {
+
+  try {
+    let response = await UserService.updateClientDetails(userNic, inputData);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+// get client details by user NIC
+
+UserController.getClientDetailsByUserNic = async (nic) => {
+  try {
+    let response = await UserService.getClientDetailsByUserNic(nic);
+    if (response.error) {
+      return { error: response.error };
+    } else {
+      return response;
+    }
+  } catch (e) {
+    return { error: e };
+  }
+}
+
+// update client password
+
+UserController.updateClientPassword = async (userNic, password) => {
+  
+    try {
+      let response = await UserService.updateClientPassword(userNic, password);
+      if (response.error) {
+        return { error: response.error };
+      } else {
+        return response;
+      }
+    } catch (e) {
+      return { error: e };
+    }
+  }
+
 export default UserController;

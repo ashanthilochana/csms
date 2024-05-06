@@ -76,6 +76,17 @@ UserController.signUpUser = async (nicNo, password, roleId) => {
   }
 };
 
+//Function to update user password. Used in the update profile password page.
+UserController.updateUserPassword = async (nicNo, password) => {
+  try {
+    let hashedPassword = hashPassword(password);
+    await UserService.updateUserPassword(nicNo, hashedPassword);
+  } catch (e) {
+    console.error("Error updating user password : " + e);
+    throw e;
+  }
+};
+
 //Logout function setting the jwt auth token to null and removing it after 1 millisecond.
 UserController.logOutUser = (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });

@@ -265,14 +265,14 @@ SidebarRoutes.clientRoutes = [
     icon: "bi bi-person",
     subItems: [
       {
-        title: "View Account",
+        title: "View Profile",
         icon: "bi bi-person",
-        href: "#",
+        href: ClientRoutes.viewProfile,
       },
       {
         title: "Change Password",
         icon: "bi bi-person",
-        href: "#",
+        href: ClientRoutes.updateProfilePassword,
       },
     ],
   },
@@ -299,12 +299,12 @@ SidebarRoutes.clientRoutes = [
       {
         title: "Provide Feedback",
         icon: "bi bi-person",
-        href: "#",
+        href: ClientRoutes.addFeedback,
       },
       {
         title: "View My Feedbacks",
         icon: "bi bi-person",
-        href: "#",
+        href: ClientRoutes.viewFeedback,
       }
     ],
   },
