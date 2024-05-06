@@ -1,3 +1,15 @@
+import {
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  FormFeedback,
+  Container,
+  Breadcrumb,
+  BreadcrumbItem,
+  Button
+} from "reactstrap";
 
 import { Button, Col, Container, Row, Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import UserController from "../controllers/user.controller.js";
@@ -63,7 +75,8 @@ const ViewMyRouteView = () => {
 
       </Col>
     </Container>
+
   );
 };
 
-export default ViewMyRouteView;
+export default ViewOrderDetailsView;
