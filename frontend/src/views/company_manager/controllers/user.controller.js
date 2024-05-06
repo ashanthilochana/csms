@@ -421,4 +421,28 @@ UserController.deleteRoute = async (routeId) => {
     return { error: e };
   }
 }
+
+
+// add branch manager
+
+UserController.addBranchManager = async (nic, email, fullName, branchId) => {
+  
+    let reqBody = {
+      nic,
+      email,
+      fullName,
+      branchId
+    };
+  
+    try {
+      let response = await UserService.addBranchManager(reqBody);
+      if (response.error) {
+        return { error: response.error };
+      }
+      return { message: "Branch Manager Added Successfully" };
+    } catch (e) {
+      return { error: e };
+    }
+  }
+
 export default UserController;

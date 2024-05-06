@@ -31,4 +31,10 @@ router.route("/api/delete-branch/:branchId").delete(
   BranchController.deleteBranch
 );
 
+// add branch manager
+router.route("/api/add-branch-manager").post(
+  // verifyAuthentication,
+  BranchController.addBranchManager
+);
+
 export { router };

@@ -1,6 +1,7 @@
 // Branch Management Database Service
 
 import {pool} from "../database/database.js";
+import UserController from "../controllers/user.controller.js";
 
 let BranchService = {}
 
@@ -111,5 +112,49 @@ BranchService.deleteBranch = async (branchId) => {
     }
 }
 
+// check branch manager exist status
+
+BranchService.checkBranchManagerExistStatus = async (nic) => {
+    try{
+        let query = `
+        SELECT * FROM branchmanager
+        WHERE nic = ?
+        LIMIT 1
+        `;
+
+        const [rows] = await pool.query(query, [nic]);
+
+        if(rows.length !== 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+// Add a new branch manager
+
+BranchService.addBranchManager = async (nic, email, fullName, branchId) => {
+    let query = `
+    INSERT INTO branchmanager(nic, email, fullName, branchID)
+    VALUE(?, ?, ?, ?)
+    `;
+
+    try{
+        let [rows] = await pool.query(query, [nic, email, fullName, branchId]);
+
+        await UserController.signUpUser(nic, nic, 2)
+        
+        return rows;
+    }
+    catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
 
 export default BranchService;
