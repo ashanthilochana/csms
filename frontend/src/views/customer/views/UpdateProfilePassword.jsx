@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import UserController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
 import {ClientRoutes} from "../../../routes/all_user.routes.js";
+import Contact from "../components/Contact.jsx";
 
 const ViewProfileView = () => {
 
@@ -49,6 +50,9 @@ const ViewProfileView = () => {
         password: false,
         passwordReEnter: false
     });
+
+    const [contact, setContact] = useState(false);
+
 
     const onChange = (e) => {
         setInputData({ ...inputData, [e.target.name]: e.target.value });
@@ -180,11 +184,18 @@ const ViewProfileView = () => {
                                 () => {
                                     checkPasswordMatching();
                                 }
-                            }>Update My Details</Button>
+                            }>Update Password</Button>
                         </CardBody>
                     </Card>
                 </Col>
             </Row>
+
+            {!contact && (
+            <div className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">
+                <Button onClick={() => setContact(true)} >Contact for Help</Button>
+            </div>
+      )}
+      {contact && <Contact />}
 
         </Container>
 
