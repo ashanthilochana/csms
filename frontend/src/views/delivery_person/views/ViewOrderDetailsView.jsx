@@ -34,7 +34,7 @@ import {
                   </a>
                 </BreadcrumbItem>
                 <BreadcrumbItem active>
-                  View Orders Details
+                  View Delivery Orders Details
                 </BreadcrumbItem>
               </Breadcrumb>
             </Col>
@@ -43,9 +43,9 @@ import {
               <FormGroup>
                 <Input
                   className="pt-2 pb-2"
-                  id="district"
-                  name="district"
-                  placeholder="Search Orders..."
+                  id="order"
+                  name="order"
+                  placeholder="Search delivery Orders..."
                   type="text"
                 // value={inputData.district}
                 // onChange={onChange}

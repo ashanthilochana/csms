@@ -3,6 +3,7 @@ import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, ButtonGroup } f
 const tableData = [
   {
     order_id: "0001",
+    orderDate:"2024/04/17",
     receiver: "Ashan Thilochana",
     address: "No,122 malabe, Colombo",
     contactNo: "07267874746",
@@ -11,6 +12,7 @@ const tableData = [
 
   {
     order_id: "0002",
+    orderDate:"2024/04/17",
     receiver: "Pabasara Rajapaksha",
     address: "No.56, Galewala",
     contactNo: "07267267443",
@@ -18,6 +20,7 @@ const tableData = [
   },
   {
     order_id: "0003",
+    orderDate:"2024/04/17",
     receiver: "Kaushani hettiarachchi",
     address: "No.56, kadana ,ja-ela",
     contactNo: "07855625477",
@@ -40,6 +43,7 @@ const DashboardOrdersTable = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
+                <th>Order Date</th>
                 <th>Receiver Name</th>
                 <th>Receiver Address</th>
                 <th>Receiver Contact Number</th>
@@ -57,6 +61,7 @@ const DashboardOrdersTable = () => {
                       </div>
                     </div>
                   </td>
+                  <td>{tdata.orderDate}</td>
                   <td>{tdata.receiver}</td>
                   <td>{tdata.address}</td>
                   <td>{tdata.contactNo}</td>        
