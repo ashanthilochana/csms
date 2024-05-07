@@ -123,6 +123,8 @@ const AddTransportAgent = () => {
 
         const { routeName, fBranchId, sBranchId } = inputData;
 
+        console.log(inputData)
+
         try {
             const res = await UserController.addRoute(routeName, fBranchId, sBranchId );
 

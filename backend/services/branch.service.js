@@ -143,7 +143,7 @@ BranchService.addBranchManager = async (nic, email, fullName, branchId) => {
     INSERT INTO branchmanager(nic, email, fullName, branchID)
     VALUE(?, ?, ?, ?)
     `;
-
+    
     try{
         let [rows] = await pool.query(query, [nic, email, fullName, branchId]);
 

@@ -64,7 +64,7 @@ const AddTransportAgent = () => {
         nic: "",
         email: "",
         fullName: "",
-        branchId: "",
+        branchId: "1",
     })
 
     // Validation data map
@@ -125,6 +125,8 @@ const AddTransportAgent = () => {
         e.preventDefault();
 
         const { nic, email, fullName, branchId } = inputData;
+
+        console.log(inputData)
 
         try {
             const res = await UserController.addBranchManager(nic, email, fullName, branchId);
