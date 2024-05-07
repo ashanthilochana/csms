@@ -19,7 +19,7 @@ const ViewTransportAgentTable = () => {
     fullName: "",
     vehicleNumber: "",
     routeId: "",
-    routeName: "",
+    routeName: "1",
   });
 
   const [validations, setValidations] = useState({
