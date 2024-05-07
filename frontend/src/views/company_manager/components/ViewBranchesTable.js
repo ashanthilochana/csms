@@ -52,6 +52,7 @@ const ViewBranchTable = () => {
       const response = await UserController.deleteBranch(branchId);
       if (response.error) {
         console.error("Error: ", response.error);
+        alert("Error: ", response.error)
       } else {
         toggleEditModal();
         getBranches();

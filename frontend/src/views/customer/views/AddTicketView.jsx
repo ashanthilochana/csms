@@ -266,7 +266,7 @@ const AddNewTicket = () => {
                             </FormGroup>
 
                             <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Open The Ticket</Button>
-                            <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
+                            {/* <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button> */}
 
                         </CardBody>
                     </Card>
