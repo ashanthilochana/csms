@@ -29,6 +29,15 @@ const AddTransportAgent = () => {
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const hideErrorDialog = () => setShowErrorDialog(false);
 
+    let {
+        validateNIC,
+        validateEmail,
+        validateName,
+        validateAddress,
+        validatePhoneNumber,
+    } = validator();
+
+
     // Create object for use navigator
     const navigate = useNavigate();
 
@@ -36,7 +45,7 @@ const AddTransportAgent = () => {
     let [branches, setBranches] = useState([]);
 
     useEffect(() => {
-        //Fetch all branches to fill dropdown
+        //Fetch all routes to fill dropdown
         async function fetchAllBranches() {
             let response = await UserController.getAllBranches();
             if (response.error) {
@@ -50,38 +59,33 @@ const AddTransportAgent = () => {
         fetchAllBranches();
     }, []);
 
-    // Validation regex
-    let {
-        validateNIC,
-        validateEmail,
-        validateName,
-        validateAddress,
-        validatePhoneNumber,
-    } = validator();
-
-
     // Map variable
     const [inputData, setInputData] = useState({
-        routeName: "",
-        fBranchId: "1",
-        sBranchId: "1",
+        nic: "",
+        email: "",
+        fullName: "",
+        branchId: "1",
     })
-
-    const[selectedRoutes, setSelectedRoutes] = useState({
-        sendingBranch: "",
-        receivingBranch: "",
-    });
 
     // Validation data map
     const [validations, setValidations] = useState({
-        routeName: false,
+        nic: false,
+        email: false,
+        fullName: false,
+        vehicleNumber: false,
     });
 
     // onChange Form validation
     const validateField = (name, value) => {
         switch (name) {
-            case 'routeName':
+            case 'nic':
+                return (!value == "");
+            case 'email':
+                return (validateEmail(value));
+            case 'name':
                 return (validateName(value));
+            case 'vehicleNumber':
+                return (!value == "");
             default:
                 return true;
         }
@@ -97,7 +101,6 @@ const AddTransportAgent = () => {
                 [name]: value
             }
         })
-
         // onChange Form validation data set on change
         setValidations({
             ...validations,
@@ -121,12 +124,12 @@ const AddTransportAgent = () => {
 
         e.preventDefault();
 
-        const { routeName, fBranchId, sBranchId } = inputData;
+        const { nic, email, fullName, branchId } = inputData;
 
         console.log(inputData)
 
         try {
-            const res = await UserController.addRoute(routeName, fBranchId, sBranchId );
+            const res = await UserController.addBranchManager(nic, email, fullName, branchId);
 
             // Error handling
             if (res.error) {
@@ -149,39 +152,67 @@ const AddTransportAgent = () => {
 
     return (
         <Form>
-            <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Route Added Successfully!</Alert>
-            <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> A route already exist withing these branches </Alert>
+            <Alert color="success" isOpen={showSuccessDialog} toggle={hideSuccessDialog}> Branch Manager Added Successfully!</Alert>
+            <Alert color="danger" isOpen={showErrorDialog} toggle={hideErrorDialog}> Something Went Wrong! </Alert>
             <Row className="justify-content-center">
                 <Col className="col-md-8">
                     <Card>
                         <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                            <i className="bi bi-sign-turn-right me-2"> </i>
-                            Add a New Route
+                            <i className="bi bi-truck me-2"> </i>
+                            Add a New Branch Manager
                         </CardTitle>
                         <CardBody>
                             <FormGroup>
-                                <Label for="routeName">Route Name</Label>
+                                <Label for="nic">Branch Agent NIC </Label>
                                 <Input
-                                    id="routeName"
-                                    name="routeName"
-                                    placeholder="Enter a route name"
+                                    id="nic"
+                                    name="nic"
+                                    placeholder="Enter branch manager NIC"
                                     type="text"
-                                    value={inputData.routeName}
+                                    value={inputData.nic}
                                     onChange={onChange}
-                                    invalid={validations.routeName}
+                                    invalid={validations.nic}
                                     required = {true}
                                 />
-                                <FormFeedback>Enter a valid route name</FormFeedback>
+                                <FormFeedback>Enter a valid NIC number</FormFeedback>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="email">E-mail</Label>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    placeholder="Enter branch manager email"
+                                    type="email"
+                                    onChange={onChange}
+                                    value={inputData.email}
+                                    invalid={validations.email}
+                                    required = {true}
+                                />
+                                <FormFeedback>Enter a valid email address</FormFeedback>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="fullName">Full Name</Label>
+                                <Input
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="Enter full name"
+                                    type="text"
+                                    value={inputData.fullName}
+                                    onChange={onChange}
+                                    invalid={validations.fullName}
+                                    required = {true}
+                                />
+                                <FormFeedback>Enter a valid name</FormFeedback>
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="fBranchId">Assign First Branch</Label>
+                                <Label for="branchId">Assign a Branch</Label>
                                 <Input
-                                    id="fBranchId"
-                                    name="fBranchId"
+                                    id="branchId"
+                                    name="branchId"
                                     type="select"
                                     onChange={onChange}
-                                    value={inputData.fBranchId}
+                                    value={inputData.branchId}
                                     required = {true}
                                 >
                                     {branches.map((branch) => {
@@ -196,30 +227,8 @@ const AddTransportAgent = () => {
                                     })}
                                 </Input>
                             </FormGroup>
-                            <FormGroup>
-                                <Label for="sBranchId">Assign Second Branch</Label>
-                                <Input
-                                    id="sBranchId"
-                                    name="sBranchId"
-                                    type="select"
-                                    onChange={onChange}
-                                    value={inputData.sBranchId}
-                                    required = {true}
-                                >
-                                    {branches.map((branch) => {
-                                        return (
-                                            <DropdownOption
-                                                key={branch.branchId}
-                                                id={branch.branchId}
-                                                value={branch.district}
-                                                onChange={onChange}
-                                            />
-                                        );
-                                    })}
-                                </Input>
-                            </FormGroup>
 
-                            <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Route</Button>
+                            <Button type="submit" disabled={!isFormValid()} onClick={onSubmit} className="btn mt-4 w-100 pt-2 pb-2 bg-primary border">Add the Transport Agent</Button>
                             <Button type="reset" className="btn mt-2 w-100 pt-2 pb-2 bg-danger border">Reset Details</Button>
 
                         </CardBody>

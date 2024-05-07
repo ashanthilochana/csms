@@ -586,4 +586,22 @@ UserService.deleteRoute = async (routeId) => {
   }
 }
 
+// add branch manager
+
+UserService.addBranchManager = async (reqBody) => {
+  try {
+    let response = await AxiosController.instance.post(`/api/add-branch-manager`, reqBody);
+    if (response.error) {
+      return { error: response.error };
+    } else if (response.data.error) {
+      return { error: response.data.error };
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export default UserService;
