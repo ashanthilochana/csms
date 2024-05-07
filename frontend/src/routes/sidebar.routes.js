@@ -76,11 +76,11 @@ SidebarRoutes.branchManagerRoutes = [
       title: "C. Affair Management ",
       icon: "bi bi-telephone-inbound",
       subItems: [
-        {
-          title: "Add a New Ticket",
-          href: BranchManagerRoutes.addTicket,
-          icon: "bi bi-envelope-plus",
-        },
+        // {
+        //   title: "Add a New Ticket",
+        //   href: BranchManagerRoutes.addTicket,
+        //   icon: "bi bi-envelope-plus",
+        // },
         {
           title: "All Tickets",
           href:BranchManagerRoutes.viewTicket,
@@ -92,11 +92,11 @@ SidebarRoutes.branchManagerRoutes = [
       title: "Quality Management ",
       icon: "bi bi-star",
       subItems: [
-        {
-          title: "Add a Feedback",
-          href: BranchManagerRoutes.addFeedback,
-          icon: "bi bi-star",
-        },
+        // {
+        //   title: "Add a Feedback",
+        //   href: BranchManagerRoutes.addFeedback,
+        //   icon: "bi bi-star",
+        // },
         {
           title: "All Feedbacks",
           href: BranchManagerRoutes.viewFeedback,
@@ -200,6 +200,11 @@ SidebarRoutes.managerRoutes = [
         title: "View Branches",
         icon: "bi bi-box",
         href: ManagerRoutes.viewBranches,
+      },
+      {
+        title: "Add Branch Manager",
+        icon: "bi bi-person",
+        href: ManagerRoutes.addBranchManager,
       }
     ],
   },

@@ -3,25 +3,27 @@ import { Card, CardBody, CardTitle, CardSubtitle, Table, Button, ButtonGroup } f
 const tableData = [
   {
     order_id: "0001",
-    receivingBranch: "Ashan Thilochana",
-    sendingBranch: "No,122 malabe, Colombo",
+    sendingBranch: "Colombo",
     sBranchContactNo:"07853634645",
-    rBranchContactNo:"07074735777"
-  
-  
+    receivingBranch: "Kandy",
+    rBranchContactNo:"07074735777",
   },
 
   {
     order_id: "0001",
-    receivingBranch: "Ashan Thilochana",
-    sendingBranch: "No,122 malabe, Colombo",
+    sendingBranch: "Colombo",
+    sBranchContactNo:"07853634645",
+    receivingBranch: "Kandy",
+    rBranchContactNo:"07074735777",
   
   
   },
   {
     order_id: "0001",
-    receivingBranch: "Ashan Thilochana",
-    sendingBranch: "No,122 malabe, Colombo",
+    sendingBranch: "Colombo",
+    sBranchContactNo:"07853634645",
+    receivingBranch: "Kandy",
+    rBranchContactNo:"07074735777",
   
   
   },
@@ -42,10 +44,10 @@ const DashboardOrdersTable = () => {
             <thead>
               <tr>
                 <th>Order ID</th>
-                <th>Receiving Branch</th>
                 <th>Sending Branch</th>
-
-              
+                <th>Contact No</th>
+                <th>Receiving Branch</th>
+                <th>Contact No</th>
               </tr>
             </thead>
 
@@ -59,9 +61,10 @@ const DashboardOrdersTable = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{tdata.receiver}</td>
-                  <td>{tdata.address}</td>
-                  <td>{tdata.contactNo}</td>        
+                  <td>{tdata.sendingBranch}</td>
+                  <td>{tdata.sBranchContactNo}</td>
+                  <td>{tdata.receivingBranch}</td> 
+                  <td>{tdata.rBranchContactNo}</td>       
                 </tr>
               ))}
             </tbody>

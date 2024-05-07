@@ -13,7 +13,6 @@ import UserController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
 import { useNavigate } from "react-router-dom";
 
-
 const ViewOrderTable = () => {
 
   const navigate = useNavigate();
@@ -62,7 +61,7 @@ const ViewOrderTable = () => {
     <div>
       <Card>
         <CardBody>
-          <CardTitle tag="h5">Orders Details</CardTitle>
+          <CardTitle tag="h5">Delivery Order details</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
             Overview of delivery orders
           </CardSubtitle>
@@ -153,6 +152,7 @@ const ViewOrderTable = () => {
                       ) : (
                         <Button className="btn me-2" color="success" size="sm" disabled>Done</Button>
                       )}
+
                   </td>
                 </tr>
               ))}
