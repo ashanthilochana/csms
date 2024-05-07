@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES ('199611556789','admin@gmail.com','Sunil Fernando');
+INSERT INTO `admin` VALUES ('200123456789','admin@csms.com','Ashan Thilochana');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +56,7 @@ CREATE TABLE `branch` (
   `mapLocation` varchar(255) DEFAULT NULL,
   `contactNumber` varchar(15) NOT NULL,
   PRIMARY KEY (`branchId`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `branch` (
 
 LOCK TABLES `branch` WRITE;
 /*!40000 ALTER TABLE `branch` DISABLE KEYS */;
-INSERT INTO `branch` VALUES (1,'Colombo','1st Cross Street, Pettah, Colombo',NULL,'0112345678'),(2,'Polonnaruwa','41, Pola Handiya Junction, Polonnaruwa',NULL,'0272221112'),(3,'Kurunegala','19/3, Havelock Drive, Kurunegala',NULL,'0724590125'),(4,'Kandy','34/A, Lake Rd, Kandy',NULL,'0813095328'),(5,'Jaffna','107/A/3, Kovil Rd, Jaffna',NULL,'0719028764'),(8,'Gampaha','474/Kandana','shfjdbfhk','0756367843'),(9,'Test','No 114','asdasd','124124214'),(10,'Galle','Sample Address','Test','824243535');
+INSERT INTO `branch` VALUES (13,'Malabe','No. 300b, I. Jothipala Mawatha, Malabe','No. 300b, I. Jothipala Mawatha, Malabe','0110224355'),(14,'Polonnaruwa','No. 114 New Town, Polonnaruwa','No. 114 New Town, Polonnaruwa','0112424523'),(15,'Kandy','No.243, Kandy','No.243, Kandy','0825353536'),(16,'Negambo','No.53 Negambo, Sri Lanka','No.53 Negambo, Sri Lanka','0255352456'),(17,'Galle','No.53 Galle, Sri Lanka','No.53 Galle, Sri Lanka','0273446464'),(18,'Jaffna','No. 536 Jaffna, Sri Lanka','No. 536 Jaffna, Sri Lanka','0456754785'),(19,'Madakalapuwa','No. 54 Madakalapura, Sri Lanka','No. 54 Madakalapura, Sri Lanka','0768243652'),(20,'Anuradhapura','No.89 Anuradhapura, Sri Lanka','No.89 Anuradhapura, Sri Lanka','0234646474'),(21,'Colombo','No.10 Colombo 7, Colombo','No.10 Colombo 7, Colombo','0117856677');
 /*!40000 ALTER TABLE `branch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +93,7 @@ CREATE TABLE `branchmanager` (
 
 LOCK TABLES `branchmanager` WRITE;
 /*!40000 ALTER TABLE `branchmanager` DISABLE KEYS */;
-INSERT INTO `branchmanager` VALUES ('199534751452','pabasara765@gmail.com','Pabasara Rajapaksha',4),('199634751452','kavindu654@gmail.com','Kavindu Senaviputha',5),('199754731455','venura987@gmail.com','Venura Kalhara',2),('200134701172','ashanthilochana98@gmail.com','Ashan Thilochana',3),('200334701452','heshani876@gmail.com','Heshani Salwathura',3);
+INSERT INTO `branchmanager` VALUES ('200123344556','ashnthilochana98@gmail.com','Ashan Thilochana',13),('200134455667','ishanneranjana@gmail.com','Ishan Neranjana',21);
 /*!40000 ALTER TABLE `branchmanager` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +123,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES ('199835534623','k35@gmail.com','Kav Pathirana','No.554 Stanly road, Polonnaruwa','0703065642',5),('200134701112','ashan@gmail.com','Ashan Thilochana','No. Hukanawa dala','079234242',3),('200134705172','nimath456@gmail.com','Nimath Vikasha','No.114 Katugasthota, Kandy','0703025542',4);
+INSERT INTO `client` VALUES ('200012422535','ushan@gmail.com','Ushan Kavindu','No. 45/b Colombo, Sri Lanka','0745345666',13),('200245685343','pabasara@gmail.com','Pabasara Rajapaksha','No. 89 Galewela, Sri Lanka','0717856888',13),('200256757575','heshani@gmail.com','Heshani Rajapaksha','No. 53 Kurunegala','0708953999',13),('200258886866','kaushani@gmail.com','Kaushani Hettiarachchi','No. 34 Kuliyapitiya, Sri Lanka','0783455677',13);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +142,7 @@ CREATE TABLE `clientfeedback` (
   PRIMARY KEY (`feedbackId`),
   KEY `clientNic` (`clientNic`),
   CONSTRAINT `clientfeedback_ibfk_1` FOREIGN KEY (`clientNic`) REFERENCES `client` (`nic`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +175,7 @@ CREATE TABLE `courierfee` (
 
 LOCK TABLES `courierfee` WRITE;
 /*!40000 ALTER TABLE `courierfee` DISABLE KEYS */;
-INSERT INTO `courierfee` VALUES (1,1000,300),(2,5000,320),(3,7000,350),(4,10000,420),(5,30000,500),(6,100000,700);
+INSERT INTO `courierfee` VALUES (1,1000,300),(2,5000,350),(3,7000,450),(4,10000,500),(5,30000,550),(6,100000,600);
 /*!40000 ALTER TABLE `courierfee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +206,7 @@ CREATE TABLE `deliveryperson` (
 
 LOCK TABLES `deliveryperson` WRITE;
 /*!40000 ALTER TABLE `deliveryperson` DISABLE KEYS */;
-INSERT INTO `deliveryperson` VALUES ('199523345564','sunil789@gmail.com','Sunil Rajapakshaa','No.353/4 Gannoruwa, Kandy','0702456667','NC PK-1235',4),('199554703175','saliya890@gmail.com','Saliya Dewapura','No.344/2 Mihidu Mawatha, Kaduwela','0702446669','WP OP-1454',5),('199654501677','samal456@gmail.com','Samal Rajapaksha','No.123 Aluthwewa, PolonnaruwaNo.143','0705466767','NC MT-1344',2),('200154701172','pawan234@gmail.com','Pawan Sandeepa','No.23 Samanaluyana, Seeduwa','0702456667','NC MC-1234',1),('200354701176','Kevin678@gmail.com','Kevin Piris','No.343 Athar road, Colombo','0702457667','WP CC-6674',3);
+INSERT INTO `deliveryperson` VALUES ('200045687964','ishenchathuranga@gmail.com','Ishen Chathuranga','No. 34 Colombo 7, Sri Lanka','0725684756','DS YU-3543',13),('200134675645','heshanijayasingha@gmail.com','Heshani Jayasingha','No. 35 Kurunegala, Sri Lanka','0789567865','CP UI-1245',13);
 /*!40000 ALTER TABLE `deliveryperson` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +226,7 @@ CREATE TABLE `orderdelivery` (
   KEY `deliveryPersonNic` (`deliveryPersonNic`),
   CONSTRAINT `orderdelivery_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`),
   CONSTRAINT `orderdelivery_ibfk_2` FOREIGN KEY (`deliveryPersonNic`) REFERENCES `deliveryperson` (`nic`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +235,6 @@ CREATE TABLE `orderdelivery` (
 
 LOCK TABLES `orderdelivery` WRITE;
 /*!40000 ALTER TABLE `orderdelivery` DISABLE KEYS */;
-INSERT INTO `orderdelivery` VALUES (3,4,'199654501677'),(16,5,'200354701176');
 /*!40000 ALTER TABLE `orderdelivery` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +272,7 @@ CREATE TABLE `orders` (
   CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`statusId`) REFERENCES `orderstatus` (`statusId`),
   CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`sendingBranchId`) REFERENCES `branch` (`branchId`),
   CONSTRAINT `orders_ibfk_5` FOREIGN KEY (`receivingBranchId`) REFERENCES `branch` (`branchId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,7 +281,6 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (3,2.02,'2023-05-12','2023-05-15','2023-05-14','2023-05-12','Kamal','Sumaga uyana, Mawathagama, Kurunegala','0767559320',NULL,4,'199835534623',7,3,3),(4,2.40,'2023-12-25','2023-12-28','2023-12-27','2023-12-25','Sihini','Wihara mawatha, Kaduruwela, Polonnaruwa','0778905642',NULL,1,'200134705172',1,3,2),(5,200.00,'2023-02-27','2023-03-02','2023-02-28','2023-02-27','Vipuli','790/A Robert road, Colombo','0782315677',NULL,3,'200134705172',7,2,3),(7,789.00,'2024-04-10',NULL,NULL,'2024-04-09','Ashan ','Sample Address','070302668',NULL,2,'199835534623',3,1,3),(8,4.00,'2023-02-27',NULL,NULL,'2023-02-27','Vipuli','790/A Robert road, Colombo','0782315677',NULL,5,'199835534623',1,4,3);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +305,7 @@ CREATE TABLE `orderstatus` (
 
 LOCK TABLES `orderstatus` WRITE;
 /*!40000 ALTER TABLE `orderstatus` DISABLE KEYS */;
-INSERT INTO `orderstatus` VALUES (1,'Registered','Package was dropped at the sending branch'),(2,'On Route','Inter-Branch Transportation'),(3,'Received','Pakcage is received to the delivery branch.'),(4,'Handed to Deliverer','Package was handed over to the delivery driver'),(5,'Delivered','Package was delivered'),(6,'Returned','Package was returned'),(7,'Assigned','Assigned a delviery person to the order');
+INSERT INTO `orderstatus` VALUES (1,'Registered','Package was dropped at the sending branch'),(2,'On Route','Inter-Branch Transportation'),(3,'Received','Pakcage is received to the delivery branch.'),(4,'Handed to Deliver','Package was handed over to the delivery driver'),(5,'Delivered','Package was delivered'),(6,'Returned','Package was returned'),(7,'Assigned','Assigned a delviery person to the order');
 /*!40000 ALTER TABLE `orderstatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +331,7 @@ CREATE TABLE `packagetype` (
 
 LOCK TABLES `packagetype` WRITE;
 /*!40000 ALTER TABLE `packagetype` DISABLE KEYS */;
-INSERT INTO `packagetype` VALUES (1,'General','Standard package type',23.00),(2,'Fragile','Handle with care',27.50),(3,'Furniture','Large and heavy items',40.30),(4,'Plastic','Packages containing plastic items',25.90),(5,'Medicine','Pharmaceutical products',34.50);
+INSERT INTO `packagetype` VALUES (1,'General','Standard package type',48.60),(2,'Fragile','Handle with care',67.99),(3,'Furniture','Large and heavy items',45.78),(4,'Plastic','Packages containing plastic items',65.87),(5,'Medicine','Pharmaceutical products',10.65);
 /*!40000 ALTER TABLE `packagetype` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,7 +358,6 @@ CREATE TABLE `returnedorder` (
 
 LOCK TABLES `returnedorder` WRITE;
 /*!40000 ALTER TABLE `returnedorder` DISABLE KEYS */;
-INSERT INTO `returnedorder` VALUES (2,'2023-05-20',3),(3,'2023-03-08',5);
 /*!40000 ALTER TABLE `returnedorder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,7 +402,7 @@ CREATE TABLE `route` (
   KEY `secondBranchId` (`secondBranchId`),
   CONSTRAINT `route_ibfk_1` FOREIGN KEY (`firstBranchId`) REFERENCES `branch` (`branchId`),
   CONSTRAINT `route_ibfk_2` FOREIGN KEY (`secondBranchId`) REFERENCES `branch` (`branchId`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,7 +411,7 @@ CREATE TABLE `route` (
 
 LOCK TABLES `route` WRITE;
 /*!40000 ALTER TABLE `route` DISABLE KEYS */;
-INSERT INTO `route` VALUES (1,'Colombo and Polonnaruwa',1,2),(2,'Polonnaruwa and Jaffna',2,5),(3,'Colombo and Jaffna',1,5),(4,'Kurunegala and Kandy',3,4),(5,'Jaffna and Kurunegala',5,3),(6,'Kandy and Polonnaruwa',4,2),(7,'Colombo and Kurunegala',1,3),(8,'Kandy and Jaffna',4,5),(9,'Polonnaruwa and Kurunegala',2,3),(10,'Colombo and Kandy',1,4),(11,'',1,1),(12,'Kandy to Colombo',2,4),(13,'',4,1);
+INSERT INTO `route` VALUES (22,'Malabe to Colombo',13,21),(24,'Polonnaruwa to Kandy',14,15),(25,'Negambo to Galle',16,17),(26,'Jaffna to Polonnaruwa',18,14),(27,'Madakalapuwa to Anuradhapura',19,20),(28,'Colombo to Kandy',21,15),(29,'Colombo to Galle',21,17);
 /*!40000 ALTER TABLE `route` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -466,7 +463,7 @@ CREATE TABLE `supportticket` (
   CONSTRAINT `supportticket_ibfk_2` FOREIGN KEY (`branchId`) REFERENCES `branch` (`branchId`),
   CONSTRAINT `supportticket_ibfk_3` FOREIGN KEY (`reasonId`) REFERENCES `supportticketreasons` (`reasonId`),
   CONSTRAINT `supportticket_ibfk_4` FOREIGN KEY (`responseStatusId`) REFERENCES `supportresponsestatus` (`responseStatusId`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -527,7 +524,7 @@ CREATE TABLE `transportagent` (
 
 LOCK TABLES `transportagent` WRITE;
 /*!40000 ALTER TABLE `transportagent` DISABLE KEYS */;
-INSERT INTO `transportagent` VALUES ('','','','',1),('1234567','kavindu@gmail.com','kavindu rukmal','2832Mv',1),('199357842367','athula32@gmail.com','Athula Perera','NP CP-2023',5),('199845612375','kumud233@gmail.com','Kumud Rajasinghe','CP OP-8800',4),('199958761234','mithum700@gmail.com','Mithum Shalaka','SP MN-3011',3),('200045879612','saman308@gmail.com','Saman Kumara','NC LM-0128',2),('200110293847','ajith567@gmail.com','Ajith Muthumkumarana','WP LH-1625',1);
+INSERT INTO `transportagent` VALUES ('2001353636366','polo@gmail.com','Ushan Palitha','NC OP-2856',24),('2001449646946','yuvithaherath@gmail.com','Yuvitha Herath','WP IO-0924',28),('200145566778','kavindu@gmail.com','Kavindu Senavirathna','CP XP-1245',22);
 /*!40000 ALTER TABLE `transportagent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -554,7 +551,7 @@ CREATE TABLE `usercredentials` (
 
 LOCK TABLES `usercredentials` WRITE;
 /*!40000 ALTER TABLE `usercredentials` DISABLE KEYS */;
-INSERT INTO `usercredentials` VALUES ('199953637421','$2b$10$bm/LY8eZ/flHHOLLpLgXvOW8LkbLm3fTImypH2wr99/qJjj7yIozq',4),('200134701112','$2b$10$Oz8AqfJE.8yrp2udHPo3seqIt/iGRseTrlDQAD6HqDjpejpT2Jh6i',6),('200134701172','$2b$10$za3SDQ05iHWYywvb6elk1OKwfFMUwYZQqzcQTRU5tey4ybxSadB3W',2),('200156788849','$2b$10$/N.bdBNO8cM.HvrRSU0SBOOrgTla6V6BDoL8OE5eu6NdxqGk64CdG',4),('200181602356','$2b$10$B4mYpR1ki8Xgjenm.4sL1.67ErSkPIFEeezOsfXXDJFEeuZoCxZtu',6),('20018160243267','$2b$10$6L4/dDor0KxxA8kVGb/GN.yvDuOSPxr.CunCWmmhV4rJdJ7mnHzMa',1),('43772482844','$2b$10$MctV.V4dIP1TfKx6ep4pruZ1Fi6184mwFlSG0BYqp3B4HX/obY/SK',4);
+INSERT INTO `usercredentials` VALUES ('200012422535','$2b$10$eFqqLoA/OkW8fl7vwf1c7eJiEjndB.BYQzZRDHqfWdk6R8MCXAHai',6),('200045687964','$2b$10$8XMVuDLC31uQvaLvjR/gte/0wilahqnuO0HeW4LuKaDqAD6qUyUb6',4),('200123344556','$2b$10$4bfcPalm8XhLFQQZALdlteMBFjyWXhR5yDIwAe9mHr1TU.cFKlYEa',2),('200123456789','$2b$10$0x6odUb72lvLd5qHsQ10iu4w0p5Akg8I5ViMBFlC74jjyupzC8GU.',1),('200134455667','$2b$10$o9aXDroUWULFfl153ghHA.e1UOB8AA9MFo8WqutpKsguEXBFktcEe',2),('200134675645','$2b$10$AFMrza86aVjX5/omfnabMe2oAQML/lYmqa3ssWjE3nC4lRIQnexAy',4),('2001353636366','$2b$10$Q5Eu5bATlUGRX7xrNE1S6.xkvggoAz1MgUo75KtWfzDTBbaf0os1.',5),('2001449646946','$2b$10$D0N3ZmzP.tj2gLKnaRukj.SqiUyUjmmb2WQCo3/wnvCqhjhPO1ixC',5),('200145566778','$2b$10$saO4amCvhbEsVMvv.LcaP.KYWZT6QuxI/aG4z796RY1rWI8jbummW',5),('200245685343','$2b$10$KieAzAARLlpJxlVDCtoGNeyOPk9XxmFxYgMYYVHQpQNM/oQaHNWeq',6),('200256757575','$2b$10$P2u9QozfsTJbs.weWYm8leZ9hD5vUD/95ld9mfqJoTeu6PtgIJ5ca',6),('200258886866','$2b$10$5.GaolLet4wkMwtVc6JMde22ZrgQML.HBcStcsIIyD7bU1Tnb2hlu',6);
 /*!40000 ALTER TABLE `usercredentials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -635,4 +632,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-05  3:04:33
+-- Dump completed on 2024-05-07  3:57:11
