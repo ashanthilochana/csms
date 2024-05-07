@@ -12,7 +12,7 @@ DeliverPersonController.addDeliveryPerson = async (req, res) => {
             address,
             contactNumber,
             vehicleNumber,
-            branchId
+            branchId,imageUrl
         } = req.body;
 
         let userExists = await DeliveryPersonService.checkUserExistStatus(nic);
@@ -25,7 +25,7 @@ DeliverPersonController.addDeliveryPerson = async (req, res) => {
                 address,
                 contactNumber,
                 vehicleNumber,
-                branchId
+                branchId,imageUrl
             );
 
             res.status(201).send({ message: "Delivery person added successfully" });

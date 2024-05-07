@@ -414,7 +414,7 @@ UserController.addTransportAgent = async (nic, email, name, vehicleNumber, route
 
 /////////////////////////////////////// Add a delivery person ////////////////////////////////////////////////
 
-UserController.addDeliveryPerson = async (nic, email, fullName, address, contactNumber, vehicleNumber, branchId) => {
+UserController.addDeliveryPerson = async (nic, email, fullName, address, contactNumber, vehicleNumber, branchId,image) => {
 
   let reqBody = {
     nic,
@@ -423,7 +423,7 @@ UserController.addDeliveryPerson = async (nic, email, fullName, address, contact
     address,
     contactNumber,
     vehicleNumber,
-    branchId
+    branchId,imageUrl:image
   };
 
   try {

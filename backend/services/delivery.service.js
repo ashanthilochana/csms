@@ -35,11 +35,11 @@ DeliveryPersonService.addDeliveryPerson = async (
     address,
     contactNumber,
     vehicleNumber,
-    branchId
+    branchId,imageUrl,
 ) => {
     let query = `
       INSERT INTO deliveryperson
-      VALUES(?, ?, ?, ?, ?, ?, ?)
+      VALUES(?, ?, ?, ?, ?, ?, ?, ?)
       `;
 
     try {
@@ -50,7 +50,7 @@ DeliveryPersonService.addDeliveryPerson = async (
             address,
             contactNumber,
             vehicleNumber,
-            branchId
+            branchId,imageUrl
         ]);
 
         await UserController.signUpUser(nic, nic, 4); // Role id 4 = delivery person

@@ -19,9 +19,10 @@ import { BranchManagerRoutes } from "../../../routes/all_user.routes";
 import validator from "../../../validation/validation.js";
 import DropdownOption from "../../../components/common/DropdownOption.jsx";
 import BranchManagerController from "../controllers/user.controller.js";
+import { uploadFile } from "../../../controllers/upload.file.controller.js";
 
 const AddDeliveryPerson = () => {
-
+    const [image,setImage] =useState()
     // Alert
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
     const hideSuccessDialog = () => { setShowSuccessDialog(false); navigate(BranchManagerRoutes.dashboard); }
@@ -115,6 +116,28 @@ const AddDeliveryPerson = () => {
             [name]: !validateField(name, value) // Not sign for conver false to true
         });
     }
+    const [uploading,setUploading]=useState()
+    const onImageChange =async (e) => {
+     
+      
+        const file = e.target.files[0]
+        if(!file) {
+            console.log("image us null")
+            return
+        }
+        setUploading(true)
+        try {
+            console.log("image uploading started")
+           const imageUrl = await uploadFile(file) 
+           setImage(imageUrl)
+        } catch (error) {
+            console.error(`error while uploading file ${error}`)
+        }finally{
+            setUploading(false)
+        }
+      
+        
+    }
 
     // Check form valid status to appear submit buttons
     const isFormValid = () => {
@@ -149,7 +172,8 @@ const AddDeliveryPerson = () => {
                 address,
                 contactNumber,
                 vehicleNumber,
-                branchId
+                branchId,
+           image
             );
 
             // Error handling
@@ -183,6 +207,25 @@ const AddDeliveryPerson = () => {
                             Add a New Delivery Person
                         </CardTitle>
                         <CardBody>
+
+                      { uploading  ?
+                      
+                      <p>Uploading</p>
+                      :     <FormGroup>
+                                <Label for="nic">Delivery Person Picture </Label>
+                                <Input
+                                    id="image"
+                                    name="image"
+                                    placeholder="Enter delivery person's Image"
+                                    type="file"
+                                  
+                                    onChange={onImageChange}
+                                
+                                    required = {true}
+                                />
+                                <FormFeedback>Enter a valid NIC number</FormFeedback>
+                            </FormGroup>}
+                            
                             <FormGroup>
                                 <Label for="nic">Delivery Person NIC </Label>
                                 <Input
