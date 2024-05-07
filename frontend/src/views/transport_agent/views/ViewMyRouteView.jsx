@@ -1,5 +1,4 @@
-
-import { Button, Col, Container, Row, Card, CardBody, CardHeader, CardTitle } from "reactstrap";
+import { Button, Col, Container, Row, Card, CardBody, CardTitle } from "reactstrap";
 import UserController from "../controllers/user.controller.js";
 import useCookie from "../../../hooks/useCookies.js";
 import { useState, useEffect } from "react";
@@ -63,6 +62,7 @@ const ViewMyRouteView = () => {
 
       </Col>
     </Container>
+
   );
 };
 
