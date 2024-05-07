@@ -104,6 +104,8 @@ BranchController.addBranchManager = async (req, res) => {
 
     let userExists = await BranchService.checkBranchManagerExistStatus(nic);
 
+    console.log(userExists)
+
     if (!userExists) {
       let data = await BranchService.addBranchManager(nic, email, fullName, branchId);
 
